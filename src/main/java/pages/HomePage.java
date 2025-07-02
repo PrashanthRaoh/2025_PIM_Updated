@@ -119,7 +119,7 @@ public class HomePage {
 	}
 
 	public WebElement EntityDataimports_Dropdown() {
-		WebElement EntityDataImports_Dropdown_Root = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+		return driver.findElement(By.cssSelector("#app")).getShadowRoot()
 				.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
 				.findElement(By.cssSelector("[id^='currentApp_home_']")).getShadowRoot()
 				.findElement(By.cssSelector("[id^='app-dashboard-component-']")).getShadowRoot()
@@ -129,33 +129,29 @@ public class HomePage {
 				.findElement(By.cssSelector("[id^='rock-task-list-component-']")).getShadowRoot()
 				.findElement(By.cssSelector(
 						"div > div.base-grid-structure-child-1 > div > div.row-1.flex-container-row-1 > div.item.task-type > pebble-dropdown"));
-		return EntityDataImports_Dropdown_Root;
 	}
 
 	public WebElement AppHeader_Administrator() {
-		WebElement AdminInfo_btn = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+		return driver.findElement(By.cssSelector("#app")).getShadowRoot()
 				.findElement(By.cssSelector("[id^='rs']")).getShadowRoot()
 				.findElement(By.cssSelector("app-header > app-toolbar > div > div.right-content > div.right-content-bar > rock-header-actions")).getShadowRoot()
 				.findElement(By.cssSelector("div > div:nth-child(1) > div.header-action-wrapper"));
-		return AdminInfo_btn;
 	}
 
 	public WebElement Version_manager() {
-		WebElement versionmanager_btn = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+		return driver.findElement(By.cssSelector("#app")).getShadowRoot()
 				.findElement(By.cssSelector("[id^='rs']")).getShadowRoot()
 				.findElement(By.cssSelector("app-header > app-toolbar > div > div.right-content > div.right-content-bar > rock-header-actions")).getShadowRoot()
 				.findElement(By.cssSelector("#userProfile")).getShadowRoot()
 				.findElement(By.cssSelector("#rsVersionManager > span.option-value"));
-		return versionmanager_btn;
 	}
 
 	public WebElement Version_manager_info_dialog() {
-		WebElement versionmanager_details_dialog = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+		return driver.findElement(By.cssSelector("#app")).getShadowRoot()
 				.findElement(By.cssSelector("[id^='rs']")).getShadowRoot()
 				.findElement(By.cssSelector("app-header > app-toolbar > div > div.right-content > div.right-content-bar > rock-header-actions")).getShadowRoot().findElement(By.cssSelector("#userProfile")).getShadowRoot()
 				.findElement(By.cssSelector("rock-version-manage")).getShadowRoot()
 				.findElement(By.cssSelector("#attribute"));
-		return versionmanager_details_dialog;
 	}
 
 	public WebElement Version_manager_version_number() {
@@ -181,15 +177,14 @@ public class HomePage {
 	}
 
 	public WebElement loggedin_User() {
-		WebElement loggedinuser = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+		return driver.findElement(By.cssSelector("#app")).getShadowRoot()
 				.findElement(By.cssSelector("[id^='rs']")).getShadowRoot()
 				.findElement(By.cssSelector("app-header > app-toolbar > div > div.right-content > div.right-content-bar > rock-header-actions")).getShadowRoot()
 				.findElement(By.cssSelector("div > div:nth-child(1) > div.profile-text.text-ellipsis > div > span.profile-name-wrap > span"));
-		return loggedinuser;
 	}
 
 	public WebElement enrichMarketingAttributelink() {
-		WebElement enrichMarketingAttribute = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+		return driver.findElement(By.cssSelector("#app")).getShadowRoot()
 				.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
 				.findElement(By.cssSelector("[id^='currentApp_home_']")).getShadowRoot()
 				.findElement(By.cssSelector("[id^='app-dashboard-component-']")).getShadowRoot()
@@ -199,17 +194,15 @@ public class HomePage {
 				.findElement(By.cssSelector("[id^='rock-my-todos-component-rs']")).getShadowRoot()
 				.findElement(By.cssSelector("#rock-my-todos-tabs")).getShadowRoot()
 				.findElement(By.cssSelector("[id^='my-todo-summary-list-component-rs']")).getShadowRoot()
-				.findElement(By.cssSelector("pebble-list-view > pebble-list-item > my-todo-summary")).getShadowRoot()
-				.findElement(By.cssSelector("#workflowMetadataContainer"));
-		return enrichMarketingAttribute;
+				.findElement(By.cssSelector("pebble-list-view > pebble-list-item > my-todo-summary"));
 	}
 	
 	public WebElement Logout_btn() {
 	return driver.findElement(By.cssSelector("#app")).getShadowRoot()
-    .findElement(By.cssSelector("[id^='rs']")).getShadowRoot()
-    .findElement(By.cssSelector("app-header > app-toolbar > div > div.right-content > div.right-content-bar > rock-header-actions")).getShadowRoot()
-    .findElement(By.cssSelector("#userProfile")).getShadowRoot()
-    .findElement(By.cssSelector("#rsLogOut > span.option-value.text-ellipsis"));
+			    .findElement(By.cssSelector("[id^='rs']")).getShadowRoot()
+			    .findElement(By.cssSelector("app-header > app-toolbar > div > div.right-content > div.right-content-bar > rock-header-actions")).getShadowRoot()
+			    .findElement(By.cssSelector("#userProfile")).getShadowRoot()
+			    .findElement(By.cssSelector("#rsLogOut > span.option-value.text-ellipsis"));
 	}
 	
 	public WebElement HomepageTabRootElement() {

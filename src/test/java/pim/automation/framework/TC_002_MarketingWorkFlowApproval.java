@@ -9,8 +9,11 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
+import java.util.function.Function;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -87,9 +90,6 @@ public class TC_002_MarketingWorkFlowApproval extends BaseTest {
 				.findElement(By.cssSelector("#pebbleGridContainer > pebble-grid")).getShadowRoot()
 				.findElement(By.cssSelector("#grid"));
 
-//		List<WebElement> arrrowsdefined = rowsredefined.getShadowRoot().findElements(By.cssSelector(
-//				"#lit-grid > div > div.ag-root-wrapper-body.ag-layout-normal.ag-focus-managed > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-layout-normal.ag-row-no-animation > div.ag-center-cols-clipper > div > div> div.ag-row.ag-row-even.ag-row-level-0"));
-		
 		List<WebElement> arrrowsdefined = rowsredefined.getShadowRoot().findElements(By.cssSelector(
 				"#lit-grid > div > div.ag-root-wrapper-body.ag-layout-normal.ag-focus-managed > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-layout-normal.ag-row-no-animation > div.ag-center-cols-clipper > div > div > div"));
 
@@ -124,6 +124,34 @@ public class TC_002_MarketingWorkFlowApproval extends BaseTest {
 
 		searchPage.Done_Button().click();
 		Thread.sleep(8000);
+		/*************************************************
+		 * --------- Wait for the banner to appear
+		 ************************************************/
+		WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    Function<WebDriver, WebElement> getBannerElement = drv -> {
+	        try {
+	            return drv.findElement(By.cssSelector("#app")).getShadowRoot()
+	                .findElement(By.cssSelector("[id^='rs']")).getShadowRoot()
+	                .findElement(By.cssSelector("#pebbleAppToast > pebble-echo-html")).getShadowRoot()
+	                .findElement(By.cssSelector("#bind-html"));
+	        } catch (Exception e) {
+	            return null;
+	        }
+	    };
+
+	    WebElement banner = wait1.until(drv -> {
+	        WebElement el = getBannerElement.apply(drv);
+	        return (el != null && el.isDisplayed()) ? el : null;
+	    });
+
+	    String bannerText = banner.getText();
+	    System.out.println("✅ Banner appeared with the text : " + bannerText);
+		
+	    Thread.sleep(6000);
+	    test.pass("Data Saved");
+		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+		test.pass("Saved the transaction");
+		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		/***********************************

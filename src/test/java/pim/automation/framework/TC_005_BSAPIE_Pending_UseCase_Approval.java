@@ -129,8 +129,7 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 			String expectedTitle = "Pending Usecase Approval - BSA PIE";
 			WebElement activeStep = null;
 
-			System.out.println("🔍 Listing all workflow steps:");
-
+			System.out.println("**********Listing all workflow steps:**********");
 			for (int i = 0; i < steps.size(); i++) {
 			    WebElement step = steps.get(i);
 			    SearchContext stepShadow = step.getShadowRoot();
@@ -148,7 +147,7 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 			if (activeStep != null) {
 			    System.out.println("As Expected active workflow step is: " + expectedTitle);
 			} else {
-			    throw new AssertionError("❌ Expected active step '" + expectedTitle + "' not found.");
+			    throw new AssertionError("Expected active step '" + expectedTitle + "' not found.");
 			}
 		
 		test.pass("As Expected active workflow step is: " + expectedTitle);
@@ -161,7 +160,7 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		digitalssetPage.Pending_Use_Case_Approval_Approve_btn().click();
 		Thread.sleep(5000);
-//		
+		
 		/*************************************************
 		 * --------- Wait for the banner to appear
 		 ************************************************/

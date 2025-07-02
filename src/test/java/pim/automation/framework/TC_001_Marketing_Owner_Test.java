@@ -6,11 +6,17 @@ Descrption - Enters the long and short description and completes the transaction
 ************************************************/
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.List;
+import java.util.function.Function;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentTest;
@@ -53,7 +59,22 @@ public class TC_001_Marketing_Owner_Test extends BaseTest {
 		/***************************************
 		 * ------- Click on Marketing enrichment link in my todos --------- *
 		 *************************************************/
-		homePage.enrichMarketingAttributelink().click();
+		Thread.sleep(3000);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement innerDiv = homePage.enrichMarketingAttributelink().getShadowRoot()
+				.findElement(By.cssSelector("#workflowMetadataContainer"));
+		String actualText = innerDiv.getText().trim();
+		
+		js.executeScript("arguments[0].scrollIntoView({block: 'center'});", innerDiv);
+		try {
+			innerDiv.click(); // Try clicking the real inner part
+			System.out.println("Clicked on " + actualText);
+		} catch (Exception e) {
+			js.executeScript("arguments[0].click();", innerDiv);
+		}
+		
+		
+//		homePage.enrichMarketingAttributelink().click();
 		System.out.println("Clicked on Marketing Enrich link");
 		Thread.sleep(3000);
 		utils.waitForElement(() -> searchPage.getgrid(), "clickable");
@@ -129,8 +150,7 @@ public class TC_001_Marketing_Owner_Test extends BaseTest {
 		test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription
 				+ " is selected for completion");
 		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-		List<WebElement> bussrule = searchPage.BusinessRule().getShadowRoot()
-				.findElements(By.cssSelector("#accordion\\ 0 > div > div > div"));
+		List<WebElement> bussrule = searchPage.BusinessRule().getShadowRoot().findElements(By.cssSelector("#accordion\\ 0 > div > div > div"));
 		System.out.println("There are  " + bussrule.size() + " bussrule");
 		Assert.assertEquals(bussrule.size(), 1, "The size of bussrule should be 1");
 
@@ -157,8 +177,51 @@ public class TC_001_Marketing_Owner_Test extends BaseTest {
 		 * --------- Save the transaction------- *
 		 ************************************************/
 		searchPage.SaveTransaction_btn().click();
-		Thread.sleep(8000);
+		Thread.sleep(3000);
+		/*************************************************
+		 * --------- Wait for the banner to appear
+		 ************************************************/
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    Function<WebDriver, WebElement> getBannerElement = drv -> {
+	        try {
+	            return drv.findElement(By.cssSelector("#app")).getShadowRoot()
+	                .findElement(By.cssSelector("[id^='rs']")).getShadowRoot()
+	                .findElement(By.cssSelector("#pebbleAppToast > pebble-echo-html")).getShadowRoot()
+	                .findElement(By.cssSelector("#bind-html"));
+	        } catch (Exception e) {
+	            return null;
+	        }
+	    };
+
+	    WebElement banner = wait.until(drv -> {
+	        WebElement el = getBannerElement.apply(drv);
+	        return (el != null && el.isDisplayed()) ? el : null;
+	    });
+
+	    String bannerText = banner.getText();
+	    System.out.println("✅ Banner appeared with the text : " + bannerText);
+		
+	    Thread.sleep(6000);
+	    test.pass("Data Saved");
+		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		test.pass("Saved the transaction");
+		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+		
+		/*************************************************
+		 * --------- Refresh to get the updated workflow ------- *
+		 ************************************************/
+	    WebElement Workflow_Refresh_btn = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+	    .findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+	    .findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
+	    .findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
+	    .findElement(By.cssSelector("#entityManageHeader")).getShadowRoot()
+	    .findElement(By.cssSelector("#entityActions")).getShadowRoot()
+	    .findElement(By.cssSelector("#toolbar")).getShadowRoot()
+	    .findElement(By.cssSelector("#refresh")); 
+	    
+	    Workflow_Refresh_btn.click();
+		Thread.sleep(5000);
+		test.pass("Refreshed transaction to get the latest workflow status");
 		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 
 		/*************************************************
@@ -174,9 +237,9 @@ public class TC_001_Marketing_Owner_Test extends BaseTest {
 			test.pass("Percentage completion is 100%");
 			test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		} else {
-			Assert.assertEquals(percfullcompletion, 100, "% completion value is not 100");
 			test.fail("% completion value is not 100");
 			test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+			Assert.assertEquals(percfullcompletion, 100, "% completion value is not 100");
 		}
 
 		/*************************************************

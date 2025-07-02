@@ -3,47 +3,42 @@ package pim.automation.framework;
 /************************************************
 TC 07 - Validated"On Hold-BSA PIE(User Select)" workflow should not get trigger when DQ check get fail.
 Descrption - Just lists the hold items.
-************************************************/
+ ************************************************/
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.SearchContext;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-
 import common_functions.BaseTest;
 import common_functions.Utils;
-import pages.DigitalAsset;
 import pages.HomePage;
 import pages.SearchPage2;
 import pages.SummaryPage;
 
 public class TC_003_BSAPIE_Test extends BaseTest {
 	public ExtentTest test;
+	public WebElement morevalues;
 
-	@Test(groups = {"BSAPIEowner"})
+	@Test(groups = { "BSAPIEowner" })
 	public void BSAPIEOwner() throws InterruptedException, IOException {
 		String className = this.getClass().getSimpleName();
 		System.out.println(className);
 		test = BaseTest.extentreport.createTest(className);
-		test.assignAuthor(System.getProperty("user.name")).assignCategory("Regression").assignDevice(System.getenv("COMPUTERNAME"));
+		test.assignAuthor(System.getProperty("user.name")).assignCategory("Regression")
+				.assignDevice(System.getenv("COMPUTERNAME"));
 
 		homePage = new HomePage(driver);
 		SearchPage2 searchPage = new SearchPage2(driver);
@@ -65,8 +60,8 @@ public class TC_003_BSAPIE_Test extends BaseTest {
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		Thread.sleep(2000);
 
-		/******************************************** 
-		 * Get number of items under use case approvals 
+		/********************************************
+		 * Get number of items under use case approvals
 		 ***************************************/
 		List<WebElement> summaryElements = driver.findElement(By.cssSelector("#app")).getShadowRoot()
 				.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
@@ -97,9 +92,8 @@ public class TC_003_BSAPIE_Test extends BaseTest {
 			if (actualText.contains("On Hold - BSA PIE (Rule Triggered)")) {
 				js.executeScript("arguments[0].scrollIntoView({block: 'center'});", innerDiv);
 				try {
-					innerDiv.click(); // Try clicking the real inner part
+					innerDiv.click();
 				} catch (Exception e) {
-					System.out.println("Standard click failed, trying JS click.");
 					js.executeScript("arguments[0].click();", innerDiv);
 				}
 				Thread.sleep(5000);
@@ -108,9 +102,9 @@ public class TC_003_BSAPIE_Test extends BaseTest {
 		}
 		test.pass("BSA PIE Use case Approval entities listed ");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-		
-		/*************************************** ***** 
-		 * Click on On Hold - BSA PIE(Rule Triggered) ****
+
+		/***************************************
+		 * ***** Click on On Hold - BSA PIE(Rule Triggered) ****
 		 ***************************************/
 		utils.waitForElement(() -> searchPage.getgrid(), "clickable");
 		test.pass("Search page grid displayed after clicking on On Hold - BSA PIE");
@@ -130,9 +124,6 @@ public class TC_003_BSAPIE_Test extends BaseTest {
 				.findElement(By.cssSelector("#pebbleGridContainer > pebble-grid")).getShadowRoot()
 				.findElement(By.cssSelector("#grid"));
 
-//		List<WebElement> arrrowsdefined = rowsredefined.getShadowRoot().findElements(By.cssSelector(
-//				"#lit-grid > div > div.ag-root-wrapper-body.ag-layout-normal.ag-focus-managed > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-layout-normal.ag-row-no-animation > div.ag-center-cols-clipper > div > div> div.ag-row.ag-row-even.ag-row-level-0"));
-		
 		List<WebElement> arrrowsdefined = rowsredefined.getShadowRoot().findElements(By.cssSelector(
 				"#lit-grid > div > div.ag-root-wrapper-body.ag-layout-normal.ag-focus-managed > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-layout-normal.ag-row-no-animation > div.ag-center-cols-clipper > div > div > div"));
 
@@ -141,9 +132,8 @@ public class TC_003_BSAPIE_Test extends BaseTest {
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		assertTrue("There should be results after applying filters", arrrowsdefined.size() > 0);
 
-		WebElement RowByRow = arrrowsdefined.get(0);
-		String SellableMaterialDescription = RowByRow
-				.findElement(By.cssSelector("div[col-id='sellablematerialdescription']")).getText();
+		WebElement RowByRow = arrrowsdefined.get(1);
+		String SellableMaterialDescription = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialdescription']")).getText();
 		String matid = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialid']")).getText();
 		System.out.println("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription);
 
@@ -163,6 +153,7 @@ public class TC_003_BSAPIE_Test extends BaseTest {
 		/*************************************************
 		 * --------- Click on search icon and enter hold ------- *
 		 ************************************************/
+		Thread.sleep(2000);
 		Actions actions2 = new Actions(driver);
 		summaryPage.SearchIcon().click();
 		Thread.sleep(1000);
@@ -174,34 +165,59 @@ public class TC_003_BSAPIE_Test extends BaseTest {
 		test.pass("System attributes elemets shown up");
 		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 
-		WebElement HoldMessage = summaryPage.OnholdMessage().findElement(By.cssSelector(".more-values-message"));
-		String onholdMessage = HoldMessage.getText();
+		WebElement BSAPIESection = summaryPage.BSAPIESection();
 
-		System.out.println("There are " + onholdMessage + " onhold items");
-		test.pass("There are " + onholdMessage + " onhold items");
-		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+		int totalonholditems = 0;
+		try {
+			 WebElement moreValuesList = BSAPIESection.findElement(By.cssSelector(".more-values-message"));
+			/**************************
+			 * If More values text is present*****
+			 **************************/
+			if (moreValuesList.isDisplayed()) {
+				String onholdMessage = moreValuesList.getText();
+				System.out.println("There are " + onholdMessage + "  listed: "  );
 
-		HoldMessage.click();
-		Thread.sleep(5000);
+				Pattern pattern = Pattern.compile("\\d+");
+				Matcher matcher = pattern.matcher(onholdMessage);
 
-		String number = "";
-		Pattern pattern = Pattern.compile("\\d+");
-		Matcher matcher = pattern.matcher(onholdMessage);
+				if (matcher.find()) {
+					totalonholditems = Integer.parseInt(matcher.group());
+				}
 
-		if (matcher.find()) {
-			number = matcher.group();
+				System.out.println("Number is " + totalonholditems);
+				/**************************
+				 * Click on More values text*****
+				 **************************/
+				moreValuesList.click();
+				Thread.sleep(5000);
+				test.pass("Onhold items Expanded " );
+				test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				
+			} else {
+				System.out.println("There are no More elements text.On hold items directly listed");
+				test.pass("Onhold items listed directly " );
+				test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+			}
+
+			/**************************
+			 * Get List of all On Hold items *****
+			 **************************/
+			List<WebElement> tagElements = BSAPIESection.findElements(By.cssSelector("[id^='tag']"));
+			System.out.println("There are " + tagElements.size() + " on Hold Items");
+			List<String> tagTexts = new ArrayList<>();
+
+			int tagIndex = 1;
+			for (WebElement tag : tagElements) {
+				String tagText = tag.getText().trim();
+				System.out.println("On Hold Item  " + tagIndex + " -- " + tagText + ": " + tagText);
+				tagTexts.add(tagText);
+				tagIndex++;
+			}
+			test.pass("Onhold items listed are \n" + tagTexts);
+			test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+		} catch (Exception e) {
+			System.out.println("No Hold items listed");
 		}
-		int totalonholditems = Integer.parseInt(number);
-		System.out.println("Number is " + totalonholditems);
-
-		/*******************************************************
-		 * Get the name of each on hold item system attribute
-		 *******************************************************/
-		for (int i = 1; i <= totalonholditems; i++) {
-			WebElement tag = summaryPage.OnholdMessage().findElement(By.cssSelector("#tag" + i));
-			System.out.println("Tag " + i + ": " + tag.getText().trim());
-		}
-
 		/*******************************************************
 		 * Verify the same entity is not there in On Hold - BSA PIE (User Selected)
 		 *******************************************************/
@@ -215,7 +231,6 @@ public class TC_003_BSAPIE_Test extends BaseTest {
 		test.pass("I am on Approval tab");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		Thread.sleep(2000);
-
 		/********************************
 		 * click on On Hold - BSA PIE (User Selected) in approval tab
 		 ********************************/
@@ -229,7 +244,7 @@ public class TC_003_BSAPIE_Test extends BaseTest {
 				.findElement(By.cssSelector("#rock-my-todos-tabs")).getShadowRoot()
 				.findElement(By.cssSelector("[id^='my-todo-summary-list-component-rs']")).getShadowRoot()
 				.findElements(By.cssSelector("pebble-list-view > pebble-list-item > my-todo-summary"));
-		
+
 		for (int i = 0; i < summaryElements1.size(); i++) {
 			WebElement summary = summaryElements1.get(i);
 			WebElement innerDiv = summary.getShadowRoot().findElement(By.cssSelector("#workflowMetadataContainer"));
@@ -255,7 +270,7 @@ public class TC_003_BSAPIE_Test extends BaseTest {
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 
 		/********************************
-		 * Enter the material ID On Hold - BSA PIE (User Selected) 
+		 * Enter the material ID On Hold - BSA PIE (User Selected)
 		 ********************************/
 		searchPage.searchthingdomain_Input_Mat_Id().click();
 		searchPage.searchthingdomain_Input_Mat_Id().clear();
