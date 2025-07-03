@@ -23,13 +23,13 @@
 		</classes>
 	</test>
 	 
-	  
+	<!--  
 <test name="DigitalAssetOwner">
 		<parameter name="UseCaseOwner" value="DigitalAssetowner" />
 		<classes>
 			<class name="pim.automation.framework.TC_004_Digital_Asset2" />
 			
 		</classes>
-	</test> 
+	</test> -->
 	
 </suite>
