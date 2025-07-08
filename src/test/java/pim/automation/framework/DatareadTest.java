@@ -48,6 +48,7 @@ public class DatareadTest {
             }
         }
         
+        
         if (preEtlUpdateColIndex == -1) {
             System.out.println("Column 'Pre_ETLUpdate' not found");
             wb.close();
