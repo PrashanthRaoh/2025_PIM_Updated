@@ -32,6 +32,7 @@ public class DatareadTest {
 				break;
 			}
 		}
+		
 		/***************************************
 		 * From the sheet get all the rows in the first column (Key to update values)
 		***************************************/
@@ -47,7 +48,6 @@ public class DatareadTest {
                 break;
             }
         }
-        
         
         if (preEtlUpdateColIndex == -1) {
             System.out.println("Column 'Pre_ETLUpdate' not found");

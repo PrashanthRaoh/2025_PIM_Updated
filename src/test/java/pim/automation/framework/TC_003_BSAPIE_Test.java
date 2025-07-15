@@ -37,8 +37,7 @@ public class TC_003_BSAPIE_Test extends BaseTest {
 		String className = this.getClass().getSimpleName();
 		System.out.println(className);
 		test = BaseTest.extentreport.createTest(className);
-		test.assignAuthor(System.getProperty("user.name")).assignCategory("Regression")
-				.assignDevice(System.getenv("COMPUTERNAME"));
+		test.assignAuthor(System.getProperty("user.name")).assignCategory("Regression").assignDevice(System.getenv("COMPUTERNAME"));
 
 		homePage = new HomePage(driver);
 		SearchPage2 searchPage = new SearchPage2(driver);

@@ -94,5 +94,57 @@ public class BSAPIE_Page {
 		    throw new AssertionError("❌ '" + expectedTitle + "' not found in the workflow.");
 		}
 		
+		public WebElement BSAPIE_Record_Status() {
+			return driver.findElement(By.cssSelector("#app"))
+			.getShadowRoot().findElement(By.cssSelector("#contentViewManager"))
+			.getShadowRoot().findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']"))
+			.getShadowRoot().findElement(By.cssSelector("[id^='app-entity-manage-component-rs']"))
+			.getShadowRoot().findElement(By.cssSelector("#rockDetailTabs"))
+			.getShadowRoot().findElement(By.cssSelector("#rockTabs"))
+			.getShadowRoot().findElement(By.cssSelector("[id^='rock-wizard-manage-component-rs']"))
+			.getShadowRoot().findElement(By.cssSelector("[id^='rock-attribute-manage-component-rs']"))
+			.getShadowRoot().findElement(By.cssSelector("#rock-attribute-list-container > rock-attribute-list"))
+			.getShadowRoot().findElement(By.cssSelector("[id^='rs']"))
+			.getShadowRoot().findElement(By.cssSelector("#input"))
+			.getShadowRoot().findElement(By.cssSelector("bedrock-lov"))
+			.getShadowRoot().findElement(By.cssSelector("#collectionContainer"))
+			.getShadowRoot().findElement(By.cssSelector("#collection_container_wrapper > div.d-flex > div.tags-container"));
+		}
+		
+		/*******************
+		 * Close the last tab
+		*******************/
+		public WebElement Tabclose_Xmark() {
+		return driver.findElement(By.cssSelector("#app"))
+			    .getShadowRoot().findElement(By.cssSelector("#contentViewManager"))
+			    .getShadowRoot().findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']"))
+			    .getShadowRoot().findElement(By.cssSelector("[id^='app-entity-manage-component-rs']"))
+			    .getShadowRoot().findElement(By.cssSelector("#rockDetailTabs"))
+			    .getShadowRoot().findElement(By.cssSelector("#rockTabs"))
+			    .getShadowRoot().findElement(By.cssSelector("#tab-QuickSearchAttributes > div > div.tab-title > span.dynamic-close"));
+		}
+		
+		public WebElement dropdownWrapper() {
+		 return driver.findElement(By.cssSelector("#app")).getShadowRoot()
+				.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+				.findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
+				.findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
+				.findElement(By.cssSelector("#rockDetailTabs")).getShadowRoot()
+				.findElement(By.cssSelector("#rockTabs")).getShadowRoot()
+				.findElement(By.cssSelector("#tab-attributes")).getShadowRoot()
+				.findElement(By.cssSelector("#dropdown-wrapper"));
+		}
+		
+		public WebElement Attributenotdisplayed() {
+			return driver.findElement(By.cssSelector("#app")).getShadowRoot()
+				    .findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+				    .findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
+				    .findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
+				    .findElement(By.cssSelector("#rockDetailTabs")).getShadowRoot()
+				    .findElement(By.cssSelector("#rockTabs")).getShadowRoot()
+				    .findElement(By.cssSelector("[id^='rock-wizard-manage-component-rs']")).getShadowRoot()
+				    .findElement(By.cssSelector(".base-grid-structure > .base-grid-structure-child-2 > #wizard-container > .base-grid-structure-child-2 > div > .base-grid-structure-child-2 > #step-container-manage > [name='QuickSearchAttributes']")).getShadowRoot()
+				    .findElement(By.cssSelector(".base-grid-structure > div.base-grid-structure-child-1 > [align='center']"));
+		}
 
 }
