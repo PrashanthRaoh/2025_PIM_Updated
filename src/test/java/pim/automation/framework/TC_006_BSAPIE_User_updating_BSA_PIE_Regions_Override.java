@@ -100,8 +100,7 @@ public class TC_006_BSAPIE_User_updating_BSA_PIE_Regions_Override extends BaseTe
 		assertTrue("There should be results after applying filters with Inprogress status", arrrowsdefined.size() > 0);
 
 		WebElement RowByRow = arrrowsdefined.get(0);
-		String SellableMaterialDescription = RowByRow
-				.findElement(By.cssSelector("div[col-id='sellablematerialdescription']")).getText();
+		String SellableMaterialDescription = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialdescription']")).getText();
 		String matid = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialid']")).getText();
 		System.out.println("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription);
 
@@ -114,8 +113,7 @@ public class TC_006_BSAPIE_User_updating_BSA_PIE_Regions_Override extends BaseTe
 		matidElement.click();
 		Thread.sleep(3000);
 		utils.waitForElement(() -> summaryPage.Things_INeedToFix(), "visible");
-		test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription
-				+ " is selected for completion");
+		test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription+ " is selected for completion");
 		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 
 		/*************************************************

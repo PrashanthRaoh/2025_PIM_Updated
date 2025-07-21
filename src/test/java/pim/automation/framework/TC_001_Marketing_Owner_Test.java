@@ -28,6 +28,8 @@ import common_functions.Utils;
 import pages.HomePage;
 import pages.SearchPage2;
 
+
+
 public class TC_001_Marketing_Owner_Test extends BaseTest {
 	public ExtentTest test;
 
@@ -285,8 +287,7 @@ public class TC_001_Marketing_Owner_Test extends BaseTest {
 			if (arrrowsdefined2.size() > 0) {
 				System.out.println("Records found for the search criteria");
 				test.fail(matid + " completion is NOT 100%. Pleaes verify");
-				test.log(Status.FAIL,
-						MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				test.log(Status.FAIL,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 
 			}
 		}

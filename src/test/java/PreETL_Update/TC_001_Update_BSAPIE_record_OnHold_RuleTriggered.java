@@ -1,4 +1,4 @@
-package pim.automation.framework_PreETL_Update;
+package PreETL_Update;
 
 /************************************************
 TC 001 - Updating BSA PIE record which is "On Hold (Rule Triggered)".
@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -28,6 +27,7 @@ import common_functions.BaseTest;
 import common_functions.NotepadManager;
 import common_functions.Utils;
 import pages.BSAPIE_Page;
+import pages.DigitalAsset;
 import pages.HomePage;
 import pages.SearchPage2;
 import pages.SummaryPage;
@@ -40,14 +40,13 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 
 	@Test(groups = { "BSAPIEowner" })
 	public void BSAPIEOwner() throws InterruptedException, IOException {
-
 		String className = this.getClass().getSimpleName();
 		System.out.println(className);
 		test = BaseTest.extentreport.createTest(className);
-		test.assignAuthor(System.getProperty("user.name")).assignCategory("Regression")
-				.assignDevice(System.getenv("COMPUTERNAME"));
+		test.assignAuthor(System.getProperty("user.name")).assignCategory("Regression").assignDevice(System.getenv("COMPUTERNAME"));
 
 		homePage = new HomePage(driver);
+		DigitalAsset digitalssetPage = new DigitalAsset(driver);
 		SearchPage2 searchPage = new SearchPage2(driver);
 		SummaryPage summaryPage = new SummaryPage(driver);
 		BSAPIE_Page BSAPIE_PO = new BSAPIE_Page(driver);
@@ -121,7 +120,6 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 		 * --------- Get Row count------- *
 		 ********************************************************/
 		Thread.sleep(5000);
-
 		Actions actions = new Actions(driver);
 		WebElement rowsredefined = driver.findElement(By.cssSelector("#app")).getShadowRoot()
 				.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
@@ -142,13 +140,11 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 		assertTrue("There should be results after applying filters", arrrowsdefined.size() > 0);
 
 		WebElement RowByRow = arrrowsdefined.get(0);
-		String SellableMaterialDescription = RowByRow
-				.findElement(By.cssSelector("div[col-id='sellablematerialdescription']")).getText();
+		String SellableMaterialDescription = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialdescription']")).getText();
 		String matid = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialid']")).getText();
 		System.out.println("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription);
 
 		data.put("Material ID", matid);
-		NotepadManager.ReadWriteNotepad(data);
 		/*************************************************
 		 * --------- Click on the materialid from the result------- *
 		 ************************************************/
@@ -157,11 +153,21 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 		Thread.sleep(2000);
 		matidElement.click();
 		Thread.sleep(3000);
+
 		utils.waitForElement(() -> summaryPage.Things_INeedToFix(), "visible");
-		test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription
-				+ " is selected for completion");
+		test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription+ " is selected for completion");
 		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		Thread.sleep(2000);
+
+		List<WebElement> conditions = digitalssetPage.Summarythingsneedtofix_grid().findElements(By.cssSelector(".data-list"));
+		for (int i = 0; i < conditions.size(); i++) {
+			String busscondname = conditions.get(i).findElement(By.cssSelector("[class*='entity-content']")).getAttribute("title");
+			System.out.println("Condition " + (i + 1) + " -- " + busscondname);
+			if (busscondname.contains("Validate Attributes for BSA PIE")) {
+				System.out.println(busscondname + " found at row --" + (i + 1));
+				break;
+			}
+		}
 
 		/*************************************************
 		 * --------- Click on search icon and enter Status ------- *
@@ -173,51 +179,49 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 		Thread.sleep(1000);
 		actions2.moveToElement(summaryPage.SearchInputfield()).sendKeys(Keys.ENTER).build().perform();
 		Thread.sleep(5000);
-		
+
 		WebElement targetElement = null;
 		String RecordStatus = null;
 		try {
-		    targetElement = driver.findElement(By.cssSelector("#app"))
-		        .getShadowRoot().findElement(By.cssSelector("#contentViewManager"))
-		        .getShadowRoot().findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']"))
-		        .getShadowRoot().findElement(By.cssSelector("[id^='app-entity-manage-component-rs']"))
-		        .getShadowRoot().findElement(By.cssSelector("#rockDetailTabs"))
-		        .getShadowRoot().findElement(By.cssSelector("#rockTabs"))
-		        .getShadowRoot().findElement(By.cssSelector("[id^='rock-wizard-manage-component-rs']"))
-		        .getShadowRoot().findElement(By.cssSelector("[id^='rock-attribute-manage-component-rs']"))
-		        .getShadowRoot().findElement(By.cssSelector("#rock-attribute-list-container > rock-attribute-list"))
-		        .getShadowRoot().findElement(By.cssSelector("[id^='rs']"))
-		        .getShadowRoot().findElement(By.cssSelector("#input"))
-		        .getShadowRoot().findElement(By.cssSelector("bedrock-lov"))
-		        .getShadowRoot().findElement(By.cssSelector("#collectionContainer"))
-		        .getShadowRoot().findElement(By.cssSelector("#collection_container_wrapper > div.d-flex > div.tags-container"));
-		    } catch (Exception inner) {
-		        System.out.println("❌ Neither attribute list nor 'attributes not available' element found.");
-		    }
-		
+			targetElement = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+					.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+					.findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
+					.findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
+					.findElement(By.cssSelector("#rockDetailTabs")).getShadowRoot()
+					.findElement(By.cssSelector("#rockTabs")).getShadowRoot()
+					.findElement(By.cssSelector("[id^='rock-wizard-manage-component-rs']")).getShadowRoot()
+					.findElement(By.cssSelector("[id^='rock-attribute-manage-component-rs']")).getShadowRoot()
+					.findElement(By.cssSelector("#rock-attribute-list-container > rock-attribute-list")).getShadowRoot()
+					.findElement(By.cssSelector("[id^='rs']")).getShadowRoot().findElement(By.cssSelector("#input"))
+					.getShadowRoot().findElement(By.cssSelector("bedrock-lov")).getShadowRoot()
+					.findElement(By.cssSelector("#collectionContainer")).getShadowRoot()
+					.findElement(By.cssSelector("#collection_container_wrapper > div.d-flex > div.tags-container"));
+		} catch (Exception inner) {
+			System.out.println("❌ Neither attribute list nor 'attributes not available' element found.");
+		}
+
 		if (targetElement != null) {
-		    System.out.println("Status is : " + targetElement.getText());
-		    RecordStatus = targetElement.getText();
+			System.out.println("Status is : " + targetElement.getText());
+			RecordStatus = targetElement.getText();
 			test.pass("Status of the " + matid + "  is  : - " + RecordStatus);
-			test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+			test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 			BSAPIE_PO.Tabclose_Xmark().click();
 			Thread.sleep(4000);
-			
+
 		} else {
-		    System.out.println("🔴 No target element to act upon.");
-		    test.fail("No element found" );
-			test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+			System.out.println("🔴 No target element to act upon.");
+			test.fail("No element found");
+			test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		}
-		
+
 		data.put("Status", RecordStatus);
-		NotepadManager.ReadWriteNotepad(data);
-		
+
 		/*************************************************
 		 * --------- Click on search icon and enter hold ------- *
 		 ************************************************/
 		Thread.sleep(2000);
 		summaryPage.SearchIcon().click();
-		summaryPage.SearchInputfield().sendKeys("hold");
+		summaryPage.SearchInputfield().sendKeys("BSA PIE - Hold Attributes List (Rule Triggered)");
 		Thread.sleep(1000);
 		actions2.moveToElement(summaryPage.SearchInputfield()).sendKeys(Keys.ENTER).build().perform();
 		Thread.sleep(3000);
@@ -246,16 +250,14 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 
 				System.out.println("Number is " + totalonholditems);
 				data.put("Total OnHold Items", totalonholditems);
-				NotepadManager.ReadWriteNotepad(data);
-				
+
 				/**************************
 				 * Click on More values text*****
 				 **************************/
 				moreValuesList.click();
 				Thread.sleep(5000);
 				test.pass("Onhold items Expanded ");
-				test.log(Status.INFO,
-						MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 
 			} else {
 				System.out.println("There are no More elements text.On hold items directly listed");
@@ -275,16 +277,15 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 				String tagText = tag.getText().trim();
 				System.out.println("On Hold Item  " + tagIndex + " -- " + tagText + ": " + tagText);
 				tagTexts.add(tagText);
-				data.put("Onhold items", tagTexts);
 				tagIndex++;
 			}
+			data.put("Onhold items", tagTexts);
 			test.pass("Onhold items listed are \n" + tagTexts);
 			test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		} catch (Exception e) {
 			System.out.println("No Hold items listed");
 		}
-		
-		NotepadManager.ReadWriteNotepad(data);
 
+		NotepadManager.ReadWriteNotepad("OnHoldSystem.txt",data);
 	}
 }
