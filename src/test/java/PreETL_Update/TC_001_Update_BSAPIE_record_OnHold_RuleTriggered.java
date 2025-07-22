@@ -35,7 +35,6 @@ import pages.SummaryPage;
 public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 	public ExtentTest test;
 
-	public String SheetName = "On Hold (Rule Triggered)";
 	Map<String, Object> data = new LinkedHashMap<>();
 
 	@Test(groups = { "BSAPIEowner" })
@@ -174,9 +173,7 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 		 ************************************************/
 		Actions actions2 = new Actions(driver);
 		summaryPage.SearchIcon().click();
-		Thread.sleep(1000);
 		summaryPage.SearchInputfield().sendKeys("BSA PIE Sellable Product Status");
-		Thread.sleep(1000);
 		actions2.moveToElement(summaryPage.SearchInputfield()).sendKeys(Keys.ENTER).build().perform();
 		Thread.sleep(5000);
 
@@ -219,21 +216,21 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 		/*************************************************
 		 * --------- Click on search icon and enter hold ------- *
 		 ************************************************/
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		summaryPage.SearchIcon().click();
 		summaryPage.SearchInputfield().sendKeys("BSA PIE - Hold Attributes List (Rule Triggered)");
 		Thread.sleep(1000);
 		actions2.moveToElement(summaryPage.SearchInputfield()).sendKeys(Keys.ENTER).build().perform();
 		Thread.sleep(3000);
-		utils.waitForElement(() -> summaryPage.SystemAttributes(), "visible");
+		utils.waitForElement(() -> summaryPage.Attributes_List(), "visible");
 		test.pass("System attributes elemets shown up");
 		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 
-		WebElement BSAPIESection = summaryPage.BSAPIESection();
+		WebElement BSAPIESection = summaryPage.Attributes_List();
 
 		int totalonholditems = 0;
 		try {
-			WebElement moreValuesList = BSAPIESection.findElement(By.cssSelector(".more-values-message"));
+			WebElement moreValuesList = summaryPage.Attributes_List().getShadowRoot().findElement(By.cssSelector("div > .more-values-message"));
 			/**************************
 			 * If More values text is present*****
 			 **************************/
@@ -241,15 +238,12 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 				String onholdMessage = moreValuesList.getText();
 				System.out.println("There are " + onholdMessage + "  listed: ");
 
-				Pattern pattern = Pattern.compile("\\d+");
-				Matcher matcher = pattern.matcher(onholdMessage);
-
-				if (matcher.find()) {
-					totalonholditems = Integer.parseInt(matcher.group());
-				}
-
-				System.out.println("Number is " + totalonholditems);
-				data.put("Total OnHold Items", totalonholditems);
+//				Pattern pattern = Pattern.compile("\\d+");
+//				Matcher matcher = pattern.matcher(onholdMessage);
+//
+//				if (matcher.find()) {
+//					totalonholditems = Integer.parseInt(matcher.group());
+//				}
 
 				/**************************
 				 * Click on More values text*****
@@ -268,8 +262,9 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 			/**************************
 			 * Get List of all On Hold items *****
 			 **************************/
-			List<WebElement> tagElements = BSAPIESection.findElements(By.cssSelector("[id^='tag']"));
+			List<WebElement> tagElements = BSAPIESection.getShadowRoot().findElements(By.cssSelector("[id^='tag']"));
 			System.out.println("There are " + tagElements.size() + " on Hold Items");
+			data.put("Total OnHold Items", tagElements.size());
 			List<String> tagTexts = new ArrayList<>();
 
 			int tagIndex = 1;
@@ -285,7 +280,8 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 		} catch (Exception e) {
 			System.out.println("No Hold items listed");
 		}
-
+		BSAPIE_PO.Tabclose_Xmark().click();
+		Thread.sleep(4000);
 		NotepadManager.ReadWriteNotepad("OnHoldSystem.txt",data);
 	}
 }

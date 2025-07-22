@@ -5,23 +5,15 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
-import java.util.concurrent.TimeoutException;
-
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-
 import java.util.function.Function;
 import java.util.function.Supplier;
-
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 
@@ -30,6 +22,7 @@ public class Utils  {
 	public WebDriverWait wait;
 	final Exception[] lastException = { null };
 	private ExtentTest test;
+	public static String filepath = "src/test/resources/Test.xlsx";
 
 	public Utils(WebDriver driver, ExtentTest test) {
 		this.driver = driver;
@@ -40,7 +33,6 @@ public class Utils  {
 	/*****************************************************
 	 ************* Updated code  ************************
 	 ******************************************************/
-
 	public WebElement waitForElement(Supplier<WebElement> elementSupplier, String conditionType) {
 		try {
 			switch (conditionType.toLowerCase()) {
@@ -140,5 +132,4 @@ public class Utils  {
 	    System.out.println("✅ Banner disappeared.");
 	    return bannerText;
 	}
-
 }

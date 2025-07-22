@@ -136,4 +136,18 @@ public class SummaryPage {
 			    .findElement(By.cssSelector("#rockTitle > div.title-text > div.breadcrumb-wrapper > rock-breadcrumb")).getShadowRoot()
 			    .findElement(By.cssSelector("div > div > span.breadcrumb-link.flex-nowrap.item-1 > span.breadcrumb-data.text-ellipsis"));
 	}
+	
+	public WebElement Attributes_List() {
+		 return  common_element().getShadowRoot().findElement(By.cssSelector("#rockTabs")).getShadowRoot()
+				  .findElement(By.cssSelector("[id^='rock-wizard-manage-component-rs']")).getShadowRoot()
+				  .findElement(By.cssSelector("[id^='rock-attribute-manage-component-rs']")).getShadowRoot()
+				  .findElement(By.cssSelector("#rock-attribute-list-container > rock-attribute-list")).getShadowRoot()
+				  .findElement(By.cssSelector("div > div > div > pebble-accordion > [slot='accordion-content'] > div > [name='bsapieholdattributeslistruletriggered'] > rock-attribute")).getShadowRoot()
+				  .findElement(By.cssSelector("div > div > .attribute-edit > #input")).getShadowRoot()
+				  .findElement(By.cssSelector("bedrock-lov")).getShadowRoot()
+				  .findElement(By.cssSelector("#collectionContainer")).getShadowRoot()
+				  .findElement(By.cssSelector("div > .d-flex > .tags-container > pebble-tags"));
+	}
+	
+	
 }
