@@ -3,25 +3,31 @@
 
 <suite name="PIM_automation_Suite">
 
-	<!--
+	<!-- 
 	 <test name="MarketingTests_OwnerMarketing">
 		<parameter name="UseCaseOwner" value="OwnerMarketing" />
 		<classes>
 			<class name="pim.automation.framework.TC_001_Marketing_Owner_Test" />
-			<class name="pim.automation.framework.TC_002_MarketingWorkFlowApproval" />
+			 <class name="pim.automation.framework.TC_002_MarketingWorkFlowApproval" /> 
 		</classes>
-	</test>
-	 -->
+	</test> -->
+	 
 	 
 	<test name="BSAPIEOwner">
 		<parameter name="UseCaseOwner" value="BSAPIEowner" />
 		<classes>
-			<!--  <class name="pim.automation.framework.TC_003_BSAPIE_Test" />-->
+			 <!-- <class name="pim.automation.framework.TC_003_BSAPIE_Test" /> -->
 			<!-- <class name="pim.automation.framework.TC_005_BSAPIE_Pending_UseCase_Approval" /> -->
- 			<!-- <class name="pim.automation.framework.TC_006_BSAPIE_User_updating_BSA_PIE_Regions_Override" /> --> 
-			 <class name="pim.automation.framework.TC_007_OnHold_BSA_OnHold_UserSelected" />
+ 			<!--<class name="pim.automation.framework.TC_006_BSAPIE_User_updating_BSA_PIE_Regions_Override" /> -->
+			 <!-- <class name="pim.automation.framework.TC_007_OnHold_BSA_OnHold_UserSelected" />  -->
+			 
+			 <!-- <class name="PreETL_Update.TC_001_Update_BSAPIE_record_OnHold_RuleTriggered" /> --> 
+			  
+			  <!-- <class name="Post_ETL_Update.TC_001_OnHold_PostETLCheck" />   -->
+			  <class name="Post_ETL_Update.TC_002_Update_BSAPIEPendingUseCaseApproval" />  
+			  
 		</classes>
-	</test>
+	</test> 
 	 
 	<!--  
 <test name="DigitalAssetOwner">
