@@ -2,7 +2,7 @@ package pim.automation.framework;
 
 /************************************************
 TC 03 BSA PIE - Updating  BSA PIE record which is "On Hold - BSA PIE (User Selected)".
-Descrption - Updates the approve record to hold by user
+Descrption - Updates the approved record to hold by user by entering Hold attrbute
 ************************************************/
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;
@@ -365,45 +365,3 @@ public class TC_007_OnHold_BSA_OnHold_UserSelected extends BaseTest {
 		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///**********************************
-// * Enter the Material ID which has all the attributes completed
-// **********************************/
-//homePage.clickSearch_Products_Button().click();
-//Thread.sleep(5000);
-//
-//utils.waitForElement(() -> searchPage.getgrid(), "clickable");
-//
-//String Materialdata = Login_Page.getProperty("BSAPIEOnHoldUserselect");
-//searchPage.searchthingdomain_Input_Mat_Id().click();
-//searchPage.searchthingdomain_Input_Mat_Id().clear();
-//searchPage.searchthingdomain_Input_Mat_Id().sendKeys(Materialdata);
-//test.pass("Material id " + Materialdata + " is searched in Search thing domain");
-//test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-//searchPage.searchthingdomain_Input_Mat_Id().sendKeys(Keys.ENTER);
-//Thread.sleep(5000);
