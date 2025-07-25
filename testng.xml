@@ -22,13 +22,15 @@
 			<!--  <class name="pim.automation.framework.TC_007_OnHold_BSA_OnHold_UserSelected" />  -->
 			 
 			 <!-- *****************PRE-ETL Scripts   *************** -->
-			 <!-- <class name="PreETL_Update.TC_001_Update_BSAPIE_record_OnHold_RuleTriggered" />  -->
-			 <!-- <class name="PreETL_Update.TC004_NewRegionaddedtotheBSAPIEAutoRegionField" />  -->
+			 <class name="PreETL_Update.TC_001_Update_BSAPIE_record_OnHold_RuleTriggered" /> 
+			 <class name="PreETL_Update.TC004_Pre_ETL_NewRegion_ADD_totheBSAPIEAutoRegionField" /> 
+			<class name="PreETL_Update.TC005_Pre_ETL_Region_DELETE_BSAPIEAutoRegionField" /> 
 				 <!-- ******************************** -->
 		
 			<!-- ***************** Post-ETL Scripts *************** -->
 			<!-- <class name="Post_ETL_Update.TC_001_OnHold_PostETLCheck" /> -->
-			 <class name="Post_ETL_Update.TC004_Post_ETL_NewRegion_ADD_BSAPIEAutoRegionField"/>  
+			 <!-- <class name="Post_ETL_Update.TC004_Post_ETL_NewRegion_ADD_BSAPIEAutoRegionField"/>   -->
+			<!--  <class name="Post_ETL_Update.TC005_Post_ETL_Region_DELETE_BSAPIEAutoRegionField"/>  -->  
 				
 			<!-- ******************************** --> 
 		</classes>
