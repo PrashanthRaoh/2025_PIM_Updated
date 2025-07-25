@@ -1,5 +1,9 @@
 package Post_ETL_Update;
 
+/************************************************
+TC 001 - Gets all the  "BSA PIE - Hold Attributes List (Rule Triggered)" items.
+Descrption - Post ETL what are the attributes on hold should be cleared and status should be InProgress
+ ************************************************/
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +15,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
@@ -166,7 +171,7 @@ public class TC_001_OnHold_PostETLCheck extends BaseTest {
 				RecordStatus = targetElement.getText();
 				test.pass("Status of the " + matid + "  is  : - " + RecordStatus);
 
-//				Assert.assertEquals(RecordStatus, "InProgress","RecordStatus is not 'InProgress' and its status is " + RecordStatus);
+				Assert.assertEquals(RecordStatus, "InProgress","RecordStatus is not 'InProgress' and its status is " + RecordStatus);
 				data.put("Status", RecordStatus);
 
 				test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
@@ -227,8 +232,8 @@ public class TC_001_OnHold_PostETLCheck extends BaseTest {
 			    }
 			    totalOnHoldItems = tagTexts.size();
 			    
-			    data.put("Total OnHold Items", totalOnHoldItems);
-			    data.put("Onhold items", tagTexts);
+			    data.put("Total BSA PIE - Hold Attributes List (Rule Triggered) Items", totalOnHoldItems);
+			    data.put("BSA PIE - Hold Attributes List (Rule Triggered) items", tagTexts);
 			    
 			    if (totalOnHoldItems > 0) {
 			        System.out.println("All tag texts: " + tagTexts);
@@ -250,7 +255,7 @@ public class TC_001_OnHold_PostETLCheck extends BaseTest {
 			/*******************************
 			 * Write the data to Notepad
 			******************************/
-		NotepadManager.ReadWriteNotepad("Post_ETL.txt",data);
+		NotepadManager.ReadWriteNotepad("/Post_ETL_Artifacts/Post_ETL_Onhold.txt",data);
 		}
 	}
 }

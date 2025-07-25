@@ -2,7 +2,7 @@ package Post_ETL_Update;
 
 /************************************************
 TC 004 - New Region added to the BSA PIE Auto Region Field.
-Descrption - Verifies the Sales Org region auto countries. Post ETL it checks the addition of countries added.
+Descrption - Verifies the Sales Org region auto countries. Post ETL it checks the addition of countries.
  ************************************************/
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;
@@ -170,7 +170,7 @@ public class TC004_Post_ETL_NewRegion_ADD_BSAPIEAutoRegionField extends BaseTest
 					test.pass("Sales Org Regions (Auto) listed are \n" + tagTexts);
 					test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 					
-					NotepadManager.ReadWriteNotepad("/Post_ETL_Artifacts/Post_ETL_Sales_Org_Regions_Auto.txt", data);
+					NotepadManager.Over_WriteNotepad(POST_ETL_Filename, data);
 					
 					BSAPIE_PO.Tabclose_Xmark().click();
 					Thread.sleep(4000);

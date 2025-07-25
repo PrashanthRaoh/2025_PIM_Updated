@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.openqa.selenium.By;
@@ -54,9 +55,11 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 		test.pass("Home Page is displayed");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		utils.waitForElement(() -> homePage.BSAPIEUsecaseApprovalTab(), "visible");
+		
+		String PRE_ETL_Filename = "/Pre_ETL_Artifacts/OnHoldSystem.txt";
 
 		/**************************************************
-		 * ***** Verify that logged in user is BSAPIEowner
+		 * ***** Click on Use case ApprovalTab
 		 **************************************************/
 		Thread.sleep(5000);
 		homePage.BSAPIEUsecaseApprovalTab().click();
@@ -138,7 +141,16 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		assertTrue("There should be results after applying filters", arrrowsdefined.size() > 0);
 
-		WebElement RowByRow = arrrowsdefined.get(0);
+		/************
+		 * Random number generator to click on row within row count
+		 ************/
+		Random rand = new Random();
+		int min = 0;
+		int max = arrrowsdefined.size();
+		int randnum = rand.nextInt(max - min)  + min;
+		System.out.println("Row chosen is " + randnum);
+
+		WebElement RowByRow = arrrowsdefined.get(randnum);
 		String SellableMaterialDescription = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialdescription']")).getText();
 		String matid = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialid']")).getText();
 		System.out.println("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription);
@@ -211,7 +223,7 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 			test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		}
 
-		data.put("Status", RecordStatus);
+		data.put("BSA PIE Sellable Product Status", RecordStatus);
 
 		/*************************************************
 		 * --------- Click on search icon and enter hold ------- *
@@ -228,7 +240,6 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 
 		WebElement BSAPIESection = summaryPage.Attributes_List();
 
-		int totalonholditems = 0;
 		try {
 			WebElement moreValuesList = summaryPage.Attributes_List().getShadowRoot().findElement(By.cssSelector("div > .more-values-message"));
 			/**************************
@@ -237,14 +248,6 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 			if (moreValuesList.isDisplayed()) {
 				String onholdMessage = moreValuesList.getText();
 				System.out.println("There are " + onholdMessage + "  listed: ");
-
-//				Pattern pattern = Pattern.compile("\\d+");
-//				Matcher matcher = pattern.matcher(onholdMessage);
-//
-//				if (matcher.find()) {
-//					totalonholditems = Integer.parseInt(matcher.group());
-//				}
-
 				/**************************
 				 * Click on More values text*****
 				 **************************/
@@ -274,7 +277,7 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 				tagTexts.add(tagText);
 				tagIndex++;
 			}
-			data.put("Onhold items", tagTexts);
+			data.put("BSA PIE Sellable Product Status items", tagTexts);
 			test.pass("Onhold items listed are \n" + tagTexts);
 			test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		} catch (Exception e) {
@@ -282,6 +285,7 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 		}
 		BSAPIE_PO.Tabclose_Xmark().click();
 		Thread.sleep(4000);
-		NotepadManager.ReadWriteNotepad("OnHoldSystem.txt",data);
+		NotepadManager.ReadWriteNotepad(PRE_ETL_Filename,data);
+		
 	}
 }

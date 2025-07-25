@@ -32,7 +32,7 @@ import pages.HomePage;
 import pages.SearchPage2;
 import pages.SummaryPage;
 
-public class TC004_NewRegionaddedtotheBSAPIEAutoRegionField extends BaseTest {
+public class TC004_Pre_ETL_NewRegion_ADD_totheBSAPIEAutoRegionField extends BaseTest {
 
 	public ExtentTest test;
 	Map<String, Object> data = new LinkedHashMap<>();
@@ -55,9 +55,11 @@ public class TC004_NewRegionaddedtotheBSAPIEAutoRegionField extends BaseTest {
 		test.pass("Home Page is displayed");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		utils.waitForElement(() -> homePage.BSAPIEUsecaseApprovalTab(), "visible");
+		
+		String PRE_ETL_Filename = "/Pre_ETL_Artifacts/Sales_Org_Regions_Auto.txt";
 
 		/**************************************************
-		 * ***** Verify that logged in user is BSAPIEowner
+		 * ***** Click on Use case ApprovalTab
 		 **************************************************/
 		Thread.sleep(3000);
 		homePage.BSAPIEUsecaseApprovalTab().click();
@@ -116,7 +118,7 @@ public class TC004_NewRegionaddedtotheBSAPIEAutoRegionField extends BaseTest {
 		 ***************************************/
 		utils.waitForElement(() -> searchPage.getgrid(), "clickable");
 		test.pass("Search page grid displayed after clicking on Pending Usecase Approval - BSA PIE");
-		//test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		Thread.sleep(5000);
 
 		WebElement rowsredefined = driver.findElement(By.cssSelector("#app")).getShadowRoot()
@@ -162,7 +164,7 @@ public class TC004_NewRegionaddedtotheBSAPIEAutoRegionField extends BaseTest {
 		test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription+ " is selected for completion");
 		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		Thread.sleep(2000);
-
+		data.put("Material ID", matid);
 		/*************************************************
 		 * --------- Verify workflow tab Hireacrhy. ------- *
 		 ************************************************/
@@ -223,6 +225,14 @@ public class TC004_NewRegionaddedtotheBSAPIEAutoRegionField extends BaseTest {
 			test.pass("Approve button is present and enabled");
 			test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 			
+			 commentBox.sendKeys("Approving the record");
+			    Thread.sleep(2000);
+
+			    test.pass("Approving the record");
+			    test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+			    approveBtn.click();
+			    Thread.sleep(5000);
+			
 			/*************************************************
 			 * --------- Click on drop down next to Attributes tab
 			 ************************************************/
@@ -256,7 +266,7 @@ public class TC004_NewRegionaddedtotheBSAPIEAutoRegionField extends BaseTest {
 				WebElement BSAPIESection = BSAPIE_PO.BSAPIE_Record_Status().findElement(By.cssSelector("pebble-tags"));
 				
 				/*************************************************
-				 * --------- Try catch to check BSA PIE Usecase Sales Org Regions (Auto) eleemnts------- *
+				 * --------- Try catch to check BSA PIE Usecase Sales Org Regions (Auto) elements------- *
 				 ************************************************/
 				try {
 					WebElement moreValuesList = BSAPIESection.getShadowRoot()
@@ -270,7 +280,7 @@ public class TC004_NewRegionaddedtotheBSAPIEAutoRegionField extends BaseTest {
 						 **************************/
 						moreValuesList.click();
 						Thread.sleep(5000);
-						test.pass("Sales Org Regions (Auto) Expanded ");
+						test.pass("BSA PIE Usecase Sales Org Regions (Auto) Expanded ");
 						test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 
 					} else {
@@ -280,30 +290,30 @@ public class TC004_NewRegionaddedtotheBSAPIEAutoRegionField extends BaseTest {
 					}
 
 					/**************************
-					 * Get List of all Sales Org Regions (Auto)items *****
+					 * Get List of all BSA PIE Usecase Sales Org Regions (Auto) items *****
 					 **************************/
 					List<WebElement> tagElements = BSAPIESection.getShadowRoot().findElements(By.cssSelector("[id^='tag']"));
 					System.out.println("There are " + tagElements.size() + " on Hold Items");
-					data.put("Total Sales Org Regions (Auto) Items", tagElements.size());
+					data.put("Total BSA PIE Usecase Sales Org Regions (Auto) Items", tagElements.size());
 					
 					List<String> tagTexts = new ArrayList<>();
 					
 					int tagIndex = 1;
 					for (WebElement tag : tagElements) {
 						String tagText = tag.getText().trim();
-						System.out.println("Sales Org Regions (Auto) Item  " + tagIndex + " -- " + tagText + ": " + tagText);
+						System.out.println("BSA PIE Usecase Sales Org Regions (Auto)  " + tagIndex + " -- " + tagText + ": " + tagText);
 						tagTexts.add(tagText);
 						tagIndex++;
 					}
-					data.put("Sales Org Regions (Auto)", tagTexts);
-					test.pass("Sales Org Regions (Auto) listed are \n" + tagTexts);
+					data.put("BSA PIE Usecase Sales Org Regions (Auto)", tagTexts);
+					test.pass("BSA PIE Usecase Sales Org Regions (Auto) listed are \n" + tagTexts);
 					test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-					NotepadManager.ReadWriteNotepad(" Sales_Org_Regions_Auto)",data);
+					NotepadManager.ReadWriteNotepad(PRE_ETL_Filename,data);
 					
 					BSAPIE_PO.Tabclose_Xmark().click();
 					Thread.sleep(4000);
 				} catch (Exception e) {
-					System.out.println("No Sales Org Regions (Auto) items listed");
+					System.out.println("No BSA PIE Usecase Sales Org Regions (Auto) items listed");
 				}
 
 		} catch (Exception e) {

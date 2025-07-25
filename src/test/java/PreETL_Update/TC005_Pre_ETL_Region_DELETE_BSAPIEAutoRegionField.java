@@ -1,8 +1,8 @@
 package PreETL_Update;
 
 /************************************************
-TC 004 - New Region added to the BSA PIE Auto Region Field.
-Descrption - Verifies the Sales Org region auto countries. Post ETL it checks the addition of countries added.
+TC 005 - Gets all the region added to the BSA PIE Auto Region Field.
+Descrption - Verifies the Sales Org region auto countries. Post ETL it checks the deletion of countries added.
  ************************************************/
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;
@@ -51,6 +51,8 @@ public class TC005_Pre_ETL_Region_DELETE_BSAPIEAutoRegionField extends BaseTest 
 		DigitalAsset digitalssetPage = new DigitalAsset(driver);
 		BSAPIE_Page BSAPIE_PO = new BSAPIE_Page(driver);
 		utils.waitForElement(() -> homePage.sellablematerialtabelement(), "clickable");
+		
+		String PRE_ETL_Filename = "/Pre_ETL_Artifacts/Sales_Org_DELETE_Regions.txt";
 
 		test.pass("Home Page is displayed");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
@@ -292,7 +294,7 @@ public class TC005_Pre_ETL_Region_DELETE_BSAPIEAutoRegionField extends BaseTest 
 					 **************************/
 					List<WebElement> tagElements = BSAPIESection.getShadowRoot().findElements(By.cssSelector("[id^='tag']"));
 					System.out.println("There are " + tagElements.size() + " on Hold Items");
-					data.put("Total Sales Org Regions (Auto) Items", tagElements.size());
+					data.put("Total BSA PIE Usecase Sales Org Regions (Auto) Items", tagElements.size());
 					
 					List<String> tagTexts = new ArrayList<>();
 					
@@ -303,15 +305,16 @@ public class TC005_Pre_ETL_Region_DELETE_BSAPIEAutoRegionField extends BaseTest 
 						tagTexts.add(tagText);
 						tagIndex++;
 					}
-					data.put("Sales Org Regions (Auto)", tagTexts);
-					test.pass("Sales Org Regions (Auto) listed are \n" + tagTexts);
+					data.put("BSA PIE Usecase Sales Org Regions (Auto)", tagTexts);
+					test.pass("BSA PIE Usecase Sales Org Regions (Auto) listed are \n" + tagTexts);
 					test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-					NotepadManager.ReadWriteNotepad("/Pre_ETL_Artifacts/Sales_Org_Regions_Auto.txt",data);
+					
+					NotepadManager.ReadWriteNotepad(PRE_ETL_Filename,data);
 					
 					BSAPIE_PO.Tabclose_Xmark().click();
 					Thread.sleep(4000);
 				} catch (Exception e) {
-					System.out.println("No Sales Org Regions (Auto) items listed");
+					System.out.println("No BSA PIE Usecase Sales Org Regions (Auto) items listed");
 				}
 
 		} catch (Exception e) {

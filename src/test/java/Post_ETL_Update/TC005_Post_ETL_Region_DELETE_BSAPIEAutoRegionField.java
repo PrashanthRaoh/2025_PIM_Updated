@@ -1,8 +1,8 @@
 package Post_ETL_Update;
 
 /************************************************
-TC 004 - New Region added to the BSA PIE Auto Region Field.
-Descrption - Verifies the Sales Org region auto countries. Post ETL it checks the addition of countries added.
+TC 005 - New Region deleted in the BSA PIE Auto Region Field.
+Descrption - Verifies the Sales Org region auto countries. Post ETL it checks the Deletion of countries.
  ************************************************/
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;
@@ -56,8 +56,8 @@ public class TC005_Post_ETL_Region_DELETE_BSAPIEAutoRegionField extends BaseTest
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		utils.waitForElement(() -> homePage.BSAPIEUsecaseApprovalTab(), "visible");
 		
-		String PRE_ETL_Filename = "/Pre_ETL_Artifacts/Sales_Org_Regions_Auto.txt";
-		String POST_ETL_Filename = "/Post_ETL_Artifacts/Post_ETL_Sales_Org_Regions_Auto.txt";
+		String PRE_ETL_Filename = "/Pre_ETL_Artifacts/Sales_Org_DELETE_Regions.txt";
+		String POST_ETL_Filename = "/Post_ETL_Artifacts/Post_ETL_SalesOrg_DELETE_Regions_Auto.txt";
 
 		List<String> Matids = NotepadManager.GetMaterialIDs(PRE_ETL_Filename);
 
@@ -156,7 +156,7 @@ public class TC005_Post_ETL_Region_DELETE_BSAPIEAutoRegionField extends BaseTest
 
 					List<WebElement> tagElements = BSAPIESection.getShadowRoot().findElements(By.cssSelector("[id^='tag']"));
 					System.out.println("There are " + tagElements.size() + " on Hold Items");
-					data.put("Total Sales Org Regions (Auto) Items", tagElements.size());
+					data.put("Total BSA PIE Usecase Sales Org Regions (Auto) Items", tagElements.size());
 
 					List<String> tagTexts = new ArrayList<>();
 					int tagIndex = 1;
@@ -166,11 +166,11 @@ public class TC005_Post_ETL_Region_DELETE_BSAPIEAutoRegionField extends BaseTest
 						tagTexts.add(tagText);
 						tagIndex++;
 					}
-					data.put("Sales Org Regions (Auto)", tagTexts);
-					test.pass("Sales Org Regions (Auto) listed are \n" + tagTexts);
+					data.put("BSA PIE Usecase Sales Org Regions (Auto)", tagTexts);
+					test.pass("BSA PIE Usecase Sales Org Regions (Auto) listed are \n" + tagTexts);
 					test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 					
-					NotepadManager.ReadWriteNotepad("/Post_ETL_Artifacts/Post_ETL_Sales_Org_Regions_Auto.txt", data);
+					NotepadManager.Over_WriteNotepad(POST_ETL_Filename, data);
 					
 					BSAPIE_PO.Tabclose_Xmark().click();
 					Thread.sleep(4000);
@@ -185,8 +185,8 @@ public class TC005_Post_ETL_Region_DELETE_BSAPIEAutoRegionField extends BaseTest
 			}
 		}
 		
-		List<String> preETL_SalesorgAuto = NotepadManager.getValuesByKey(PRE_ETL_Filename,"Sales Org Regions (Auto)");
-		List<String> postETL_SalesorgAuto = NotepadManager.getValuesByKey(POST_ETL_Filename,"Sales Org Regions (Auto)");
+		List<String> preETL_SalesorgAuto = NotepadManager.getValuesByKey(PRE_ETL_Filename,"BSA PIE Usecase Sales Org Regions (Auto)");
+		List<String> postETL_SalesorgAuto = NotepadManager.getValuesByKey(POST_ETL_Filename,"BSA PIE Usecase Sales Org Regions (Auto)");
 		
 		System.out.println("Sales org countries Before ETL upgrade are " + preETL_SalesorgAuto );
 		System.out.println("Sales org countries After ETL upgrade are " + postETL_SalesorgAuto );
@@ -204,7 +204,7 @@ public class TC005_Post_ETL_Region_DELETE_BSAPIEAutoRegionField extends BaseTest
 	    System.out.println("Removed from Pre List: " + removedFromPre);
 	    
 	    test.info("Country Added After ETL upgrade is :-- " + addedInPost);
-	    test.info("Country Removed before ETL upgrade is :-- " + removedFromPre);
+	    test.info("Country Removed After ETL upgrade is :-- " + removedFromPre);
 		
 	}
 }
