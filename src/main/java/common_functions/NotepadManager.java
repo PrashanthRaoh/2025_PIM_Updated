@@ -5,7 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +63,7 @@ public class NotepadManager {
 	}
 
 	/*********************************
-	 * Get the output as a list from OnHold
+	 * Get the output as a list of Material IDs
 	 *********************************/
 	public static List<String> GetMaterialIDs(String fileName) throws IOException {
 		Path path = Paths.get("src/test/resources/" + fileName);
@@ -83,4 +85,65 @@ public class NotepadManager {
 		return materialIds;
 	}
 
-}
+	/*********************************
+	 * Get the output as a list of Key
+	 *********************************/
+	public static List<String> getValuesByKey(String fileName, String key) throws IOException {
+	    Path path = Paths.get("src/test/resources/" + fileName);
+	    if (!Files.exists(path)) {
+	        System.out.println("File not found: " + fileName);
+	        return Collections.emptyList();
+	    }
+
+	    List<String> lines = Files.readAllLines(path);
+	    List<String> values = new LinkedList<>();
+
+	    for (String line : lines) {
+	        // Match scalar value: "key" = "value"
+	        Pattern scalarPattern = Pattern.compile("\"" + Pattern.quote(key) + "\"\\s*=\\s*\"([^\"]+)\"");
+	        Matcher scalarMatcher = scalarPattern.matcher(line);
+	        if (scalarMatcher.find()) {
+	            values.add(scalarMatcher.group(1));
+	            continue;
+	        }
+
+	        // Match list value: "key" = ["val1", "val2"]
+	        Pattern listPattern = Pattern.compile("\"" + Pattern.quote(key) + "\"\\s*=\\s*\\[(.*?)\\]");
+	        Matcher listMatcher = listPattern.matcher(line);
+	        if (listMatcher.find()) {
+	            String listContent = listMatcher.group(1);
+	            String[] listItems = listContent.split(",");
+	            for (String item : listItems) {
+	                values.add(item.replaceAll("^\"|\"$", "").trim());
+	            }
+	        }
+	    }
+
+	    return values;
+	}
+	
+	/***************************************************************************************************
+	 * Compare the difference between Pre ETL and Post ETL values of sales org auto
+	 ***************************************************************************************************/
+	    public static <T> Map<String, List<T>> getListDifferences(List<T> preList, List<T> postList) {
+	        Map<String, List<T>> differences = new HashMap<>();
+	        List<T> addedInPost = new ArrayList<>();
+	        for (T item : postList) {
+	            if (!preList.contains(item)) {
+	                addedInPost.add(item);
+	            }
+	        }
+
+	        List<T> removedFromPre = new ArrayList<>();
+	        for (T item : preList) {
+	            if (!postList.contains(item)) {
+	                removedFromPre.add(item);
+	            }
+	        }
+
+	        differences.put("Added in Post List", addedInPost);
+	        differences.put("Removed from Pre List", removedFromPre);
+
+	        return differences;
+	    }
+	}
