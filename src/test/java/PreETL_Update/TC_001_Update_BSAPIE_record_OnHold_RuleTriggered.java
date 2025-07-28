@@ -141,9 +141,9 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		assertTrue("There should be results after applying filters", arrrowsdefined.size() > 0);
 
-		/************
+		/********************************************************
 		 * Random number generator to click on row within row count
-		 ************/
+		 ********************************************************/
 		Random rand = new Random();
 		int min = 0;
 		int max = arrrowsdefined.size();
@@ -224,7 +224,6 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 		}
 
 		data.put("BSA PIE Sellable Product Status", RecordStatus);
-
 		/*************************************************
 		 * --------- Click on search icon and enter hold ------- *
 		 ************************************************/
@@ -278,6 +277,7 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 				tagIndex++;
 			}
 			data.put("BSA PIE Sellable Product Status items", tagTexts);
+			test.info("Total OnHold Items" + tagElements.size());
 			test.pass("Onhold items listed are \n" + tagTexts);
 			test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		} catch (Exception e) {
@@ -286,6 +286,5 @@ public class TC_001_Update_BSAPIE_record_OnHold_RuleTriggered extends BaseTest {
 		BSAPIE_PO.Tabclose_Xmark().click();
 		Thread.sleep(4000);
 		NotepadManager.ReadWriteNotepad(PRE_ETL_Filename,data);
-		
 	}
 }

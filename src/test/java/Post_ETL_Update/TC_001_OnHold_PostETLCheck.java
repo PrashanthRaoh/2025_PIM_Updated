@@ -52,11 +52,14 @@ public class TC_001_OnHold_PostETLCheck extends BaseTest {
 		test.pass("Home Page is displayed");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		utils.waitForElement(() -> homePage.BSAPIEUsecaseApprovalTab(), "visible");
+		
+		String PRE_ETL_Filename =  "/Pre_ETL_Artifacts/OnHoldSystem.txt";
+		String POST_ETL_Filename = "/Post_ETL_Artifacts/Post_ETL_Onhold_System.txt";
 
 		/**************************************
 		 * Get the material ids from the notepad
 		**************************************/
-		List<String> Matids = NotepadManager.GetMaterialIDs("OnHoldSystem.txt");
+		List<String> Matids = NotepadManager.GetMaterialIDs(PRE_ETL_Filename);
 
 		for (int i = 0; i < Matids.size(); i++) {
 			System.out.println(Matids.get(i));
@@ -255,7 +258,7 @@ public class TC_001_OnHold_PostETLCheck extends BaseTest {
 			/*******************************
 			 * Write the data to Notepad
 			******************************/
-		NotepadManager.ReadWriteNotepad("/Post_ETL_Artifacts/Post_ETL_Onhold.txt",data);
+		NotepadManager.ReadWriteNotepad(POST_ETL_Filename,data);
 		}
 	}
 }

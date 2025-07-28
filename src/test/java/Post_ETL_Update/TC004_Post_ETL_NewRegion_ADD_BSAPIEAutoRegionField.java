@@ -56,8 +56,8 @@ public class TC004_Post_ETL_NewRegion_ADD_BSAPIEAutoRegionField extends BaseTest
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		utils.waitForElement(() -> homePage.BSAPIEUsecaseApprovalTab(), "visible");
 		
-		String PRE_ETL_Filename = "/Pre_ETL_Artifacts/Sales_Org_Regions_Auto.txt";
-		String POST_ETL_Filename = "/Post_ETL_Artifacts/Post_ETL_Sales_Org_Regions_Auto.txt";
+		String PRE_ETL_Filename = "/Pre_ETL_Artifacts/Sales_Org_Regions_Auto_ADD.txt";
+		String POST_ETL_Filename = "/Post_ETL_Artifacts/Post_ETL_Sales_Org_Regions_Auto_ADD.txt";
 
 		List<String> Matids = NotepadManager.GetMaterialIDs(PRE_ETL_Filename);
 

@@ -1,7 +1,7 @@
 package pim.automation.framework;
 
 /************************************************
-TC 02 - Updating BSA PIE record which is in  "BSA PIE Pending UseCase Approval" Workflow.
+TC 05 - Updating BSA PIE record which is in  "BSA PIE Pending UseCase Approval" Workflow.
 Description - This approves BSA PIE Pending UseCase Approval the record
 ************************************************/
 import static org.junit.Assert.assertTrue;
