@@ -61,6 +61,51 @@ public class NotepadManager {
 		Files.write(path, content.toString().getBytes(), StandardOpenOption.APPEND);
 		System.out.println("File updated with value");
 	}
+	
+	/***********************************
+	 * Overwrites the text in notepad
+	***********************************/
+	
+	public static void Over_WriteNotepad(String fileName, Map<String, Object> data) throws IOException {
+		Path path = Paths.get("src/test/resources/" + fileName);
+		System.out.println(path.getParent());
+		Files.createDirectories(path.getParent());
+		
+		if (!Files.exists(path)) {
+			Files.createFile(path);
+			System.out.println("File created: " + path.toString());
+		} else {
+			String existingcontent = new String(Files.readAllBytes(path));
+			System.out.println("Existing lines are " + existingcontent);
+		}
+		
+		/*********************************
+		 * Write to notepad
+		 *********************************/
+		StringBuilder content = new StringBuilder();
+		for (Entry<String, Object> entry : data.entrySet()) {
+			content.append(" \"").append(entry.getKey()).append("\" = ");
+			Object value = entry.getValue();
+			if (value instanceof List) {
+				List<?> list = (List<?>) value;
+				content.append("[");
+				for (int i = 0; i < list.size(); i++) {
+					content.append("\"").append(list.get(i)).append("\"");
+					
+					if (i < list.size() - 1) {
+						content.append(",");
+					}
+				}
+				content.append("]");
+			} else {
+				content.append("\"").append(value).append("\"");
+			}
+			content.append(System.lineSeparator());
+		}
+		content.append("---------------------------------------").append(System.lineSeparator());
+		Files.write(path, content.toString().getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
+		System.out.println("File Overwritten with latest value");
+	}
 
 	/*********************************
 	 * Get the output as a list of Material IDs
