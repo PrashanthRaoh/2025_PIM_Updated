@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.openqa.selenium.By;
@@ -28,7 +29,7 @@ import pages.HomePage;
 import pages.SearchPage2;
 import pages.SummaryPage;
 
-public class TC_003_BSAPIE_Test extends BaseTest {
+public class TC_003_OnHoldBSAPIE_UserSelect extends BaseTest {
 	public ExtentTest test;
 	public WebElement morevalues;
 
@@ -130,8 +131,18 @@ public class TC_003_BSAPIE_Test extends BaseTest {
 		test.pass("Rows after after clicking on On Hold - BSA PIE appeared");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		assertTrue("There should be results after applying filters", arrrowsdefined.size() > 0);
+		
+		
+		/*************
+		 * Random number generator to click on row within row count
+		 **/
+		Random rand = new Random();
+		int min = 0;
+		int max = arrrowsdefined.size();
+		int randnum = rand.nextInt(max - min)  + min;
 
-		WebElement RowByRow = arrrowsdefined.get(1);
+		System.out.println("Row chosen is " + randnum);
+		WebElement RowByRow = arrrowsdefined.get(randnum);
 		String SellableMaterialDescription = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialdescription']")).getText();
 		String matid = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialid']")).getText();
 		System.out.println("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription);

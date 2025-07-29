@@ -8,10 +8,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
@@ -52,22 +54,82 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		utils.waitForElement(() -> homePage.BSAPIEUsecaseApprovalTab(), "visible");
 
-		/**********************************
-		 * Enter the Material ID which has all the attributes completed
-		 **********************************/
-		homePage.clickSearch_Products_Button().click();
+//		/**********************************
+//		 * Enter the Material ID which has all the attributes completed
+//		 **********************************/
+//		homePage.clickSearch_Products_Button().click();
+//		Thread.sleep(5000);
+//
+//		utils.waitForElement(() -> searchPage.getgrid(), "clickable");
+//
+//		String Materialdata = Login_Page.getProperty("BSAPendingUsecaseApproval_Matid");
+//		searchPage.searchthingdomain_Input_Mat_Id().click();
+//		searchPage.searchthingdomain_Input_Mat_Id().clear();
+//		searchPage.searchthingdomain_Input_Mat_Id().sendKeys(Materialdata);
+//		test.pass("Material id " + Materialdata + " is searched in Search thing domain");
+//		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+//		searchPage.searchthingdomain_Input_Mat_Id().sendKeys(Keys.ENTER);
+//		Thread.sleep(5000);
+		
+		/**************************************************
+		 * ***** Click on Use case ApprovalTab
+		 **************************************************/
 		Thread.sleep(5000);
-
-		utils.waitForElement(() -> searchPage.getgrid(), "clickable");
-
-		String Materialdata = Login_Page.getProperty("BSAPendingUsecaseApproval_Matid");
-		searchPage.searchthingdomain_Input_Mat_Id().click();
-		searchPage.searchthingdomain_Input_Mat_Id().clear();
-		searchPage.searchthingdomain_Input_Mat_Id().sendKeys(Materialdata);
-		test.pass("Material id " + Materialdata + " is searched in Search thing domain");
+		homePage.BSAPIEUsecaseApprovalTab().click();
+		Thread.sleep(5000);
+		test.pass("Clicked on Approval tab");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-		searchPage.searchthingdomain_Input_Mat_Id().sendKeys(Keys.ENTER);
-		Thread.sleep(5000);
+		Thread.sleep(2000);
+
+		/********************************************
+		 * Get number of items under use case approvals
+		 ***************************************/
+		List<WebElement> summaryElements = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+				.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+				.findElement(By.cssSelector("[id^='currentApp_home_rs']")).getShadowRoot()
+				.findElement(By.cssSelector("[id^='app-dashboard-component-rs']")).getShadowRoot()
+				.findElement(By.cssSelector("rock-layout > rock-dashboard-widgets")).getShadowRoot()
+				.findElement(By.cssSelector("[id^='rs']")).getShadowRoot().findElement(By.cssSelector("#rock-my-todos"))
+				.getShadowRoot().findElement(By.cssSelector("[id^='rock-my-todos-component-rs']")).getShadowRoot()
+				.findElement(By.cssSelector("#rock-my-todos-tabs")).getShadowRoot()
+				.findElement(By.cssSelector("[id^='my-todo-summary-list-component-rs']")).getShadowRoot()
+				.findElements(By.cssSelector("pebble-list-view > pebble-list-item > my-todo-summary"));
+
+		System.out.println("Total items: " + summaryElements.size());
+
+		List<String> expectedItems = Arrays.asList("Pending Usecase Approval - BSA PIE",
+				"On Hold - BSA PIE (User Selected)", "On Hold - BSA PIE (Rule Triggered)");
+
+		Assert.assertEquals(summaryElements.size(), expectedItems.size(), "Item count mismatch");
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+
+		for (int i = 0; i < summaryElements.size(); i++) {
+			WebElement summary = summaryElements.get(i);
+			WebElement innerDiv = summary.getShadowRoot().findElement(By.cssSelector("#workflowMetadataContainer"));
+			String actualText = innerDiv.getText().trim();
+			System.out.println("Item " + (i + 1) + ":--" + actualText);
+			Assert.assertEquals(actualText, expectedItems.get(i), "Mismatch at item " + (i + 1));
+
+			if (actualText.contains("On Hold - BSA PIE (Rule Triggered)")) {
+				js.executeScript("arguments[0].scrollIntoView({block: 'center'});", innerDiv);
+				try {
+					innerDiv.click();
+				} catch (Exception e) {
+					js.executeScript("arguments[0].click();", innerDiv);
+				}
+				Thread.sleep(5000);
+				break;
+			}
+		}
+		test.pass("BSA PIE Use case Approval entities listed ");
+		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+
+		/***************************************
+		 * ***** Click on On Hold - BSA PIE(Rule Triggered) ****
+		 ***************************************/
+		utils.waitForElement(() -> searchPage.getgrid(), "clickable");
+		test.pass("Search page grid displayed after clicking on On Hold - BSA PIE");
+		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 
 		/**************************************************
 		 * --------- Get Row count------- *

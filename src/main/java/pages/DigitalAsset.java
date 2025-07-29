@@ -352,9 +352,7 @@ public class DigitalAsset {
 				.findElement(By.cssSelector("#search-filter")).getShadowRoot()
 				.findElement(By.cssSelector("#rockEntityLov")).getShadowRoot()
 				.findElement(By.cssSelector("#entityLov")).getShadowRoot()
-				.findElement(By.cssSelector(
-						"div.base-grid-structure.p-relative > div.base-grid-structure-child-2.overflow-auto.p-relative > pebble-grid"))
-				.getShadowRoot()
+				.findElement(By.cssSelector("div.base-grid-structure.p-relative > div.base-grid-structure-child-2.overflow-auto.p-relative > pebble-grid")).getShadowRoot()
 				.findElement(By.cssSelector("#grid")).getShadowRoot()
 				.findElement(By.cssSelector(
 						"#lit-grid > div > div.ag-root-wrapper-body.ag-layout-normal.ag-focus-managed > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-layout-normal.ag-row-no-animation > div.ag-center-cols-clipper > div > div > div:nth-child(3) > div > pebble-lov-item"))
@@ -418,11 +416,6 @@ public class DigitalAsset {
 			    .findElement(By.cssSelector("#rockTabs")).getShadowRoot()
 			    .findElement(By.cssSelector("[id^='rock-wizard-manage-component-rs']")).getShadowRoot()
 			    .findElement(By.cssSelector("[id^='rock-attribute-manage-component-rs']"));
-//			    .getShadowRoot()
-//			    .findElement(By.cssSelector("#rock-attribute-list-container > rock-attribute-list")).getShadowRoot()
-//			    .findElement(By.cssSelector("[id^='rs']")).getShadowRoot()
-//			    .findElement(By.cssSelector("#input")).getShadowRoot()
-//			    .findElement(By.cssSelector("bedrock-lov"));
 	}
 
 	public WebElement BSAPIEUsecaseSalesOrgRegions_Override_dropdown() {

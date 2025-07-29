@@ -29,7 +29,7 @@ import pages.SummaryPage;
 public class TC_004_Digital_Asset_Approve_AddImage extends BaseTest {
 	public ExtentTest test;
 
-	@Test()
+	@Test(groups = { "BSAPIEowner" })
 	public void DigitalAsset() throws IOException, InterruptedException {
 		String className = this.getClass().getSimpleName();
 		System.out.println(className);
@@ -52,8 +52,7 @@ public class TC_004_Digital_Asset_Approve_AddImage extends BaseTest {
 		System.out.println("Logged in user is  " + currentloggedinuser.getText());
 		test.pass("Current user logged in is " + currentloggedinuser.getText());
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-		assertTrue("Logged-in user should be Digital Asset Ownerr",
-				currentloggedinuser.getText().contains("attributeownerdigitalassets.test1"));
+		assertTrue("Logged-in user should be Digital Asset Ownerr",currentloggedinuser.getText().contains("attributeownerdigitalassets.test1"));
 		Thread.sleep(2000);
 		/**************************************************
 		 ***** Click on Enrich Digital Assets more details ****
@@ -99,7 +98,7 @@ public class TC_004_Digital_Asset_Approve_AddImage extends BaseTest {
 		    System.out.println("Item " + (i + 1) + ":--" + actualText);
 		    Assert.assertEquals(actualText, expectedItems.get(i), "Mismatch at item " + (i + 1));
 		    if (actualText.contains("DAM: Review 2D Line Drawing")) {
-		        matchedRowIndex = i + 1; // +1 to match human-readable row index
+		        matchedRowIndex = i + 1; 
 		        js.executeScript("arguments[0].scrollIntoView({block: 'center'});", innerDiv);
 		        try {
 		            innerDiv.click();
@@ -133,6 +132,7 @@ public class TC_004_Digital_Asset_Approve_AddImage extends BaseTest {
 		utils.waitForElement(() -> digitalssetPage.generalDropdown_First(), "clickable");
 		test.pass("Advance Search option clicked");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+		Thread.sleep(2000);
 		digitalssetPage.generalDropdown_second().click();
 		Thread.sleep(1000);
 		digitalssetPage.HavingNoImagesFilterDropdownValue().click();
@@ -170,9 +170,6 @@ public class TC_004_Digital_Asset_Approve_AddImage extends BaseTest {
 				.findElement(By.cssSelector("#pebbleGridContainer > pebble-grid")).getShadowRoot()
 				.findElement(By.cssSelector("#grid"));
 
-//		List<WebElement> arrrowsdefined = rowsredefined.getShadowRoot().findElements(By.cssSelector(
-//				"#lit-grid > div > div.ag-root-wrapper-body.ag-layout-normal.ag-focus-managed > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-layout-normal.ag-row-no-animation > div.ag-center-cols-clipper > div > div> div.ag-row.ag-row-even.ag-row-level-0"));
-		
 		List<WebElement> arrrowsdefined = rowsredefined.getShadowRoot().findElements(By.cssSelector(
 				"#lit-grid > div > div.ag-root-wrapper-body.ag-layout-normal.ag-focus-managed > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-layout-normal.ag-row-no-animation > div.ag-center-cols-clipper > div > div > div"));
 

@@ -149,7 +149,7 @@ public class TC_007_OnHold_BSA_OnHold_UserSelected extends BaseTest {
 		utils.waitForElement(() -> searchPage.getgrid(), "clickable");
 
 		System.out.println("Total rows after clicking on In Progress sellable product " + arrrowsdefined.size());
-		test.pass("Rows after after clicking on In Progress sellable product");
+		test.pass("Rows appeared after clicking on In Progress sellable product");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		assertTrue("There should be results after selecting In Progress sellable product", arrrowsdefined.size() > 0);
 
