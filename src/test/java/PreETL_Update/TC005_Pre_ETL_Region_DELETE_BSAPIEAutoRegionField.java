@@ -6,18 +6,24 @@ Descrption - Verifies the Sales Org region auto countries. Post ETL it checks th
  ************************************************/
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.SearchContext;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentTest;
@@ -232,6 +238,50 @@ public class TC005_Pre_ETL_Region_DELETE_BSAPIEAutoRegionField extends BaseTest 
 			    test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 			    approveBtn.click();
 			    Thread.sleep(5000);
+			    
+			    /*************************************************
+			     * --------- Wait for the banner to appear --------
+			     ************************************************/
+			    WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(10));
+			    Function<WebDriver, WebElement> getBannerElement = drv -> {
+			        try {
+			            return drv.findElement(By.cssSelector("#app")).getShadowRoot()
+			                    .findElement(By.cssSelector("[id^='rs']")).getShadowRoot()
+			                    .findElement(By.cssSelector("#pebbleAppToast > pebble-echo-html")).getShadowRoot()
+			                    .findElement(By.cssSelector("#bind-html"));
+			        } catch (Exception e) {
+			            return null;
+			        }
+			    };
+
+			    WebElement banner = wait1.until(drv -> {
+			        WebElement el = getBannerElement.apply(drv);
+			        return (el != null && el.isDisplayed()) ? el : null;
+			    });
+
+			    String bannerText = banner.getText();
+			    System.out.println("✅ Banner appeared with the text : " + bannerText);
+			    Thread.sleep(3000);
+			    
+			    /*************************************************
+			     * --------- Check Workflow to be completed -------
+			     ************************************************/
+			    List<WebElement> allSteps = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+			            .findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+			            .findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
+			            .findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
+			            .findElement(By.cssSelector("#entityManageSidebar")).getShadowRoot()
+			            .findElement(By.cssSelector("#sidebarTabs")).getShadowRoot()
+			            .findElement(By.cssSelector("[id^='rock-workflow-panel-component-rs']")).getShadowRoot()
+			            .findElements(By.cssSelector("pebble-step"));
+
+			    List<WebElement> visibleSteps = allSteps.stream().filter(WebElement::isDisplayed).collect(Collectors.toList());
+			    int visibleCount = visibleSteps.size();
+			    System.out.println("✅ Workflow that appeared after approval are : " + visibleCount);
+
+			    Assert.assertEquals(visibleCount, 0, "❌ Expected no workflows, but found: " + visibleCount);
+			    test.pass("Record moved to Approved state");
+			    test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build()); 
 			
 			/*************************************************
 			 * --------- Click on drop down next to Attributes tab
@@ -284,8 +334,8 @@ public class TC005_Pre_ETL_Region_DELETE_BSAPIEAutoRegionField extends BaseTest 
 						test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 
 					} else {
-						System.out.println("There are no More elements text.On hold items directly listed");
-						test.pass("Onhold items listed directly ");
+						System.out.println("There are no More elements text.BSA PIE Usecase Sales Org Regions (Auto) items directly listed");
+						test.pass("BSA PIE Usecase Sales Org Regions (Auto) items listed directly ");
 						test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 					}
 

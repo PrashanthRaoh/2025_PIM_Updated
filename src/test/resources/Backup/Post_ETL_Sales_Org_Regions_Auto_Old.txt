@@ -1,0 +1,4 @@
+ "Material ID" = "000000000100000237"
+ "Total Sales Org Regions (Auto) Items" = "2"
+ "Sales Org Regions (Auto)" = ["India","United States"]
+---------------------------------------

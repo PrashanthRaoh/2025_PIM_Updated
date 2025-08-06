@@ -36,7 +36,8 @@ public class TC004_Post_ETL_NewRegion_ADD_BSAPIEAutoRegionField extends BaseTest
 
 	public ExtentTest test;
 	Map<String, Object> data = new LinkedHashMap<>();
-
+	List<String> tagTexts;
+	
 	@Test(groups = { "BSAPIEowner" })
 	public void BeforeETL_GetAllRegions_AutoRegionField() throws InterruptedException, IOException {
 
@@ -113,7 +114,7 @@ public class TC004_Post_ETL_NewRegion_ADD_BSAPIEAutoRegionField extends BaseTest
 				utils.waitForElement(() -> summaryPage.Things_INeedToFix(), "visible");
 				test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription	+ " is selected for verification");
 				test.log(Status.PASS,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-
+				Thread.sleep(3000);
 				WebElement dropdownWrapper = driver.findElement(By.cssSelector("#app")).getShadowRoot()
 						.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
 						.findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
@@ -158,7 +159,7 @@ public class TC004_Post_ETL_NewRegion_ADD_BSAPIEAutoRegionField extends BaseTest
 					System.out.println("There are " + tagElements.size() + " on Hold Items");
 					data.put("Total Sales Org Regions (Auto) Items", tagElements.size());
 
-					List<String> tagTexts = new ArrayList<>();
+					 tagTexts = new ArrayList<>();
 					int tagIndex = 1;
 					for (WebElement tag : tagElements) {
 						String tagText = tag.getText().trim();
@@ -166,14 +167,37 @@ public class TC004_Post_ETL_NewRegion_ADD_BSAPIEAutoRegionField extends BaseTest
 						tagTexts.add(tagText);
 						tagIndex++;
 					}
-					data.put("Sales Org Regions (Auto)", tagTexts);
-					test.pass("Sales Org Regions (Auto) listed are \n" + tagTexts);
+					data.put("BSA PIE Usecase Sales Org Regions (Auto)", tagTexts);
+					test.pass("BSA PIE Usecase Sales Org Regions (Auto) listed are \n" + tagTexts);
 					test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 					
-					NotepadManager.Over_WriteNotepad(POST_ETL_Filename, data);
+//					NotepadManager.Over_WriteNotepad(POST_ETL_Filename, data);
+					NotepadManager.ReadWriteNotepad(POST_ETL_Filename, data);
 					
 					BSAPIE_PO.Tabclose_Xmark().click();
 					Thread.sleep(4000);
+					
+					List<String> preETL_SalesorgAuto = NotepadManager.getValuesByKey(PRE_ETL_Filename,"BSA PIE Usecase Sales Org Regions (Auto)");
+					List<String> postETL_SalesorgAuto = NotepadManager.getValuesByKey(POST_ETL_Filename,"BSA PIE Usecase Sales Org Regions (Auto)");
+					
+					System.out.println("Sales org countries Before ETL upgrade are " + preETL_SalesorgAuto );
+					System.out.println("Sales org countries After ETL upgrade are " + postETL_SalesorgAuto );
+					
+					test.info("Sales org countries Before ETL upgrade are " + preETL_SalesorgAuto );
+					test.info("Sales org countries After ETL upgrade are " + postETL_SalesorgAuto );
+					System.out.println(" ----------");
+					
+					Map<String, List<String>> diff = NotepadManager.getListDifferences(preETL_SalesorgAuto, postETL_SalesorgAuto);
+
+				    List<String> addedInPost = diff.get("Added in Post List");
+				    List<String> removedFromPre = diff.get("Removed from Pre List");
+
+				    System.out.println("Added in Post List: " + addedInPost);
+				    System.out.println("Removed from Pre List: " + removedFromPre);
+				    
+				    test.info("Country Added After ETL upgrade is :-- " + addedInPost);
+				    test.info("Country Removed before ETL upgrade is :-- " + removedFromPre);
+					
 				} catch (Exception e) {
 					System.out.println("No Sales Org Regions (Auto) items listed");
 				}
@@ -184,26 +208,5 @@ public class TC004_Post_ETL_NewRegion_ADD_BSAPIEAutoRegionField extends BaseTest
 				test.log(Status.FAIL,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 			}
 		}
-		
-		List<String> preETL_SalesorgAuto = NotepadManager.getValuesByKey(PRE_ETL_Filename,"Sales Org Regions (Auto)");
-		List<String> postETL_SalesorgAuto = NotepadManager.getValuesByKey(POST_ETL_Filename,"Sales Org Regions (Auto)");
-		
-		System.out.println("Sales org countries Before ETL upgrade are " + preETL_SalesorgAuto );
-		System.out.println("Sales org countries After ETL upgrade are " + postETL_SalesorgAuto );
-		
-		test.info("Sales org countries Before ETL upgrade are " + preETL_SalesorgAuto );
-		test.info("Sales org countries After ETL upgrade are " + postETL_SalesorgAuto );
-		System.out.println(" ----------");
-		
-		Map<String, List<String>> diff = NotepadManager.getListDifferences(preETL_SalesorgAuto, postETL_SalesorgAuto);
-
-	    List<String> addedInPost = diff.get("Added in Post List");
-	    List<String> removedFromPre = diff.get("Removed from Pre List");
-
-	    System.out.println("Added in Post List: " + addedInPost);
-	    System.out.println("Removed from Pre List: " + removedFromPre);
-	    
-	    test.info("Country Added After ETL upgrade is :-- " + addedInPost);
-	    test.info("Country Removed before ETL upgrade is :-- " + removedFromPre);
 	}
 }

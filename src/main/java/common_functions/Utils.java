@@ -4,7 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -98,10 +105,15 @@ public class Utils  {
 		return destinationpath;
 	}
 
+	/*******************
+	 * Get Class Name method
+	*******************/
 	public String getClassName(Object obj) {
 		return obj.getClass().getSimpleName();
 	}
-	
+	/*******************
+	 * Wait for the banner to appear and get text
+	*******************/
 	public static String waitForBannerAndGetText(WebDriver driver, Duration timeout) {
 	    WebDriverWait wait = new WebDriverWait(driver, timeout);
 	    Function<WebDriver, WebElement> getBannerElement = drv -> {
@@ -131,5 +143,41 @@ public class Utils  {
 
 	    System.out.println("✅ Banner disappeared.");
 	    return bannerText;
+	}
+	
+	/*********************************************
+	 * Get the difference between 2 Lists
+	*********************************************/
+	public static <T> List<T> Show_List_Differences(List<T> list1, List<T> list2) {
+        Set<T> allItems = new HashSet<>(list1);
+        allItems.addAll(list2);
+
+        List<T> differences = new ArrayList<>();
+        for (T item : allItems) {
+            boolean inList1 = list1.contains(item);
+            boolean inList2 = list2.contains(item);
+            if (inList1 != inList2) {
+                differences.add(item);
+            }
+        }
+        return differences;
+    }
+	
+	public static <T> Map<String, List<T>> ShowList_Item_Differences(List<T> pre, List<T> post) {
+		 List<T> removed = new ArrayList<>(pre);
+		    removed.removeAll(post);  // Items in pre but not in post
+
+		    List<T> added = new ArrayList<>(post);
+		    added.removeAll(pre);     // Items in post but not in pre
+
+		    List<T> retained = new ArrayList<>(pre);
+		    retained.retainAll(post); // Items common to both
+
+		    Map<String, List<T>> result = new HashMap<>();
+		    result.put("removed", removed);
+		    result.put("added", added);
+		    result.put("retained", retained);
+
+		    return result;
 	}
 }

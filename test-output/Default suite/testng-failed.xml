@@ -3,15 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="pim.automation.framework.TC_002_MarketingWorkFlowApproval">
+      <class name="PreETL_Update.TC004_NewRegionaddedtotheBSAPIEAutoRegionField">
         <methods>
+          <include name="BeforeETL_GetAllRegions_AutoRegionField"/>
           <include name="setUp"/>
-          <include name="Logout"/>
-          <include name="MarketingWorkFlowApproval"/>
           <include name="intitializeReport"/>
           <include name="publishReport"/>
         </methods>
-      </class> <!-- pim.automation.framework.TC_002_MarketingWorkFlowApproval -->
+      </class> <!-- PreETL_Update.TC004_NewRegionaddedtotheBSAPIEAutoRegionField -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

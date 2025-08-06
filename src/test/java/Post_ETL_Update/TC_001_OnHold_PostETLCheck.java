@@ -170,21 +170,26 @@ public class TC_001_OnHold_PostETLCheck extends BaseTest {
 			}
 
 			if (targetElement != null) {
-				System.out.println("Status is : " + targetElement.getText());
-				RecordStatus = targetElement.getText();
-				test.pass("Status of the " + matid + "  is  : - " + RecordStatus);
+			    System.out.println("Status is : " + targetElement.getText());
+			    RecordStatus = targetElement.getText();
+			    test.info("Status of the " + matid + "  is  : - " + RecordStatus);
 
-				Assert.assertEquals(RecordStatus, "InProgress","RecordStatus is not 'InProgress' and its status is " + RecordStatus);
-				data.put("Status", RecordStatus);
+			    if (!"InProgress".equals(RecordStatus)) {
+			        test.fail("❌ RecordStatus is not 'InProgress'. It is: " + RecordStatus + " So cannot continue with the workflow");
+			        test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+			    }
 
-				test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-				BSAPIE_PO.Tabclose_Xmark().click();
-				Thread.sleep(4000);
+			    Assert.assertEquals(RecordStatus, "InProgress", "RecordStatus is not 'InProgress' and its status is " + RecordStatus);
+			    data.put("Status", RecordStatus);
+
+			    test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+			    BSAPIE_PO.Tabclose_Xmark().click();
+			    Thread.sleep(4000);
 
 			} else {
-				System.out.println("🔴 No target element to act upon.");
-				test.fail("No element found");
-				test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+			    System.out.println("🔴 No target element to act upon.");
+			    test.fail("❌ No element found to validate status");
+			    test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 			}
 
 			/*************************************************
@@ -246,7 +251,7 @@ public class TC_001_OnHold_PostETLCheck extends BaseTest {
 			    } else {
 			        System.out.println("As expected there are no on hold items");
 			        test.pass("As expected there are no on hold items. No tags found.");
-			        test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+			        test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 			    }
 
 			} catch (Exception e) {

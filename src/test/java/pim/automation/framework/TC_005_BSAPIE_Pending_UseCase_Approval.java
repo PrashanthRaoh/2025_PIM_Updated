@@ -110,7 +110,7 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 			System.out.println("Item " + (i + 1) + ":--" + actualText);
 			Assert.assertEquals(actualText, expectedItems.get(i), "Mismatch at item " + (i + 1));
 
-			if (actualText.contains("On Hold - BSA PIE (Rule Triggered)")) {
+			if (actualText.contains("Pending Usecase Approval - BSA PIE")) {
 				js.executeScript("arguments[0].scrollIntoView({block: 'center'});", innerDiv);
 				try {
 					innerDiv.click();
@@ -125,7 +125,7 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 
 		/***************************************
-		 * ***** Click on On Hold - BSA PIE(Rule Triggered) ****
+		 * ***** Click on On Pending Usecase Approval - BSA PIE ****
 		 ***************************************/
 		utils.waitForElement(() -> searchPage.getgrid(), "clickable");
 		test.pass("Search page grid displayed after clicking on On Hold - BSA PIE");

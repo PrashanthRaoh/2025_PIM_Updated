@@ -1,0 +1,5 @@
+"Material ID" = "30420240001"
+"BSA PIE Sellable Product Status" = "OnHoldSystem"
+"Total OnHold Items" = "8"
+"BSA PIE Sellable Product Status items" = ["Contact Angle (Degrees) Catalog","Individual Inner Ring Width (in)","Individual Inner Ring Width (mm)","Individual Outer Ring Width (in)","Individual Outer Ring Width (mm)","Inner Ring Material","Number of Bearings","Preload Level"]
+---------------------------------------

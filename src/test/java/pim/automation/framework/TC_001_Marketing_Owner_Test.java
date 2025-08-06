@@ -28,8 +28,6 @@ import common_functions.Utils;
 import pages.HomePage;
 import pages.SearchPage2;
 
-
-
 public class TC_001_Marketing_Owner_Test extends BaseTest {
 	public ExtentTest test;
 
@@ -55,16 +53,14 @@ public class TC_001_Marketing_Owner_Test extends BaseTest {
 		System.out.println("Logged in user is  " + currentloggedinuser.getText());
 		test.pass("Current user logged in is " + currentloggedinuser.getText());
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-		assertTrue("Logged-in user should be Marketing owner",
-				currentloggedinuser.getText().contains("attributeownermarketing.test1"));
+		assertTrue("Logged-in user should be Marketing owner", currentloggedinuser.getText().contains("attributeownermarketing.test1"));
 
 		/***************************************
 		 * ------- Click on Marketing enrichment link in my todos --------- *
 		 *************************************************/
 		Thread.sleep(3000);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		WebElement innerDiv = homePage.enrichMarketingAttributelink().getShadowRoot()
-				.findElement(By.cssSelector("#workflowMetadataContainer"));
+		WebElement innerDiv = homePage.enrichMarketingAttributelink().getShadowRoot().findElement(By.cssSelector("#workflowMetadataContainer"));
 		String actualText = innerDiv.getText().trim();
 		
 		js.executeScript("arguments[0].scrollIntoView({block: 'center'});", innerDiv);

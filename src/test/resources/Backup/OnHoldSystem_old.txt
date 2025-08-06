@@ -1,0 +1,12 @@
+ "Material ID" = "000000000190017110"
+ "Status" = "OnHoldSystem"
+ "Total OnHold Items" = "15"
+ "Onhold items" = ["Has Cage","Maximum Housing Fillet Radius (in)","Maximum Shaft Fillet Radius (in)","Maximum Housing Fillet Radius (mm)","Bore Diameter (in)","Bore Type","Has Closure","Maximum Shaft Fillet Radius (mm)","Total Width Over Outer Ring(s) (in)","Total Width Over Inner Ring(s) (in)","Outer Diameter (mm)","Total Width Over Outer Ring(s) (mm)","Total Width Over Inner Ring(s) (mm)","Bore Diameter (mm)","Outer Diameter (in)","Rolling Element Material","Bearing Assembly Width (mm)","Bearing Assembly Width (in)","Inner Ring Material"]
+
+
+-------------------------------------
+ "Material ID" = "000000000190031385"
+ "Status" = "OnHoldSystem"
+ "Total OnHold Items" = "18"
+ "Onhold items" = ["Bearing Assembly Width (in)","Bearing Assembly Width (mm)","Bore Diameter (in)","Bore Diameter (mm)","Bore Type","Has Cage","Has Closure","Inner Ring Material","Maximum Housing Fillet Radius (in)","Maximum Housing Fillet Radius (mm)","Maximum Shaft Fillet Radius (in)","Maximum Shaft Fillet Radius (mm)","Outer Diameter (in)","Outer Diameter (mm)","Rolling Element Material","Tolerance System","Total Width Over Inner Ring(s) (in)","Total Width Over Inner Ring(s) (mm)","Total Width Over Outer Ring(s) (in)","Total Width Over Outer Ring(s) (mm)","Weight - Product Only (kg)","Weight - Product Only (lbs)"]
+---------------------------------------

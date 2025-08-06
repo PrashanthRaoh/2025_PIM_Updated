@@ -170,7 +170,8 @@ public class TC005_Post_ETL_Region_DELETE_BSAPIEAutoRegionField extends BaseTest
 					test.pass("BSA PIE Usecase Sales Org Regions (Auto) listed are \n" + tagTexts);
 					test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 					
-					NotepadManager.Over_WriteNotepad(POST_ETL_Filename, data);
+//					NotepadManager.Over_WriteNotepad(POST_ETL_Filename, data);
+					NotepadManager.ReadWriteNotepad(POST_ETL_Filename, data);
 					
 					BSAPIE_PO.Tabclose_Xmark().click();
 					Thread.sleep(4000);

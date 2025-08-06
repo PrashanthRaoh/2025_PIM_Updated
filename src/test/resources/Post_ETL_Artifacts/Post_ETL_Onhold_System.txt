@@ -1,0 +1,5 @@
+ "Material ID" = "000000000100030481"
+ "Status" = "InProgress"
+ "Total BSA PIE - Hold Attributes List (Rule Triggered) Items" = "0"
+ "BSA PIE - Hold Attributes List (Rule Triggered) items" = []
+---------------------------------------
