@@ -95,15 +95,27 @@ public class Utils  {
 	 * Taking screenshot method
 	*******************/
 	public static String Takescreenshot(WebDriver driver) throws IOException {
-		Date today = new Date();
-		SimpleDateFormat SIMPDFORMAT = new SimpleDateFormat("ddMMYY_HHmmss");
-		String date = SIMPDFORMAT.format(today);
+		String timestamp = new SimpleDateFormat("yyyyMM_dd_HHmmss").format(new Date());
+		String screenshotFileName = "screenshot_" +  timestamp + ".png";
+		String relativePath = "Screenshots/" + screenshotFileName;
+		
+		String fullPath = BaseTest.reportDirPath + "/" + relativePath;
 		File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		File Destinationfilepath = new File("./Screenshots/ " + date + ".png");
-		FileUtils.copyFile(src, Destinationfilepath);
-		String destinationpath = Destinationfilepath.getAbsolutePath();
-		return destinationpath;
+	    FileUtils.copyFile(src, new File(fullPath));
+
+	    return relativePath;
+		
 	}
+//	public static String Takescreenshot(WebDriver driver) throws IOException {
+//		Date today = new Date();
+//		SimpleDateFormat SIMPDFORMAT = new SimpleDateFormat("ddMMYY_HHmmss");
+//		String date = SIMPDFORMAT.format(today);
+//		File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+//		File Destinationfilepath = new File("./Screenshots/ " + date + ".png");
+//		FileUtils.copyFile(src, Destinationfilepath);
+//		String destinationpath = Destinationfilepath.getAbsolutePath();
+//		return destinationpath;
+//	}
 
 	/*******************
 	 * Get Class Name method

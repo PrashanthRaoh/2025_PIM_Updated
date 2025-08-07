@@ -26,13 +26,14 @@
 			 <class name="PreETL_Update.TC004_Pre_ETL_NewRegion_ADD_totheBSAPIEAutoRegionField" /> 
 			<class name="PreETL_Update.TC005_Pre_ETL_Region_DELETE_BSAPIEAutoRegionField" /> 
 			<class name="PreETL_Update.TC006_Pre_ETL_UserupdatingBSAPIERegionsOverride" />   -->
+			<class name="PreETL_Update.TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes" />   
 				 <!-- ******************************** -->
 		
 			<!-- ***************** Post-ETL Scripts *************** -->
 			 <!-- <class name="Post_ETL_Update.TC_001_OnHold_PostETLCheck" /> 
 			 <class name="Post_ETL_Update.TC004_Post_ETL_NewRegion_ADD_BSAPIEAutoRegionField"/> 
 			 <class name="Post_ETL_Update.TC005_Post_ETL_Region_DELETE_BSAPIEAutoRegionField"/> --> 
-			 <class name="Post_ETL_Update.TC006_Post_ETL_UserupdatingBSAPIERegionsOverride"/> 
+			 <!-- <class name="Post_ETL_Update.TC006_Post_ETL_UserupdatingBSAPIERegionsOverride"/>  -->
 				
 			<!-- ******************************** --> 
 		</classes>

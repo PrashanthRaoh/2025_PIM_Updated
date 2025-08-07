@@ -4,15 +4,14 @@
   <test thread-count="5" name="BSAPIEOwner(failed)">
     <parameter name="UseCaseOwner" value="BSAPIEowner"/>
     <classes>
-      <class name="PreETL_Update.TC006_Pre_ETL_UserupdatingBSAPIERegionsOverride">
+      <class name="PreETL_Update.TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes">
         <methods>
-          <include name="BeforeETL_GetAllRegions_AutoRegionField"/>
           <include name="setUp"/>
-          <include name="Logout"/>
           <include name="intitializeReport"/>
+          <include name="BeforeETL_GetAllAttributes"/>
           <include name="publishReport"/>
         </methods>
-      </class> <!-- PreETL_Update.TC006_Pre_ETL_UserupdatingBSAPIERegionsOverride -->
+      </class> <!-- PreETL_Update.TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes -->
     </classes>
   </test> <!-- BSAPIEOwner(failed) -->
 </suite> <!-- Failed suite [PIM_automation_Suite] -->

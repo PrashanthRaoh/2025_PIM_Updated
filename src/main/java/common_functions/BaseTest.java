@@ -5,7 +5,9 @@ import org.testng.annotations.BeforeSuite;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -27,6 +29,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.beust.jcommander.Parameter;
 
+import freemarker.template.SimpleDate;
 import pages.HomePage;
 import pages.Login_Page;
 
@@ -38,17 +41,33 @@ public class BaseTest {
 	public static ExtentReports extentreport;
 	protected  static ExtentTest extentTest;
 	public static final String filepathname = "target/PIM_Report.html";
+	public static String reportDirPath;
+	public static String screenshotDirPath;
 
 	public void BaseTest() {
 		this.driver = driver;
 	}
 	
+	
+//	public void intitializeReport() {
+//		extentreport = new ExtentReports();
+//		ExtentSparkReporter sparkReporter = new ExtentSparkReporter(filepathname);
+//		sparkReporter.config().setTheme(Theme.DARK);
+//		sparkReporter.config().setDocumentTitle("PIM Automation Report");
+//		extentreport.attachReporter(sparkReporter);
+//	}
 	@BeforeSuite
-	public void intitializeReport() {
-		extentreport = new ExtentReports();
-		ExtentSparkReporter sparkReporter = new ExtentSparkReporter(filepathname);
+	public void initReport() {
+		String timestamp = new SimpleDateFormat("yyyyMM_dd_HHmmss").format(new Date());
+		reportDirPath = System.getProperty("user.dir")+ "/Reports/Report_" + timestamp;
+		screenshotDirPath = reportDirPath + "/Screenshots";
+		
+		new File(screenshotDirPath).mkdirs();
+		ExtentSparkReporter sparkReporter = new ExtentSparkReporter(reportDirPath + "/PIM_Report.html");
 		sparkReporter.config().setTheme(Theme.DARK);
-		sparkReporter.config().setDocumentTitle("PIM Automation Report");
+		extentreport = new ExtentReports();
+		extentreport.setSystemInfo("Environment", "QA");
+		extentreport.setSystemInfo("User", System.getProperty("user.name"));
 		extentreport.attachReporter(sparkReporter);
 	}
 	

@@ -358,6 +358,22 @@ public class DigitalAsset {
 						"#lit-grid > div > div.ag-root-wrapper-body.ag-layout-normal.ag-focus-managed > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-layout-normal.ag-row-no-animation > div.ag-center-cols-clipper > div > div > div:nth-child(3) > div > pebble-lov-item"))
 				.getShadowRoot().findElement(By.cssSelector("div > div > div > span.has-only-option"));
 	}
+	public WebElement Status_Approved_dropdownvalue() {
+		return driver.findElement(By.cssSelector("#app")).getShadowRoot()
+				.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+				.findElement(By.cssSelector("[id^='currentApp_search-thing_rs']")).getShadowRoot()
+				.findElement(By.cssSelector("[id^='app-entity-discovery-component-rs']")).getShadowRoot()
+				.findElement(By.cssSelector("#entitySearchDiscoveryGrid")).getShadowRoot()
+				.findElement(By.cssSelector("#entitySearchFilter")).getShadowRoot()
+				.findElement(By.cssSelector("#search-filter")).getShadowRoot()
+				.findElement(By.cssSelector("#rockEntityLov")).getShadowRoot()
+				.findElement(By.cssSelector("#entityLov")).getShadowRoot()
+				.findElement(By.cssSelector("div.base-grid-structure.p-relative > div.base-grid-structure-child-2.overflow-auto.p-relative > pebble-grid")).getShadowRoot()
+				.findElement(By.cssSelector("#grid")).getShadowRoot()
+				.findElement(By.cssSelector(
+						"#lit-grid > div > div.ag-root-wrapper-body.ag-layout-normal.ag-focus-managed > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-layout-normal.ag-row-no-animation > div.ag-center-cols-clipper > div > div > div:nth-child(2) > div > pebble-lov-item"))
+				.getShadowRoot().findElement(By.cssSelector("div > div > div > span.has-only-option"));
+	}
 
 	public WebElement Status_Apply_btn() {
 		return driver.findElement(By.cssSelector("#app")).getShadowRoot()
