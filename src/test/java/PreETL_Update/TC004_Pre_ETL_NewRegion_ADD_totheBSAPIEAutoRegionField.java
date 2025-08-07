@@ -294,7 +294,6 @@ public class TC004_Pre_ETL_NewRegion_ADD_totheBSAPIEAutoRegionField extends Base
 					.findElement(By.cssSelector("#rockTabs")).getShadowRoot()
 					.findElement(By.cssSelector("#tab-attributes")).getShadowRoot()
 					.findElement(By.cssSelector("#dropdown-wrapper"));
-			
 					dropdownWrapper.click();
 					Thread.sleep(2000);
 					digitalssetPage.Use_Case_Attributes_selection().click();

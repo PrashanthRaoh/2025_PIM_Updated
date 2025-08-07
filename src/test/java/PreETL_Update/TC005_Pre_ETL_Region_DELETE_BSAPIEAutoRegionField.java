@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -339,9 +338,9 @@ public class TC005_Pre_ETL_Region_DELETE_BSAPIEAutoRegionField extends BaseTest 
 						test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 					}
 
-					/**************************
+					/**************************************************
 					 * Get List of all Sales Org Regions (Auto)items *****
-					 **************************/
+					 **************************************************/
 					List<WebElement> tagElements = BSAPIESection.getShadowRoot().findElements(By.cssSelector("[id^='tag']"));
 					System.out.println("There are " + tagElements.size() + " on Hold Items");
 					data.put("Total BSA PIE Usecase Sales Org Regions (Auto) Items", tagElements.size());
