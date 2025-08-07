@@ -36,7 +36,6 @@ public class TC_001_OnHold_PostETLCheck extends BaseTest {
 	
 	@Test(groups = { "BSAPIEowner" })
 	public void Post_ETL_Upgrade_Check() throws InterruptedException, IOException {
-
 		String className = this.getClass().getSimpleName();
 		System.out.println(className);
 		test = BaseTest.extentreport.createTest(className);
