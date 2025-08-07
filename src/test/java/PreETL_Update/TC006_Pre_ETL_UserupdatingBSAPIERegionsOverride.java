@@ -38,7 +38,6 @@ import pages.HomePage;
 import pages.SearchPage2;
 import pages.SummaryPage;
 
-
 public class TC006_Pre_ETL_UserupdatingBSAPIERegionsOverride extends BaseTest {
 
 	public ExtentTest test;
