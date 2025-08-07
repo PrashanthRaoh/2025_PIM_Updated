@@ -6,31 +6,23 @@ ETL removes one/all the entries in BSA PIE Usecase Sales Org Regions (Auto).
 Descrption - Post ETL verifies entries are still in BSA PIE Usecase Sales Org Regions (Override) 
  ************************************************/
 import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.function.Function;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.SearchContext;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-
 import common_functions.BaseTest;
 import common_functions.NotepadManager;
 import common_functions.Utils;
