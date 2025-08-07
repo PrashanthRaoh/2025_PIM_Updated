@@ -34,7 +34,6 @@ import pages.SearchPage2;
 import pages.SummaryPage;
 
 public class TC007_Post_ETL_UpdatingApprovedRecwithAutoApproveattributes extends BaseTest {
-
 	public ExtentTest test;
 	Map<String, Object> data = new LinkedHashMap<>();
 	List<String> searchFieldResults;

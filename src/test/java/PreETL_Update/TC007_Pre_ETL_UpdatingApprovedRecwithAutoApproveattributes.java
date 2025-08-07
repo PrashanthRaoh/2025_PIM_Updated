@@ -1,9 +1,7 @@
 package PreETL_Update;
 
 /************************************************
-TC 005 - Gets all the region added to the BSA PIE Usecase Sales Org Regions (Auto)  Field. 
-ETL removes one/all the entries in BSA PIE Usecase Sales Org Regions (Auto). 
-Descrption - Post ETL verifies entries are still in BSA PIE Usecase Sales Org Regions (Override) 
+TC 007 - Gets all the attributes listed for Approved Record post ETL changes
  ************************************************/
 import static org.junit.Assert.assertTrue;
 
