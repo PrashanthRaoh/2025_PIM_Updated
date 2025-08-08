@@ -136,6 +136,7 @@ public class TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes extends 
 		test.log(Status.PASS,  MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		Thread.sleep(2000);
 		data.put("Material ID", matid);
+		
 		/************************************
 		 * Get the status of the record
 		************************************/
@@ -166,6 +167,7 @@ public class TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes extends 
 		if (targetElement != null) {
 			RecordStatus = targetElement.getText();
 			System.out.println("Status is : " + RecordStatus);
+			Assert.assertEquals(RecordStatus, "Approved",  "❌ Record status is not 'Approved");
 			data.put("Status", RecordStatus);
 			test.info("Status of the " + matid + "  is  : - " + RecordStatus);
 			test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
@@ -173,10 +175,19 @@ public class TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes extends 
 					/*********************************
 					 * Attributes with plane text
 					*******************************/
-		List<String> attributelist = Arrays.asList("X Plant Material Status Description (Global)",
-	            "X Plant Material Status Code (Global)","Weight - Product Only (lbs)","Weight - Product Only (kg)","X Plant Material Status Description (Global)",
-	            "X Plant Material Status Code (Global)","Weight - Product Only (lbs)", "Weight - Product Only (kg)","UPC Number","Sellable Material ID",
-	            "Market Part Number", "ECCN","Book Description (ZB11)","Application Type Description");
+		List<String> attributelist = Arrays.asList(
+			    "X Plant Material Status Description (Global)",
+			    "X Plant Material Status Code (Global)",
+			    "Weight - Product Only (lbs)",
+			    "Weight - Product Only (kg)",
+			    "UPC Number",
+			    "Sellable Material ID",
+			    "Market Part Number",
+			    "ECCN",
+			    "Book Description (ZB11)",
+			    "Application Type Description"
+			);
+
 		
 			for (int i = 0; i < attributelist.size(); i++) {
 				String fieldLabel =attributelist.get(i);
