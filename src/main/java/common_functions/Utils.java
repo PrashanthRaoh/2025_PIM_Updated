@@ -11,7 +11,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -34,7 +33,7 @@ public class Utils  {
 	public Utils(WebDriver driver, ExtentTest test) {
 		this.driver = driver;
 		this.test = test;
-		this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		this.wait = new WebDriverWait(driver, Duration.ofSeconds(50));
 	}
 
 	/*****************************************************

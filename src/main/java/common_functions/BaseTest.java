@@ -1,35 +1,24 @@
 package common_functions;
 
-import org.testng.annotations.BeforeSuite;
-
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.reporter.ExtentReporter;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-import com.beust.jcommander.Parameter;
-
-import freemarker.template.SimpleDate;
 import pages.HomePage;
 import pages.Login_Page;
 

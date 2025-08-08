@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.SearchContext;
@@ -132,6 +133,33 @@ public class TC009_BSAPIErecNonAutoApproveattributes extends BaseTest {
 		test.log(Status.PASS,  MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		Thread.sleep(2000);
 		data.put("Material ID", matid);
+		
+		/*************************************************
+	     * --------- Check any presence of Workflow -------
+	     ************************************************/
+	    try {
+			List<WebElement> allSteps = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+			        .findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+			        .findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
+			        .findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
+			        .findElement(By.cssSelector("#entityManageSidebar")).getShadowRoot()
+			        .findElement(By.cssSelector("#sidebarTabs")).getShadowRoot()
+			        .findElement(By.cssSelector("[id^='rock-workflow-panel-component-rs']")).getShadowRoot()
+			        .findElements(By.cssSelector("pebble-step"));
+
+			List<WebElement> visibleSteps = allSteps.stream().filter(WebElement::isDisplayed).collect(Collectors.toList());
+			int visibleCount = visibleSteps.size();
+			System.out.println("✅ Workflow that appeared after approval are : " + visibleCount);
+
+			Assert.assertEquals(visibleCount, 0, "❌ Expected no workflows, but found: " + visibleCount);
+			System.out.println("As Expected there are no workflows found.");
+			test.pass("As Expected there are no workflows found.");
+			test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	    
 		/*********************************
 		 * Get Non Approved elements attributes
 		*******************************/
