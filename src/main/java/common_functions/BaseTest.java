@@ -74,7 +74,7 @@ public class BaseTest {
 	@AfterSuite
 	public void publishReport() throws IOException {
 		extentreport.flush();
-		Desktop.getDesktop().browse(new File(filepathname).toURI());
+		Desktop.getDesktop().browse(new File(reportDirPath + "/PIM_Report.html").toURI());
 	}
 
 	@Parameters("UseCaseOwner")
