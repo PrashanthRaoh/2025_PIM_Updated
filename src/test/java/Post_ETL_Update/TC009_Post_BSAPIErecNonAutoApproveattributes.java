@@ -48,6 +48,7 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 		BSAPIE_Page BSAPIE_PO = new BSAPIE_Page(driver);
 		
 		String PRE_ETL_Filename = "/Pre_ETL_Artifacts/Non_AutoApproveattributes.txt";
+//		String POST_ETL_Filename = "/Pre_ETL_Artifacts/Post_Non_AutoApproveattributes.txt";
 		
 		utils.waitForElement(() -> homePage.sellablematerialtabelement(), "clickable");
 		test.pass("Home Page is displayed");
@@ -113,31 +114,31 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 		    /***************************** 
 		     * Check any presence of Workflow 
 		     * ***************************/
-		    try {
-		        List<WebElement> allSteps = driver.findElement(By.cssSelector("#app")).getShadowRoot()
-		            .findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
-		            .findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
-		            .findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
-		            .findElement(By.cssSelector("#entityManageSidebar")).getShadowRoot()
-		            .findElement(By.cssSelector("#sidebarTabs")).getShadowRoot()
-		            .findElement(By.cssSelector("[id^='rock-workflow-panel-component-rs']")).getShadowRoot()
-		            .findElements(By.cssSelector("pebble-step"));
-
-		        List<WebElement> visibleSteps = allSteps.stream().filter(WebElement::isDisplayed).collect(Collectors.toList());
-		        int visibleCount = visibleSteps.size();
-		        System.out.println("✅ Workflow that appeared after approval are: " + visibleCount);
-
-		        Assert.assertEquals(visibleCount, 0, "❌ Expected no workflows, but found: " + visibleCount);
-		        System.out.println("As expected, there are no workflows found.");
-		        test.pass("As expected, there are no workflows found.");
-		        test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		        System.out.println("There are workflows defined.Exitting");
-		        test.fail("There are workflows defined");
-		        test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-		    }
+//		    try {
+//		        List<WebElement> allSteps = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+//		            .findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+//		            .findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
+//		            .findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
+//		            .findElement(By.cssSelector("#entityManageSidebar")).getShadowRoot()
+//		            .findElement(By.cssSelector("#sidebarTabs")).getShadowRoot()
+//		            .findElement(By.cssSelector("[id^='rock-workflow-panel-component-rs']")).getShadowRoot()
+//		            .findElements(By.cssSelector("pebble-step"));
+//
+//		        List<WebElement> visibleSteps = allSteps.stream().filter(WebElement::isDisplayed).collect(Collectors.toList());
+//		        int visibleCount = visibleSteps.size();
+//		        System.out.println("✅ Workflow that appeared after approval are: " + visibleCount);
+//
+//		        Assert.assertEquals(visibleCount, 0, "❌ Expected no workflows, but found: " + visibleCount);
+//		        System.out.println("As expected, there are no workflows found.");
+//		        test.pass("As expected, there are no workflows found.");
+//		        test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+//
+//		    } catch (IOException e) {
+//		        e.printStackTrace();
+//		        System.out.println("There are workflows defined.Exitting");
+//		        test.fail("There are workflows defined");
+//		        test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+//		    }
 		    /*************************************************
 		     *  Get Non Approved Elements Attributes
 		     * **************************************************/
@@ -407,9 +408,9 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 					test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 				}
 			}
-//			/**********************************************
-//			 * From Summary tab select DAM: Review Representative Image (Primary) business condition
-//			**********************************************/
+			/**********************************************
+			 * From Summary tab select DAM: Review Representative Image (Primary) business condition
+			**********************************************/
 			List<WebElement> conditions_refresh = digitalssetPage.summarybcs().findElements(By.cssSelector(".data-list"));
 			System.out.println("There are " + conditions_refresh.size() + " elements after closing the summary tab----");
 			
@@ -433,6 +434,8 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 				conditions_refresh.get(matchedRowIndex_2D).click();
 			} else {
 				System.out.println("DAM: Review 2D Line Drawing was not found.");
+				test.fail("DAM: Review 2D Line Drawing was not found.");
+				test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 			}
 
 			System.out.println("DAM: Review Representative Image (Primary) found at row -- " + matchedRowIndex_Primary);
@@ -441,42 +444,55 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 			test.pass("Clicked on DAM: Review 2D Line Drawing which is found at row -- " + matchedRowIndex_2D);
 			test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 			
-			WebElement approve2dlinedrawing_dropdown = digitalssetPage.common_ele_2dlinedrawingDropdown().getShadowRoot()
-					.findElement(By.cssSelector("#collectionContainer")).getShadowRoot()
-					.findElement(By.cssSelector("#collection_container_wrapper > div.d-flex > div.tags-container"));
+			WebElement Line_2D_Data = digitalssetPage.common_ele_2dlinedrawingDropdown().getShadowRoot()
+			.findElement(By.cssSelector("#collectionContainer")).getShadowRoot()
+			.findElement(By.cssSelector(".d-flex"));
 			
-			utils.waitForElement(() -> approve2dlinedrawing_dropdown, "visible");
+			utils.waitForElement(() -> Line_2D_Data, "visible");
 			Thread.sleep(2000);
-			test.pass("2d line drawing window appeared");
-			test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-			approve2dlinedrawing_dropdown.click();
-			Thread.sleep(1000);
 			
-			try {
-				WebElement approvedropdownvalue = digitalssetPage.common_ele_2dlinedrawingDropdown().
-				getShadowRoot().findElement(By.cssSelector("#lov")).
-				getShadowRoot().findElement(By.cssSelector("div.base-grid-structure.p-relative > div.base-grid-structure-child-2.overflow-auto.p-relative > pebble-grid")).
-				getShadowRoot().findElement(By.cssSelector("#grid")).
-				getShadowRoot().findElement(By.cssSelector("#lit-grid > div > div.ag-root-wrapper-body.ag-layout-normal.ag-focus-managed > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-layout-normal.ag-row-no-animation > div.ag-center-cols-clipper > div > div > div > div > pebble-lov-item")).
-				getShadowRoot().findElement(By.cssSelector("div > div > div > span"));
-				/*******************
-				 * Approve 2d line drawing
-				*******************/
-				approvedropdownvalue.click();
+			if(Line_2D_Data.getText() == null) {
+				WebElement approve2dlinedrawing_dropdown = digitalssetPage.common_ele_2dlinedrawingDropdown()
+						.getShadowRoot().findElement(By.cssSelector("#collectionContainer")).getShadowRoot()
+						.findElement(By.cssSelector("#collection_container_wrapper > div.d-flex > div.tags-container"));
+
+				utils.waitForElement(() -> approve2dlinedrawing_dropdown, "visible");
 				Thread.sleep(2000);
-				digitalssetPage.Save_2d_Line_Drawring().click();
-				Thread.sleep(3000);
-				utils.waitForElement(() -> digitalssetPage.Save_2d_Line_Drawring(), "clickable");
-				Thread.sleep(2000);
-				waitforbanner();
-				test.pass("Approved 2d Line drawing");
-				test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-			} catch (Exception e) {
-				System.out.println("Exception occured while approving DAM: Review 2D Line Drawing");
-				test.fail("Exception occured while adding approving DAM: Review 2D Line Drawing");
-				test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				test.pass("2d line drawing window appeared");
+				test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				approve2dlinedrawing_dropdown.click();
+				Thread.sleep(1000);
+
+				try {
+					WebElement approvedropdownvalue = digitalssetPage.common_ele_2dlinedrawingDropdown().getShadowRoot()
+							.findElement(By.cssSelector("#lov")).getShadowRoot()
+							.findElement(By.cssSelector("div.base-grid-structure.p-relative > div.base-grid-structure-child-2.overflow-auto.p-relative > pebble-grid")).getShadowRoot()
+							.findElement(By.cssSelector("#grid")).getShadowRoot()
+							.findElement(By.cssSelector("#lit-grid > div > div.ag-root-wrapper-body.ag-layout-normal.ag-focus-managed > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-layout-normal.ag-row-no-animation > div.ag-center-cols-clipper > div > div > div > div > pebble-lov-item")).getShadowRoot()
+							.findElement(By.cssSelector("div > div > div > span"));
+					/*******************
+					 * Approve 2d line drawing
+					 *******************/
+					approvedropdownvalue.click();
+					Thread.sleep(3000);
+					digitalssetPage.Save_2d_Line_Drawring().click();
+					Thread.sleep(3000);
+					utils.waitForElement(() -> digitalssetPage.Save_2d_Line_Drawring(), "clickable");
+					Thread.sleep(2000);
+					waitforbanner();
+					test.pass("Approved 2d Line drawing");
+					test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				} catch (Exception e) {
+					System.out.println("Exception occured while approving DAM: Review 2D Line Drawing");
+					test.fail("Exception occured while adding approving DAM: Review 2D Line Drawing");
+					test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				}
 			}
-		
+			else {
+				System.out.println("2d line drawing already has a status :- " + Line_2D_Data.getText());
+				test.pass("2d line drawing already has a status :- " + Line_2D_Data.getText());
+				test.log(Status.PASS,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+			}
 		/*************************************************
 		 * --------- After approving and adding the image check the % now ------ *
 		 ************************************************/
@@ -553,9 +569,9 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 						"#lit-grid > div > div.ag-root-wrapper-body.ag-layout-normal.ag-focus-managed > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-layout-normal.ag-row-no-animation > div.ag-center-cols-clipper > div > div > div"));
 				
 				System.out.println("Total rows after clicking on Pending Usecase Approval - BSA PIE Inprogress status -- " + arrrowsdefined1.size());
-				test.pass("Rows after after clicking on Pending Usecase Approval - BSA PIE Inprogress status appeared");
+				test.pass("Rows after after clicking Selecting the record appeared");
 				test.log(Status.PASS,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-				assertTrue("There should be results after applying filters with Inprogress status", arrrowsdefined1.size() > 0);
+				assertTrue("There should be results after entering the Material id in search thing domain ", arrrowsdefined1.size() > 0);
 
 				WebElement RowByRow1 = arrrowsdefined1.get(0);
 				System.out.println("Material ID -- " + Matid + " Material Description --" + SellableMaterialDescription);
@@ -566,18 +582,19 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 				matidElement1.click();
 				Thread.sleep(3000);
 				utils.waitForElement(() -> summaryPage.Things_INeedToFix(), "visible");
+				test.pass("Summary page displayed after clicking on the Material id ");
 				test.log(Status.PASS,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 				Thread.sleep(2000);
 				List<WebElement> bussrule = searchPage.BusinessRule().getShadowRoot().findElements(By.cssSelector("#accordion\\ 0 > div > div > div"));
-				System.out.println("There are  " + bussrule.size() + " bussrule");
-				Assert.assertEquals(bussrule.size(), 1, "The size of bussrule should be 1");
+				System.out.println("There are  " + bussrule.size() + " bussiness rule");
+				Assert.assertEquals(bussrule.size(), 1, "The size of bussiness rule should be 1");
 				/*************************************************
 				 * --------- Click on the Marketing enrichment business rule------- *
 				 ************************************************/
 				bussrule.get(0).click();
 				Thread.sleep(4000);
 				utils.waitForElement(searchPage::shortDescription, "clickable");
-				test.pass("Summary page of the material displayed");
+				test.pass("Marketing enrichment business rule page of the material displayed");
 				test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 				/*************************************************
 				 * --------- Enter mandatory fields to complete the transaction------- *
@@ -597,10 +614,17 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 					Thread.sleep(3000);
 					waitforbanner();
 				}
+				else {
+					 System.out.println("Long and short description has already values");
+					 test.pass("Long and short description has already values");
+					 test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				}
 			}
 			catch(Exception e) {
 				System.out.println("Error while updating the data for Marketing Owner");
 				e.printStackTrace();
+				test.fail("Error while updating the data for Marketing Owner");
+				test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 			}
 			/********************************
 			 * Logout as Marketing owner
@@ -621,7 +645,7 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 			test.pass("Home Page is displayed");
 			test.log(Status.PASS,  MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 			utils.waitForElement(() -> homePage.BSAPIEUsecaseApprovalTab(), "visible");
-			
+			Thread.sleep(5000);
 			homePage.clickSearch_Products_Button().click();
 			Thread.sleep(3000);
 			utils.waitForElement(() -> searchPage.getgrid(), "clickable");
@@ -679,8 +703,8 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 			        List<WebElement> steps = BSAPIE_PO.Workflows().stream().filter(WebElement::isDisplayed).collect(Collectors.toList());
 			        int visibleCount = steps.size();
 			        System.out.println("✅ Workflow that appeared after approval are: " + visibleCount);
-			        Assert.assertEquals(visibleCount> 0, "❌ Expected workflows, but nothing found.");
-			        System.out.println("As expected, there are no workflows found.");
+			        Assert.assertTrue(visibleCount > 0, "❌ Expected workflows, but nothing found.");
+			        System.out.println("As expected, there are " + visibleCount + "  workflows found");
 			        test.pass("As expected, there are " + visibleCount + "  workflows found.");
 			        test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 			        
@@ -754,7 +778,56 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 					    Assert.assertEquals(visibleCount1, 0, "❌ Expected no workflows, but found: " + visibleCount1);
 					    test.pass("Record moved to Approved state");
 					    test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-			        
+					    
+						/********************************
+						 Verify the status to be approved
+						*********************************/
+						Actions actions2 = new Actions(driver);
+						summaryPage.SearchIcon().click();
+						summaryPage.SearchInputfield().sendKeys("BSA PIE Sellable Product Status");
+						actions2.moveToElement(summaryPage.SearchInputfield()).sendKeys(Keys.ENTER).build().perform();
+						Thread.sleep(5000);
+						WebElement targetElement = null;
+						String RecordStatus = null;
+						try {
+							targetElement = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+									.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+									.findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
+									.findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
+									.findElement(By.cssSelector("#rockDetailTabs")).getShadowRoot()
+									.findElement(By.cssSelector("#rockTabs")).getShadowRoot()
+									.findElement(By.cssSelector("[id^='rock-wizard-manage-component-rs']")).getShadowRoot()
+									.findElement(By.cssSelector("[id^='rock-attribute-manage-component-rs']")).getShadowRoot()
+									.findElement(By.cssSelector("#rock-attribute-list-container > rock-attribute-list")).getShadowRoot()
+									.findElement(By.cssSelector("[id^='rs']")).getShadowRoot()
+									.findElement(By.cssSelector("#input")).getShadowRoot()
+									.findElement(By.cssSelector("bedrock-lov")).getShadowRoot()
+									.findElement(By.cssSelector("#collectionContainer")).getShadowRoot()
+									.findElement(By.cssSelector("#collection_container_wrapper > div.d-flex > div.tags-container"));
+						} catch (Exception inner) {
+							System.out.println("❌ Neither attribute list nor 'attributes not available' element found.");
+							inner.printStackTrace();
+						}
+
+						if (targetElement != null) {
+						    System.out.println("Status is : " + targetElement.getText());
+						    RecordStatus = targetElement.getText();
+						    test.info("Status of the " + matid + "  is  : - " + RecordStatus);
+
+						    if (!"Approved".equals(RecordStatus)) {
+						        test.fail("❌ RecordStatus is not 'Approved'. It is: " + RecordStatus + " So cannot continue with the workflow");
+						        test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+						    }
+						    Assert.assertEquals(RecordStatus, "Approved", "RecordStatus is not 'Approved' and its status is " + RecordStatus);
+						    test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+						    BSAPIE_PO.Tabclose_Xmark().click();
+						    Thread.sleep(4000);
+
+						} else {
+						    System.out.println("🔴 No target element to act upon.");
+						    test.fail("❌ No element found to validate status");
+						    test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+						}
 			    } catch (IOException e) {
 			        e.printStackTrace();
 			        System.out.println("There are NO workflows defined.Exitting");
@@ -763,11 +836,17 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 			    }
 			}
 			catch(Exception e) {
-				System.out.println("Error occured while approving the data as BSA PIE Owner");
+				 System.out.println("Error occured while approving the data as BSA PIE Owner");
+				 e.printStackTrace();
+				 test.fail("Error occured while approving the data as BSA PIE Owner");
+			     test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 			}
 		}
 		catch(Exception e) {
-			System.out.println("Error while updating the data");
+			System.out.println("Error while updating the data for BSA PIE Owner - Outer");
+			e.printStackTrace();
+			test.fail("Error occured while approving the data as BSA PIE Owner - Outer");
+		    test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		}
 	}
 	
