@@ -116,10 +116,7 @@ public class TC006_Post_ETL_UserupdatingBSAPIERegionsOverride extends BaseTest {
 				utils.waitForElement(() -> summaryPage.Things_INeedToFix(), "visible");
 				test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription	+ " is selected for verification");
 				test.log(Status.PASS,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-
-				utils.waitForElement(() -> summaryPage.Things_INeedToFix(), "visible");
-				test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription + " is selected for completion");
-				test.log(Status.PASS,  MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				
 				Thread.sleep(2000);
 				data.put("Material ID", matid);
 				/*************************************************

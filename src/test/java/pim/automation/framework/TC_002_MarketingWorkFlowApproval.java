@@ -32,7 +32,7 @@ public class TC_002_MarketingWorkFlowApproval extends BaseTest {
 
 	public ExtentTest test;
 
-	@Test()
+	@Test(groups={"OwnerMarketing"})
 	public void MarketingWorkFlowApproval() throws InterruptedException, IOException {
 		String className = this.getClass().getSimpleName();
 		System.out.println(className);

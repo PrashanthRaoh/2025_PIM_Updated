@@ -244,8 +244,7 @@ public class TC_004_Digital_Asset_Approve_AddImage extends BaseTest {
 		utils.waitForElement(() -> searchPage.ProgressRing(), "visible");
 		String percentagecompletion = searchPage.ProgressRing().getText();
 		System.out.println("Percentage completion of " + matid + " is " + percentagecompletion + " % ");
-		test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription
-				+ " is selected for completion");
+		test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription + " is selected for completion");
 		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		
 		/**************************************************
