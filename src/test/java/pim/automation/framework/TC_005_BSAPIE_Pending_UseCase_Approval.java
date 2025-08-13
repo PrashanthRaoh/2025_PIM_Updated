@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.openqa.selenium.By;
@@ -155,7 +156,17 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		assertTrue("There should be results after applying filters with Inprogress status", arrrowsdefined.size() > 0);
 
-		WebElement RowByRow = arrrowsdefined.get(0);
+		/************
+		 * Random number generator to click on row within row count
+		 ************/
+		Random rand = new Random();
+		int min = 0;
+		int max = arrrowsdefined.size();
+		int randnum = rand.nextInt(max - min)  + min;
+
+		System.out.println("Row chosen is " + randnum);
+
+		WebElement RowByRow = arrrowsdefined.get(randnum);
 		String SellableMaterialDescription = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialdescription']")).getText();
 		String matid = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialid']")).getText();
 		System.out.println("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription);

@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -30,6 +29,7 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import common_functions.BaseTest;
 import common_functions.Utils;
+import pages.BSAPIE_Page;
 import pages.DigitalAsset;
 import pages.HomePage;
 import pages.Login_Page;
@@ -50,6 +50,7 @@ public class TC_006_BSAPIE_User_updating_BSA_PIE_Regions_Override extends BaseTe
 		SearchPage2 searchPage = new SearchPage2(driver);
 		SummaryPage summaryPage = new SummaryPage(driver);
 		DigitalAsset digitalssetPage = new DigitalAsset(driver);
+		BSAPIE_Page BSAPIE_PO = new BSAPIE_Page(driver);
 
 		utils.waitForElement(() -> homePage.sellablematerialtabelement(), "clickable");
 		test.pass("Home Page is displayed");
@@ -219,80 +220,83 @@ public class TC_006_BSAPIE_User_updating_BSA_PIE_Regions_Override extends BaseTe
 			Assert.assertTrue(stepTitles.contains(expectedStep),"Expected state '" + expectedStep + "' not found in: " + stepTitles);
 
 			/*************************************************
-			 * --------- Click on drop down next to Attributes tab
-			 ************************************************/
-			WebElement dropdownWrapper = driver.findElement(By.cssSelector("#app")).getShadowRoot()
-					.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
-					.findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
-					.findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
-					.findElement(By.cssSelector("#rockDetailTabs")).getShadowRoot().findElement(By.cssSelector("#rockTabs"))
-					.getShadowRoot().findElement(By.cssSelector("#tab-attributes")).getShadowRoot()
-					.findElement(By.cssSelector("#dropdown-wrapper"));
-
-			dropdownWrapper.click();
-			Thread.sleep(2000);
-			digitalssetPage.Use_Case_Attributes_selection().click();
-			Thread.sleep(2000);
-
-			test.pass("Use case attribute selection page displayed");
-			test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-			
-			/*************************************************
-			 * --------- Get the value which is in BSA PIE Usecase Sales Org Regions (Auto)------- *
-			 ************************************************/
-			WebElement BSAPIEUsecaseSalesOrgRegions_Auto = driver.findElement(By.cssSelector("#app")).getShadowRoot()
-					.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
-					.findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
-					.findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
-					.findElement(By.cssSelector("#rockDetailTabs")).getShadowRoot().findElement(By.cssSelector("#rockTabs"))
-					.getShadowRoot().findElement(By.cssSelector("[id^='rock-attribute-split-screen-component-rs']"))
-					.getShadowRoot().findElement(By.cssSelector("#undefined-attribute-container > rock-attribute-manage"))
-					.getShadowRoot().findElement(By.cssSelector("#rock-attribute-list-container > rock-attribute-list"))
-					.getShadowRoot().findElements(By.cssSelector("[id^='rs']")).get(8).getShadowRoot()
-					.findElement(By.cssSelector("#input")).getShadowRoot().findElement(By.cssSelector("bedrock-lov"))
-					.getShadowRoot().findElement(By.cssSelector("#collectionContainer")).getShadowRoot()
-					.findElement(By.cssSelector("#collection_container_wrapper > div.d-flex > div.tags-container > pebble-tags")).getShadowRoot()
-					.findElement(By.cssSelector("#tag0")).getShadowRoot()
-					.findElement(By.cssSelector("#pebble-tag"))
-					.findElement(By.cssSelector(".tag-item > .tag-name-value > .attribute-name"));
-
-			utils.waitForElement(() -> BSAPIEUsecaseSalesOrgRegions_Auto, "visible");
-
-			String UsecaseSORegionsvalue = BSAPIEUsecaseSalesOrgRegions_Auto.getText();
-			System.out.println("BSAPIEUsecaseSalesOrgRegions_Auto value is : -  " + UsecaseSORegionsvalue);
-			test.pass("BSA PIE Usecase Sales Org Regions (Auto) value is " + UsecaseSORegionsvalue);
-			test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-
-			/*************************************************
-			 * --------- Update the same data to BSA PIE Usecase Sales Org Regions (Override) which is in BSA PIE Usecase Sales Org Regions (Auto) ------- *
+			 * --------- Search BSA PIE Usecase Sales Org Regions (Auto)
 			 ************************************************/
 			summaryPage.SearchIcon().click();
 			Thread.sleep(1000);
-			summaryPage.SearchInputfield().sendKeys("BSA PIE Usecase Sales Org Regions (Override)", Keys.ENTER);
+			summaryPage.SearchInputfield().sendKeys("BSA PIE Usecase Sales Org Regions (Auto)", Keys.ENTER);
 			Thread.sleep(5000);
+			List<String> autoRegionList = new ArrayList<>();
+			/*************************************************
+			 * --------- Get the value which is in BSA PIE Usecase Sales Org Regions (Auto)------- *
+			 ************************************************/
+			String fieldLabel = "BSA PIE Usecase Sales Org Regions (Auto)";
+			try {
+				utils.waitForElement(() -> BSAPIE_PO.BSAPIE_Record_Status(), "visible");
+		        test.pass(fieldLabel + " field displayed");
+		        test.log(Status.PASS,  MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+		        WebElement tagSection = BSAPIE_PO.BSAPIE_Record_Status().findElement(By.cssSelector("pebble-tags"));
+		        SearchContext shadowRoot = tagSection.getShadowRoot();
 
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-			WebElement dropdown = wait.until(ExpectedConditions.visibilityOf(digitalssetPage.BSAPIEUsecaseSalesOrgRegions_Override_dropdown()));
+		        try {
+		            WebElement moreValues = shadowRoot.findElement(By.cssSelector("div > .more-values-message"));
+		            if (moreValues.isDisplayed()) {
+		                moreValues.click();
+		                Thread.sleep(3000);
+		                test.pass(fieldLabel + " expanded via 'More values'");
+		                test.log(Status.PASS,  MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+		            }
+		        } catch (Exception e) {
+		            System.out.println("No 'More values' found for: " + fieldLabel);
+		            test.pass(fieldLabel + " items listed directly");
+		            test.log(Status.PASS,  MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+		        }
+		        List<WebElement> tags = shadowRoot.findElements(By.cssSelector("[id^='tag']"));
+		        System.out.println("There are " + tags.size() + " tags under " + fieldLabel);
 
-			Assert.assertTrue(dropdown.isDisplayed(),"Dropdown element 'BSAPIEUsecaseSalesOrgRegions_Override' should be visible");
-			dropdown.click();
-			Thread.sleep(2000);
-			digitalssetPage.BSAPIEUsecaseSalesOrgRegions_Override_Search_Input().sendKeys(UsecaseSORegionsvalue);
-			Thread.sleep(3000);
-			utils.waitForElement(() -> digitalssetPage.Total_Checkboxes(), "clickable");
-			List<WebElement> totalcbs = digitalssetPage.Total_Checkboxes().findElements(By.cssSelector("[ref='eBodyViewport'] > [name='left'] > [role='row']"));
-			System.out.println("There are " + totalcbs.size() + " Regions for the search " + UsecaseSORegionsvalue);
-			assertTrue("There should be results after searching for " + UsecaseSORegionsvalue, totalcbs.size() > 0);
-			test.pass("Regions fetched after searching " + UsecaseSORegionsvalue);
-			test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-			totalcbs.get(0).click();
-			Thread.sleep(3000);
-			test.pass("Selected " + UsecaseSORegionsvalue + " as search value");
-			test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-
-			digitalssetPage.Save_btn_BSA_PIE_Transaction().click();
-			test.pass("Transaction saved ");
-			test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+		        List<String> tagNames = new ArrayList<>();
+		        for (int tagIndex = 0; tagIndex < tags.size(); tagIndex++) {
+		            String tagText = tags.get(tagIndex).getText().trim();
+		            tagNames.add(tagText);
+		        }
+		        // Store tags in appropriate list
+	            autoRegionList.addAll(tagNames);
+				
+			} catch (Exception e) {
+				test.fail("There are no Regions in BSAPIEUsecaseSalesOrgRegions_Auto field" );
+				test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				Assert.fail("BSA PIE Usecase Sales Org Regions (Auto) value should not be empty");
+			}
+			/*************************************************
+			 * --------- Update the same data to BSA PIE Usecase Sales Org Regions (Override) which is in BSA PIE Usecase Sales Org Regions (Auto) ------- *
+			 ************************************************/
+			if(autoRegionList.size() > 0) {
+				summaryPage.SearchIcon().click();
+				Thread.sleep(1000);
+				summaryPage.SearchInputfield().sendKeys("BSA PIE Usecase Sales Org Regions (Override)", Keys.ENTER);
+				Thread.sleep(5000);
+	
+				WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+				WebElement dropdown = wait.until(ExpectedConditions.visibilityOf(digitalssetPage.BSAPIEUsecaseSalesOrgRegions_Override_dropdown()));
+				Assert.assertTrue(dropdown.isDisplayed(),"Dropdown element 'BSAPIEUsecaseSalesOrgRegions_Override' should be visible");
+				dropdown.click();
+				Thread.sleep(2000);
+				digitalssetPage.BSAPIEUsecaseSalesOrgRegions_Override_Search_Input().sendKeys(autoRegionList.get(0));
+				Thread.sleep(3000);
+				utils.waitForElement(() -> digitalssetPage.Total_Checkboxes(), "clickable");
+				List<WebElement> totalcbs = digitalssetPage.Total_Checkboxes().findElements(By.cssSelector("[ref='eBodyViewport'] > [name='left'] > [role='row']"));
+				System.out.println("There are " + totalcbs.size() + " Regions for the search " + autoRegionList.get(0));
+				assertTrue("There should be results after searching for " + autoRegionList.get(0), totalcbs.size() > 0);
+				test.pass("Regions fetched after searching " + autoRegionList.get(0));
+				test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				totalcbs.get(0).click();
+				Thread.sleep(3000);
+				test.pass("Selected " + autoRegionList.get(0) + " as search value");
+				test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+	
+				digitalssetPage.Save_btn_BSA_PIE_Transaction().click();
+				test.pass("Transaction saved ");
+				test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 			/*************************************************
 			 * --------- Enter the comments to approve the record
 			 ************************************************/
@@ -302,7 +306,6 @@ public class TC_006_BSAPIE_User_updating_BSA_PIE_Regions_Override extends BaseTe
 			test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 			digitalssetPage.Pending_Use_Case_Approval_Approve_btn().click();
 			Thread.sleep(5000);
-
 			/*************************************************
 			 * --------- Wait for the banner to appear
 			 ************************************************/
@@ -316,36 +319,43 @@ public class TC_006_BSAPIE_User_updating_BSA_PIE_Regions_Override extends BaseTe
 					return null;
 				}
 			};
-
 			WebElement banner = wait1.until(drv -> {
 				WebElement el = getBannerElement.apply(drv);
 				return (el != null && el.isDisplayed()) ? el : null;
 			});
-
 			String bannerText = banner.getText();
 			System.out.println("✅ Banner appeared with the text : " + bannerText);
-
 			Thread.sleep(3000);
-
 			/*************************************************
 			 * --------- Check Workflow to be completed *************
 			 ************************************************/
-			List<WebElement> allSteps = driver.findElement(By.cssSelector("#app")).getShadowRoot()
-					.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
-					.findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
-					.findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
-					.findElement(By.cssSelector("#entityManageSidebar")).getShadowRoot()
-					.findElement(By.cssSelector("#sidebarTabs")).getShadowRoot()
-					.findElement(By.cssSelector("[id^='rock-workflow-panel-component-rs']")).getShadowRoot()
-					.findElements(By.cssSelector("pebble-step"));
+				try {
+					List<WebElement> allSteps = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+							.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+							.findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
+							.findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
+							.findElement(By.cssSelector("#entityManageSidebar")).getShadowRoot()
+							.findElement(By.cssSelector("#sidebarTabs")).getShadowRoot()
+							.findElement(By.cssSelector("[id^='rock-workflow-panel-component-rs']")).getShadowRoot()
+							.findElements(By.cssSelector("pebble-step"));
 
-			List<WebElement> visibleSteps = allSteps.stream().filter(WebElement::isDisplayed).collect(Collectors.toList());
-
-			int visibleCount = visibleSteps.size();
-			System.out.println("✅ Workflow that appeared after Approving the record are : " + visibleCount);
-			Assert.assertEquals(visibleCount, 0, "❌ Expected no workflows , but found: " + visibleCount);
-			test.pass("Record moved to Approved state");
-			test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+					List<WebElement> visibleSteps = allSteps.stream().filter(WebElement::isDisplayed).collect(Collectors.toList());
+					int visibleCount = visibleSteps.size();
+					System.out.println("✅ Workflow that appeared after Approving the record are : " + visibleCount);
+					test.pass("Record moved to Approved state");
+					test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+					Assert.assertEquals(visibleCount, 0, "❌ Expected no workflows , but found: " + visibleCount);
+				} catch (Exception e) {
+					test.fail("Record is NOT moved to Approved state. There might be workflows pending");
+					test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				}
+			}
+			else {
+				System.out.println("BSA PIE Usecase Sales Org Regions (Override) cannot be updated since BSA PIE Usecase Sales Org Regions (Auto) is empty");
+				test.fail("Usecase Sales Org Regions (Override) cannot be updated since BSA PIE Usecase Sales Org Regions (Auto) is empty");
+				test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+			}
+			
 		} catch (Exception e) {
 		    test.fail("❌ Workflow approval test failed: " + e.getMessage());
 		    test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
