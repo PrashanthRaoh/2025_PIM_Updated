@@ -208,11 +208,11 @@ public class SearchPage2 {
 
 	public WebElement shortDescription() {
 		return similarElementforInput_Summary()
-				.findElement(By.cssSelector(
-						".attribute-box.attribute-box-2-by-3.textarea.overflow-hidden[name='shortdescription']"))
+				.findElement(By.cssSelector(".attribute-box.attribute-box-2-by-3.textarea.overflow-hidden[name='shortdescription']"))
 				.findElement(By.cssSelector("[mode='edit']")).getShadowRoot()
-				.findElement(By.cssSelector(".attribute.list.textarea")).findElement(By.cssSelector("#input"))
-				.getShadowRoot().findElement(By.cssSelector(".attribute-control")).getShadowRoot()
+				.findElement(By.cssSelector(".attribute.list.textarea"))
+				.findElement(By.cssSelector("#input")).getShadowRoot()
+				.findElement(By.cssSelector(".attribute-control")).getShadowRoot()
 				.findElement(By.cssSelector("#textarea"));
 	}
 

@@ -477,4 +477,18 @@ public class DigitalAsset {
 
 	}
 	/****************** BSAPIEUsecaseSalesOrgRegions_Override drop down element *************** */
+	
+	public WebElement summarybcs() {
+		return driver.findElement(By.cssSelector("#app")).getShadowRoot()
+				.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+				.findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
+				.findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
+				.findElement(By.cssSelector("#rockDetailTabs")).getShadowRoot().findElement(By.cssSelector("#rockTabs"))
+				.getShadowRoot().findElement(By.cssSelector("[id^='rock-entity-summary-component-rs']")).getShadowRoot()
+				.findElement(By.cssSelector("[id^='rs']")).getShadowRoot()
+				.findElement(By.cssSelector("#rock-entity-tofix")).getShadowRoot()
+				.findElement(By.cssSelector("[id^='rock-entity-tofix-component-rs']")).getShadowRoot()
+				.findElement(By.cssSelector(".tofix-data-container > pebble-accordion"))
+				.findElement(By.cssSelector("[slot='accordion-content']"));
+	}
 }

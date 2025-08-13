@@ -31,6 +31,12 @@ public class HomePage {
 				.findElement(By.cssSelector("#navMenu")).getShadowRoot()
 				.findElement(By.cssSelector("#pageMenuIcon_2 > a.menu-icon.page-title-icon"));
 	}
+	public WebElement clickSearch_Products_Button_Digital() throws InterruptedException {
+		return driver.findElement(RootElement).getShadowRoot()
+				.findElement(By.cssSelector("[id^='rs']")).getShadowRoot()
+				.findElement(By.cssSelector("#navMenu")).getShadowRoot()
+				.findElement(By.cssSelector("#pageMenuIcon_3"));
+	}
 
 
 
