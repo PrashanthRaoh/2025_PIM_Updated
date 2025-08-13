@@ -1,7 +1,8 @@
 package PreETL_Update;
 
 /************************************************
-TC 007 - Gets all the attributes listed for Approved Record post ETL changes
+TC 007 - Gets all the attributes listed for Approved Record such as 
+"Selling UOM Description", "Selling UOM Code","Proprietary Indicator", "Munitions Indicator"
  ************************************************/
 import static org.junit.Assert.assertTrue;
 

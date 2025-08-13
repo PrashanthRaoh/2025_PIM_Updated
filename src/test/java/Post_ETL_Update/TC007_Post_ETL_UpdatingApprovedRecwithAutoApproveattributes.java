@@ -1,7 +1,10 @@
 package Post_ETL_Update;
 
 /************************************************
-TC 007 - Gets all the field attributes and compares with the Pre ETL changes
+TC 007 - Capture the record status and key attributes like Weight, UPC Number, ECCN, and Application Type.
+Compare each attribute's post-ETL value with the corresponding pre-ETL value.
+Handle both plain text and tag-based attribute fields such as "Selling UOM Description" and "Munitions Indicator".
+Log any changes or confirmations of unchanged values for reporting and validation.
  ************************************************/
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;

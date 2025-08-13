@@ -1,5 +1,12 @@
 package Post_ETL_Update;
 
+
+/************************************************
+TC 009 - Logs in as BSA PIE verifies workflow and status In Progress
+Updates 2D and Primary value as Digital asset owner
+Updates Mandatory value logging as Marketing enrichment
+Logs in as BSA PIE again and approves the record
+************************************************/
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.time.Duration;
