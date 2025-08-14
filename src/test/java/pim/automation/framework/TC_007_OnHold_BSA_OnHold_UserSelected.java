@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Function;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -76,8 +77,7 @@ public class TC_007_OnHold_BSA_OnHold_UserSelected extends BaseTest {
 				.findElements(By.cssSelector("pebble-list-view > pebble-list-item > my-todo-summary"));
 
 		System.out.println("Total items: " + summaryElements.size());
-		List<String> expectedItems = Arrays.asList("Pending Usecase Approval - BSA PIE",
-				"On Hold - BSA PIE (User Selected)", "On Hold - BSA PIE (Rule Triggered)");
+		List<String> expectedItems = Arrays.asList("Pending Usecase Approval - BSA PIE", "On Hold - BSA PIE (User Selected)", "On Hold - BSA PIE (Rule Triggered)");
 
 		Assert.assertEquals(summaryElements.size(), expectedItems.size(), "Item count mismatch");
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -154,7 +154,16 @@ public class TC_007_OnHold_BSA_OnHold_UserSelected extends BaseTest {
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		assertTrue("There should be results after selecting In Progress sellable product", arrrowsdefined.size() > 0);
 
-		WebElement RowByRow = arrrowsdefined.get(0);
+		/********************************************************
+		 * Random number generator to click on row within row count
+		 ********************************************************/
+		Random rand = new Random();
+		int min = 0;
+		int max = arrrowsdefined.size();
+		int randnum = rand.nextInt(max - min)  + min;
+		System.out.println("Row chosen is " + randnum);
+
+		WebElement RowByRow = arrrowsdefined.get(randnum);
 		String SellableMaterialDescription = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialdescription']")).getText();
 		String matid = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialid']")).getText();
 		System.out.println("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription);
@@ -197,7 +206,7 @@ public class TC_007_OnHold_BSA_OnHold_UserSelected extends BaseTest {
 		if (activeStepName.equals(expectedTitle)) {
 		    test.pass("Active workflow is : " + activeStepName + " as expected");
 		    test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-		    Assert.assertEquals(activeStep.getTagName(), expectedTitle, "Active step  does not match expected title");
+		    Assert.assertEquals(activeStepName, expectedTitle, "Active step  does not match expected title");
 		} else {
 		    test.fail("Active workflow is NOT : " + activeStepName + " as expected");
 		    test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
@@ -215,7 +224,7 @@ public class TC_007_OnHold_BSA_OnHold_UserSelected extends BaseTest {
 		actions2.moveToElement(summaryPage.SearchInputfield()).sendKeys(Keys.ENTER).build().perform();
 		Thread.sleep(3000);
 		utils.waitForElement(() -> summaryPage.SystemAttributes(), "visible");
-		test.pass("System attributes elemets shown up");
+		test.pass("System attributes elements shown up");
 		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 
 		/*************************************************
@@ -287,7 +296,7 @@ public class TC_007_OnHold_BSA_OnHold_UserSelected extends BaseTest {
 		test.pass("Refreshed transaction to get the latest workflow status");
 		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		/**********************
-			Wait till all the workflows re-appear
+			Wait till all the workflow re-appear
 		**********************/
 		Function<WebDriver, WebElement> SendbackforUsecase_workflow = drv -> {
 			try {
@@ -351,6 +360,8 @@ public class TC_007_OnHold_BSA_OnHold_UserSelected extends BaseTest {
 			}
 		}
 		if (!isInProgressRefreshed) {
+			test.fail("Record was not moved to 'On Hold BSA PIE (User Selected)' ");
+			test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 			throw new AssertionError("❌ '" + expectedTitle_Refreshed + "' not found in the workflow.");
 		}
 		
