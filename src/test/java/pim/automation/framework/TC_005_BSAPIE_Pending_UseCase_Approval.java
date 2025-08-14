@@ -5,7 +5,6 @@ TC 05 - Updating BSA PIE record which is in  "BSA PIE Pending UseCase Approval" 
 Description - This approves BSA PIE Pending UseCase Approval the record
 ************************************************/
 import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Arrays;
@@ -15,7 +14,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -30,7 +28,6 @@ import common_functions.BaseTest;
 import common_functions.Utils;
 import pages.DigitalAsset;
 import pages.HomePage;
-import pages.Login_Page;
 import pages.SearchPage2;
 import pages.SummaryPage;
 
@@ -45,7 +42,6 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 		test.assignAuthor(System.getProperty("user.name")).assignCategory("Regression").assignDevice(System.getenv("COMPUTERNAME"));
 
 		homePage = new HomePage(driver);
-		Login_Page loginPage = new Login_Page(driver);
 		SearchPage2 searchPage = new SearchPage2(driver);
 		SummaryPage summaryPage = new SummaryPage(driver);
 		DigitalAsset digitalssetPage = new DigitalAsset(driver);
@@ -54,24 +50,6 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 		test.pass("Home Page is displayed");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		utils.waitForElement(() -> homePage.BSAPIEUsecaseApprovalTab(), "visible");
-
-//		/**********************************
-//		 * Enter the Material ID which has all the attributes completed
-//		 **********************************/
-//		homePage.clickSearch_Products_Button().click();
-//		Thread.sleep(5000);
-//
-//		utils.waitForElement(() -> searchPage.getgrid(), "clickable");
-//
-//		String Materialdata = Login_Page.getProperty("BSAPendingUsecaseApproval_Matid");
-//		searchPage.searchthingdomain_Input_Mat_Id().click();
-//		searchPage.searchthingdomain_Input_Mat_Id().clear();
-//		searchPage.searchthingdomain_Input_Mat_Id().sendKeys(Materialdata);
-//		test.pass("Material id " + Materialdata + " is searched in Search thing domain");
-//		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-//		searchPage.searchthingdomain_Input_Mat_Id().sendKeys(Keys.ENTER);
-//		Thread.sleep(5000);
-		
 		/**************************************************
 		 * ***** Click on Use case ApprovalTab
 		 **************************************************/
@@ -98,12 +76,10 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 
 		System.out.println("Total items: " + summaryElements.size());
 
-		List<String> expectedItems = Arrays.asList("Pending Usecase Approval - BSA PIE",
-				"On Hold - BSA PIE (User Selected)", "On Hold - BSA PIE (Rule Triggered)");
+		List<String> expectedItems = Arrays.asList("Pending Usecase Approval - BSA PIE","On Hold - BSA PIE (User Selected)", "On Hold - BSA PIE (Rule Triggered)");
 
 		Assert.assertEquals(summaryElements.size(), expectedItems.size(), "Item count mismatch");
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-
 		for (int i = 0; i < summaryElements.size(); i++) {
 			WebElement summary = summaryElements.get(i);
 			WebElement innerDiv = summary.getShadowRoot().findElement(By.cssSelector("#workflowMetadataContainer"));
@@ -124,14 +100,12 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 		}
 		test.pass("BSA PIE Use case Approval entities listed ");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-
 		/***************************************
 		 * ***** Click on On Pending Usecase Approval - BSA PIE ****
 		 ***************************************/
 		utils.waitForElement(() -> searchPage.getgrid(), "clickable");
 		test.pass("Search page grid displayed after clicking on On Hold - BSA PIE");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-
 		/**************************************************
 		 * --------- Get Row count------- *
 		 ********************************************************/
@@ -155,7 +129,6 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 		test.pass("Rows after after clicking on Pending Usecase Approval - BSA PIE Inprogress status appeared");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		assertTrue("There should be results after applying filters with Inprogress status", arrrowsdefined.size() > 0);
-
 		/************
 		 * Random number generator to click on row within row count
 		 ************/
@@ -165,12 +138,10 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 		int randnum = rand.nextInt(max - min)  + min;
 
 		System.out.println("Row chosen is " + randnum);
-
 		WebElement RowByRow = arrrowsdefined.get(randnum);
 		String SellableMaterialDescription = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialdescription']")).getText();
 		String matid = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialid']")).getText();
 		System.out.println("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription);
-
 		/*************************************************
 		 * --------- Click on the materialid from the result------- *
 		 ************************************************/
@@ -182,12 +153,10 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 		utils.waitForElement(() -> summaryPage.Things_INeedToFix(), "visible");
 		test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription + " is selected for completion");
 		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-
 		/*************************************************
 		 * --------- Verify workflow tab Hireacrhy. ------- *
 		 ************************************************/
 		try {
-		    // Try to locate all workflow steps
 		    List<WebElement> steps = driver.findElement(By.cssSelector("#app")).getShadowRoot()
 		        .findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
 		        .findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
@@ -215,9 +184,8 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 
 		        if (isActive && actualTitle.equals(expectedTitle)) {
 		            activeStep = step;
-		        }
-		    }
-
+		        }}
+		   
 		    if (activeStep == null) {
 		        throw new AssertionError("❌ Expected active step '" + expectedTitle + "' not found.");
 		    }
@@ -236,12 +204,10 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 
 		    commentBox.sendKeys("Approving the record");
 		    Thread.sleep(2000);
-
 		    test.pass("Approving the record");
 		    test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		    approveBtn.click();
 		    Thread.sleep(5000);
-
 		    /*************************************************
 		     * --------- Wait for the banner to appear --------
 		     ************************************************/
@@ -254,9 +220,7 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 		                    .findElement(By.cssSelector("#bind-html"));
 		        } catch (Exception e) {
 		            return null;
-		        }
-		    };
-
+		        }};
 		    WebElement banner = wait1.until(drv -> {
 		        WebElement el = getBannerElement.apply(drv);
 		        return (el != null && el.isDisplayed()) ? el : null;
@@ -265,26 +229,41 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 		    String bannerText = banner.getText();
 		    System.out.println("✅ Banner appeared with the text : " + bannerText);
 		    Thread.sleep(3000);
-
 		    /*************************************************
 		     * --------- Check Workflow to be completed -------
 		     ************************************************/
-		    List<WebElement> allSteps = driver.findElement(By.cssSelector("#app")).getShadowRoot()
-		            .findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
-		            .findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
-		            .findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
-		            .findElement(By.cssSelector("#entityManageSidebar")).getShadowRoot()
-		            .findElement(By.cssSelector("#sidebarTabs")).getShadowRoot()
-		            .findElement(By.cssSelector("[id^='rock-workflow-panel-component-rs']")).getShadowRoot()
-		            .findElements(By.cssSelector("pebble-step"));
+			try {
+				List<WebElement> allSteps = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+						.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+						.findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
+						.findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
+						.findElement(By.cssSelector("#entityManageSidebar")).getShadowRoot()
+						.findElement(By.cssSelector("#sidebarTabs")).getShadowRoot()
+						.findElement(By.cssSelector("[id^='rock-workflow-panel-component-rs']")).getShadowRoot()
+						.findElements(By.cssSelector("pebble-step"));
 
-		    List<WebElement> visibleSteps = allSteps.stream().filter(WebElement::isDisplayed).collect(Collectors.toList());
-		    int visibleCount = visibleSteps.size();
-		    System.out.println("✅ Workflow that appeared after approval are : " + visibleCount);
+				List<WebElement> visibleSteps = allSteps.stream().filter(WebElement::isDisplayed).collect(Collectors.toList());
 
-		    Assert.assertEquals(visibleCount, 0, "❌ Expected no workflows, but found: " + visibleCount);
-		    test.pass("Record moved to Approved state");
-		    test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				int visibleCount = visibleSteps.size();
+				System.out.println("✅ Workflow that appeared after approval are: " + visibleCount);
+
+				if (visibleCount > 0) {
+					String message = "❌ Expected no workflows, but found: " + visibleCount;
+					System.out.println(message);
+					test.fail(message);
+					test.log(Status.FAIL,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+					Assert.fail(message); // This will explicitly fail the test
+				} else {
+					test.pass("✅ Record moved to Approved state, and no workflows are found.");
+					test.log(Status.PASS,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				test.fail("❌ Exception occurred while checking workflows: " + e.getMessage());
+				test.log(Status.FAIL,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				Assert.fail("Test failed due to exception: " + e.getMessage());
+			}
 
 		} catch (Exception e) {
 		    test.fail("❌ Workflow approval test failed: " + e.getMessage());
