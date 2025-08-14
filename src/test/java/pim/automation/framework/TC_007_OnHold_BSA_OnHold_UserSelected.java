@@ -106,6 +106,7 @@ public class TC_007_OnHold_BSA_OnHold_UserSelected extends BaseTest {
 		/***************************************
 		 * ***** Click on On Hold - BSA PIE(Rule Triggered) ****
 		 ***************************************/
+		Thread.sleep(5000);
 		utils.waitForElement(() -> searchPage.getgrid(), "clickable");
 		test.pass("Search page grid displayed after clicking on Pending Usecase Approval - BSA PIE");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
@@ -167,8 +168,7 @@ public class TC_007_OnHold_BSA_OnHold_UserSelected extends BaseTest {
 		matidElement.click();
 		Thread.sleep(3000);
 		utils.waitForElement(() -> summaryPage.Things_INeedToFix(), "visible");
-		test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription
-				+ " is selected for completion");
+		test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription+ " is selected for completion");
 		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 
 		/*************************************************
@@ -188,28 +188,21 @@ public class TC_007_OnHold_BSA_OnHold_UserSelected extends BaseTest {
 
 		String expectedTitle = "Pending Usecase Approval - BSA PIE";
 		WebElement activeStep = BSAPIE_PO.getInProgressWorkflowStep(steps, expectedTitle);
+		String activeStepName = activeStep.getShadowRoot()
+		    .findElement(By.cssSelector("#label > #connectedBadge > #step-heading > #textWrapper > #step-title > span"))
+		    .getAttribute("title");
 
-		System.out.println("✅ Active workflow is : " + activeStep.getTagName());
-
-		/*************************************************
-		 * --------- Click on drop down next to Attributes tab
-		 ************************************************/
-		Thread.sleep(2000);
-		WebElement dropdownWrapper = driver.findElement(By.cssSelector("#app")).getShadowRoot()
-				.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
-				.findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
-				.findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
-				.findElement(By.cssSelector("#rockDetailTabs")).getShadowRoot()
-				.findElement(By.cssSelector("#rockTabs")).getShadowRoot()
-				.findElement(By.cssSelector("#tab-attributes")).getShadowRoot()
-				.findElement(By.cssSelector("#dropdown-wrapper"));
-
-		dropdownWrapper.click();
-		Thread.sleep(2000);
-		digitalssetPage.Use_Case_Attributes_selection().click();
-		Thread.sleep(2000);
-
-		utils.waitForElement(() -> BSAPIE_PO.BSAPIEUsecaseSalesOrgRegions_Auto(), "visible");
+		System.out.println("✅ Active workflow is : " + activeStepName);
+		
+		if (activeStepName.equals(expectedTitle)) {
+		    test.pass("Active workflow is : " + activeStepName + " as expected");
+		    test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+		    Assert.assertEquals(activeStep.getTagName(), expectedTitle, "Active step  does not match expected title");
+		} else {
+		    test.fail("Active workflow is NOT : " + activeStepName + " as expected");
+		    test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+		}
+		
 		/*************************************************
 		 * --------- Click on search icon and enter hold ------- *
 		 ************************************************/
