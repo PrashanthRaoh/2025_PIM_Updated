@@ -231,7 +231,6 @@ public class TC006_Pre_ETL_UserupdatingBSAPIERegionsOverride extends BaseTest {
 
 		        BSAPIE_PO.Tabclose_Xmark().click();
 		        Thread.sleep(2000);
-
 		        WebElement dropdownWrapper1 = driver.findElement(By.cssSelector("#app")).getShadowRoot()
 		            .findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
 		            .findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
@@ -245,7 +244,6 @@ public class TC006_Pre_ETL_UserupdatingBSAPIERegionsOverride extends BaseTest {
 		        digitalssetPage.Use_Case_Attributes_selection().click();
 		        Thread.sleep(2000);
 		    }
-
 		} catch (Exception e) {
 		    System.out.println("No workflows present. So halted.");
 		    test.fail("❌ No workflows present. So halted.");
@@ -269,7 +267,6 @@ public class TC006_Pre_ETL_UserupdatingBSAPIERegionsOverride extends BaseTest {
 		}
 		
 		NotepadManager.ReadWriteNotepad(PRE_ETL_Filename, data);
-		
 		/******************************
 		 * Search BSA PIE Usecase Sales Org Regions (Override)
 		*****************************/
@@ -287,7 +284,6 @@ public class TC006_Pre_ETL_UserupdatingBSAPIERegionsOverride extends BaseTest {
 		try {
 		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		    WebElement dropdown = wait.until(ExpectedConditions.visibilityOf(digitalssetPage.BSAPIEUsecaseSalesOrgRegions_Override_dropdown()));
-
 		    Assert.assertTrue(dropdown.isDisplayed(), "Dropdown element should be visible");
 		    dropdown.click();
 		    Thread.sleep(2000);
@@ -296,7 +292,6 @@ public class TC006_Pre_ETL_UserupdatingBSAPIERegionsOverride extends BaseTest {
 		        digitalssetPage.BSAPIEUsecaseSalesOrgRegions_Override_Search_Input().sendKeys(autoRegionList.get(i));
 		        Thread.sleep(2000);
 		        utils.waitForElement(() -> digitalssetPage.Total_Checkboxes(), "clickable");
-
 		        List<WebElement> totalcbs = digitalssetPage.Total_Checkboxes().findElements(By.cssSelector("[ref='eBodyViewport'] > [name='left'] > [role='row']"));
 		        System.out.println("Found " + totalcbs.size() + " regions for: " + autoRegionList.get(i));
 		        assertTrue("Expected search results for " + autoRegionList.get(i), totalcbs.size() > 0);
@@ -308,14 +303,11 @@ public class TC006_Pre_ETL_UserupdatingBSAPIERegionsOverride extends BaseTest {
 		        digitalssetPage.BSAPIEUsecaseSalesOrgRegions_Override_Search_Input().sendKeys(Keys.ENTER);
 		        Thread.sleep(1000);
 		    }
-
 		} catch (Exception e) {
 		    test.fail("❌ Failed during region override selection: " + e.getMessage());
 		    Assert.fail("Error during region override selection");
 		    test.log(Status.FAIL,  MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		}
-		
-		
 		digitalssetPage.Save_btn_BSA_PIE_Transaction().click();
 		test.pass("Transaction saved ");
 		test.log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());

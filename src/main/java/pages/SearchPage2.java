@@ -349,4 +349,13 @@ public class SearchPage2 {
 	public WebElement Actionworkflow_Message() {
 		return  Workflowblocksameelement().getShadowRoot().findElement(By.cssSelector("#workflowPanelMessage"));
 	}
+	
+	public WebElement GridStructure() {
+		return driver.findElement(By.cssSelector("#app")).getShadowRoot()
+			    .findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+			    .findElement(By.cssSelector("[id^='currentApp_search-thing_']")).getShadowRoot()
+			    .findElement(By.cssSelector("[id^='app-entity-discovery-component-']")).getShadowRoot()
+			    .findElement(By.cssSelector("#entitySearchDiscoveryGrid")).getShadowRoot()
+			    .findElement(By.cssSelector(".base-grid-structure > .base-grid-structure-child-2"));
+	}
 }

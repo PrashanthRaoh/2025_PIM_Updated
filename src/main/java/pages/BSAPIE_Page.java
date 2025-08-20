@@ -71,8 +71,7 @@ public class BSAPIE_Page {
 		    for (int i = 0; i < steps.size(); i++) {
 		        WebElement step = steps.get(i);
 		        SearchContext stepShadow = step.getShadowRoot();
-		        String actualTitle = stepShadow
-		            .findElement(By.cssSelector("#label > #connectedBadge > #step-heading > #textWrapper > #step-title > span"))
+		        String actualTitle = stepShadow.findElement(By.cssSelector("#label > #connectedBadge > #step-heading > #textWrapper > #step-title > span"))
 		            .getAttribute("title");
 
 		        boolean inProgress = step.getAttribute("class") != null &&

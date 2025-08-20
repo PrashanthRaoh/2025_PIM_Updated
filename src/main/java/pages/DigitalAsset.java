@@ -1,6 +1,9 @@
 package pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -19,15 +22,16 @@ public class DigitalAsset {
 				.findElement(By.cssSelector("#rockDetailTabs"));
 	}
 
-//	public WebElement HasNoorImagesFiltericon() {
-//		return driver.findElement(By.cssSelector("#app")).getShadowRoot()
-//				.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
-//				.findElement(By.cssSelector("[id^='currentApp_search-thing_rs']")).getShadowRoot()
-//				.findElement(By.cssSelector("[id^='app-entity-discovery-component-rs']")).getShadowRoot()
-//				.findElement(By.cssSelector("#entitySearchDiscoveryGrid")).getShadowRoot()
-//				.findElement(By.cssSelector("[id^='rs']")).getShadowRoot()
-//				.findElement(By.cssSelector("#simpleButton > pebble-icon"));
-//	}
+	public WebElement TotalRowsText() {
+		return driver.findElement(By.cssSelector("#app")).getShadowRoot()
+				.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+				.findElement(By.cssSelector("[id^='currentApp_search-thing_rs']")).getShadowRoot()
+				.findElement(By.cssSelector("[id^='app-entity-discovery-component-rs']")).getShadowRoot()
+				.findElement(By.cssSelector("#entitySearchDiscoveryGrid")).getShadowRoot()
+				.findElement(By.cssSelector("#entitySearchGrid")).getShadowRoot()
+				.findElement(By.cssSelector("#entityGrid")).getShadowRoot().findElement(By
+						.cssSelector("#gridHeader > div.grid-actions.row > span.text-ellipsis.m-r-5.m-l-5.page-range"));
+	}
 
 	public WebElement AdvanceSearch_Dropdown() {
 		return driver.findElement(By.cssSelector("#app")).getShadowRoot()
@@ -477,18 +481,56 @@ public class DigitalAsset {
 
 	}
 	/****************** BSAPIEUsecaseSalesOrgRegions_Override drop down element *************** */
-	
 	public WebElement summarybcs() {
-		return driver.findElement(By.cssSelector("#app")).getShadowRoot()
-				.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
-				.findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
-				.findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
-				.findElement(By.cssSelector("#rockDetailTabs")).getShadowRoot().findElement(By.cssSelector("#rockTabs"))
+		return common_element().getShadowRoot().findElement(By.cssSelector("#rockTabs"))
 				.getShadowRoot().findElement(By.cssSelector("[id^='rock-entity-summary-component-rs']")).getShadowRoot()
 				.findElement(By.cssSelector("[id^='rs']")).getShadowRoot()
 				.findElement(By.cssSelector("#rock-entity-tofix")).getShadowRoot()
 				.findElement(By.cssSelector("[id^='rock-entity-tofix-component-rs']")).getShadowRoot()
 				.findElement(By.cssSelector(".tofix-data-container > pebble-accordion"))
 				.findElement(By.cssSelector("[slot='accordion-content']"));
+	}
+	
+	public WebElement ClassifiedImages_Grid() {
+		return common_element().getShadowRoot()
+			    .findElement(By.cssSelector("#rockTabs")).getShadowRoot()
+			    .findElement(By.cssSelector("[id^='rock-wizard-manage-component-rs']")).getShadowRoot()
+			    .findElement(By.cssSelector("[id^='rock-relationship-split-screen-component-rs']")).getShadowRoot()
+			    .findElement(By.cssSelector("#undefined-relationship-container > rock-relationship-manage")).getShadowRoot()
+			    .findElement(By.cssSelector("#entityRelationshipSearchResult_hasimages")).getShadowRoot()
+			    .findElement(By.cssSelector("div > div.base-grid-structure-child-2 > rock-relationship-grid")).getShadowRoot()
+			    .findElement(By.cssSelector("#bedrock_grid_hasimages")).getShadowRoot()
+			    .findElement(By.cssSelector("#pebbleGridContainer > pebble-grid")).getShadowRoot()
+			    .findElement(By.cssSelector("#grid")).getShadowRoot()
+			    .findElement(By.cssSelector(
+			        "#lit-grid > div > div.ag-root-wrapper-body.ag-layout-normal.ag-focus-managed > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-layout-normal.ag-row-no-animation > div.ag-center-cols-clipper > div"
+			    ));
+	}
+	
+	public List<WebElement> ImageInfo() {
+		 return common_element().getShadowRoot()
+			    .findElement(By.cssSelector("#rockTabs")).getShadowRoot()
+			    .findElement(By.cssSelector("[id^='rock-wizard-manage-component-rs']")).getShadowRoot()
+			    .findElement(By.cssSelector("[id^='rock-relationship-split-screen-component-rs']")).getShadowRoot()
+			    .findElement(By.cssSelector("#undefined-relationship-container > rock-relationship-manage")).getShadowRoot()
+			    .findElement(By.cssSelector("#entityRelationshipSearchResult_hasimages")).getShadowRoot()
+			    .findElement(By.cssSelector("div > div.base-grid-structure-child-2 > rock-relationship-grid")).getShadowRoot()
+			    .findElement(By.cssSelector("#bedrock_grid_hasimages")).getShadowRoot()
+			    .findElement(By.cssSelector("#pebbleGridContainer > pebble-grid")).getShadowRoot()
+			    .findElement(By.cssSelector("#grid")).getShadowRoot()
+			    .findElement(By.cssSelector("#grid-row-status0")).getShadowRoot()
+			    .findElements(By.cssSelector("#error-circle-grid-row-status0"));
+	}
+	
+	public WebElement getLastTabCloseButton() {
+        SearchContext tabsContainer = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+            .findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+            .findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
+            .findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
+            .findElement(By.cssSelector("#rockDetailTabs")).getShadowRoot()
+            .findElement(By.cssSelector("#rockTabs")).getShadowRoot();
+
+        List<WebElement> closeButtons = tabsContainer.findElements(By.cssSelector("div.tab-title span.dynamic-close"));
+        return closeButtons.get(closeButtons.size() - 1);
 	}
 }
