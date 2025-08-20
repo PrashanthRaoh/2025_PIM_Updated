@@ -5,12 +5,12 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Date;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
@@ -21,6 +21,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import pages.HomePage;
 import pages.Login_Page;
+import java.util.Date;
 
 public class BaseTest {
 	public static WebDriver driver;
@@ -53,7 +54,7 @@ public class BaseTest {
 		
 		new File(screenshotDirPath).mkdirs();
 		ExtentSparkReporter sparkReporter = new ExtentSparkReporter(reportDirPath + "/PIM_Report.html");
-		sparkReporter.config().setTheme(Theme.DARK);
+		sparkReporter.config().setTheme(Theme.STANDARD);
 		extentreport = new ExtentReports();
 		extentreport.setSystemInfo("Environment", "QA");
 		extentreport.setSystemInfo("User", System.getProperty("user.name"));

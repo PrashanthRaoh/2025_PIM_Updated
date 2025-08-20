@@ -1,89 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <suite name="PIM_automation_Suite">
-<<<<<<< HEAD
-	 <!-- <test name="MarketingTests_OwnerMarketing">
-=======
-	
-	  <!--<test name="MarketingTests_OwnerMarketing">
->>>>>>> branch 'master' of https://github.com/PrashanthRaoh/2025_PIM_Updated.git
-		<parameter name="UseCaseOwner" value="OwnerMarketing" />
-		<classes>
-			<class name="pim.automation.framework.TC_001_Marketing_Owner_Test" />	
-			 <class name="pim.automation.framework.TC_002_MarketingWorkFlowApproval" />
-		</classes>
-	</test> -->
-	 
-	<test name="BSAPIEOwner">
-		<parameter name="UseCaseOwner" value="BSAPIEowner" />
-		<classes>
-<<<<<<< HEAD
-			  <!-- <class name="pim.automation.framework.TC_003_OnHoldBSAPIE_UserSelect" /> 
-			<class name="pim.automation.framework.TC_005_BSAPIE_Pending_UseCase_Approval" />
-			 <class name="pim.automation.framework.TC_006_BSAPIE_User_updating_BSA_PIE_Regions_Override" />
-			 <class name="pim.automation.framework.TC_007_OnHold_BSA_OnHold_UserSelected" />   -->
-			 <class name="pim.automation.framework.TC_008_DAM_Review_Unclassified_Images" />  
-=======
-			   <!--<class name="pim.automation.framework.TC_003_OnHoldBSAPIE_UserSelect" /> -->
-			<!--<class name="pim.automation.framework.TC_005_BSAPIE_Pending_UseCase_Approval" />-->
- 			<!-- <class name="pim.automation.framework.TC_006_BSAPIE_User_updating_BSA_PIE_Regions_Override" />-->
-			  <!--<class name="pim.automation.framework.TC_007_OnHold_BSA_OnHold_UserSelected" />   -->
->>>>>>> branch 'master' of https://github.com/PrashanthRaoh/2025_PIM_Updated.git
-			 
-<<<<<<< HEAD
-			<!--  *****************PRE-ETL Scripts   ***************
-			 <class name="PreETL_Update.TC_001_Update_BSAPIE_record_OnHold_RuleTriggered" /> 
-=======
-			  <!--*****************PRE-ETL Scripts   *************** -->
-			  <!--<class name="PreETL_Update.TC_001_Update_BSAPIE_record_OnHold_RuleTriggered" /> 
->>>>>>> branch 'master' of https://github.com/PrashanthRaoh/2025_PIM_Updated.git
-			 <class name="PreETL_Update.TC004_Pre_ETL_NewRegion_ADD_totheBSAPIEAutoRegionField" /> 
-			<class name="PreETL_Update.TC005_Pre_ETL_Region_DELETE_BSAPIEAutoRegionField" /> 
-<<<<<<< HEAD
-			<class name="PreETL_Update.TC006_Pre_ETL_UserupdatingBSAPIERegionsOverride" />  
-			<class name="PreETL_Update.TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes" />   
-			<class name="PreETL_Update.TC009_BSAPIErecNonAutoApproveattributes" />   
-				 ********************************
-		
-			***************** Post-ETL Scripts ***************
-			 <class name="Post_ETL_Update.TC_001_OnHold_PostETLCheck" /> 
-			 <class name="Post_ETL_Update.TC004_Post_ETL_NewRegion_ADD_BSAPIEAutoRegionField"/> 
-			 <class name="Post_ETL_Update.TC005_Post_ETL_Region_DELETE_BSAPIEAutoRegionField"/> 
-			 <class name="Post_ETL_Update.TC006_Post_ETL_UserupdatingBSAPIERegionsOverride"/> 
-			 <class name="Post_ETL_Update.TC007_Post_ETL_UpdatingApprovedRecwithAutoApproveattributes"/> 
-			 <class name="Post_ETL_Update.TC009_Post_BSAPIErecNonAutoApproveattributes"/>  
-			 <class name="Post_ETL_Update.tC9"/>  
-=======
-			<class name="PreETL_Update.TC006_Pre_ETL_UserupdatingBSAPIERegionsOverride" />   
-			 <class name="PreETL_Update.TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes" />     -->
-			<!--<class name="PreETL_Update.TC009_BSAPIErecNonAutoApproveattributes" />-->   
->>>>>>> branch 'master' of https://github.com/PrashanthRaoh/2025_PIM_Updated.git
-				
-<<<<<<< HEAD
-			********************************  -->
-=======
-		<!--*******************************************************************************************************-->
-		
-			 <!--***************** Post-ETL Scripts *************** -->
-			  <!--<class name="Post_ETL_Update.TC_001_OnHold_PostETLCheck" /> 
-			 <class name="Post_ETL_Update.TC004_Post_ETL_NewRegion_ADD_BSAPIEAutoRegionField"/> 
-			 <class name="Post_ETL_Update.TC005_Post_ETL_Region_DELETE_BSAPIEAutoRegionField"/>  
-			  <class name="Post_ETL_Update.TC006_Post_ETL_UserupdatingBSAPIERegionsOverride"/>  
-			  <class name="Post_ETL_Update.TC007_Post_ETL_UpdatingApprovedRecwithAutoApproveattributes"/>-->
-			  <class name="Post_ETL_Update.TC009_Post_BSAPIErecNonAutoApproveattributes"/> 
-				
-			 ********************************  
->>>>>>> branch 'master' of https://github.com/PrashanthRaoh/2025_PIM_Updated.git
-		</classes>
-	</test> 
 
+    <test name="BSAPIEOwner">
+        <parameter name="UseCaseOwner" value="BSAPIEowner" />
+        <classes>
+            <!-- ***************** PRE-ETL Scripts *************** -->
+            <!-- <class name="PreETL_Update.TC004_Pre_ETL_NewRegion_ADD_totheBSAPIEAutoRegionField" />
+            <class name="PreETL_Update.TC005_Pre_ETL_Region_DELETE_BSAPIEAutoRegionField" />
+            <class name="PreETL_Update.TC006_Pre_ETL_UserupdatingBSAPIERegionsOverride" />
+            <class name="PreETL_Update.TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes" /> 
+            <class name="PreETL_Update.TC009_BSAPIErecNonAutoApproveattributes" /> -->
+            <class name="pim.automation.framework.TC_008_DAM_Review_Unclassified_Images" />
 
-	 <!--<test name="DigitalAssetOwner">
-		<parameter name="UseCaseOwner" value="DigitalAssetowner" />
-		<classes>
-			<class name="pim.automation.framework.TC_004_Digital_Asset_Approve_AddImage" />
-			<class name="pim.automation.framework.TC_008_DAM_Review_Unclassified_Images" />
-		</classes>
-	</test> --> 
-	
+           <!--   ***************** POST-ETL Scripts *************** -->
+            <class name="Post_ETL_Update.TC_001_OnHold_PostETLCheck" />
+            <class name="Post_ETL_Update.TC004_Post_ETL_NewRegion_ADD_BSAPIEAutoRegionField" />
+            <class name="Post_ETL_Update.TC005_Post_ETL_Region_DELETE_BSAPIEAutoRegionField" />
+            <class name="Post_ETL_Update.TC006_Post_ETL_UserupdatingBSAPIERegionsOverride" />
+            <class name="Post_ETL_Update.TC007_Post_ETL_UpdatingApprovedRecwithAutoApproveattributes" />
+            <class name="Post_ETL_Update.TC009_Post_BSAPIErecNonAutoApproveattributes" /> -->
+        </classes>
+    </test>
+
+    
+    <!-- <test name="MarketingTests_OwnerMarketing">
+        <parameter name="UseCaseOwner" value="OwnerMarketing" />
+        <classes>
+            <class name="pim.automation.framework.TC_001_Marketing_Owner_Test" />
+            <class name="pim.automation.framework.TC_002_MarketingWorkFlowApproval" />
+        </classes>
+    </test>
+
+    <test name="DigitalAssetOwner">
+        <parameter name="UseCaseOwner" value="DigitalAssetowner" />
+        <classes>
+            <class name="pim.automation.framework.TC_004_Digital_Asset_Approve_AddImage" />
+            <class name="pim.automation.framework.TC_008_DAM_Review_Unclassified_Images" />
+        </classes>
+    </test>
+    -->
+
 </suite>

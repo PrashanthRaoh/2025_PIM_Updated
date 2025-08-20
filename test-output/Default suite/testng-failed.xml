@@ -3,14 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="PreETL_Update.TC004_NewRegionaddedtotheBSAPIEAutoRegionField">
+      <class name="pim.automation.framework.TC_007_OnHold_BSA_OnHold_UserSelected">
         <methods>
-          <include name="BeforeETL_GetAllRegions_AutoRegionField"/>
+          <include name="initReport"/>
           <include name="setUp"/>
-          <include name="intitializeReport"/>
+          <include name="BSAPIEOwner"/>
           <include name="publishReport"/>
         </methods>
-      </class> <!-- PreETL_Update.TC004_NewRegionaddedtotheBSAPIEAutoRegionField -->
+      </class> <!-- pim.automation.framework.TC_007_OnHold_BSA_OnHold_UserSelected -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

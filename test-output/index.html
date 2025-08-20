@@ -26,7 +26,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite</span>
+      <span class="top-banner-font-1">1 suite, 1 failed test</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -40,7 +40,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" panel-name="suite-PIM_automation_Suite" class="navigator-link">
-              <span class="suite-name border-passed">PIM_automation_Suite</span>
+              <span class="suite-name border-failed">PIM_automation_Suite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -93,21 +93,21 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method,   1 passed</span>
+                    <span class="method-stats">1 method, 1 failed,   </span>
                   </li>
                   <li>
-                    <span class="method-list-title passed">Passed methods</span>
-                    <span class="show-or-hide-methods passed">
-                      <a href="#" panel-name="suite-PIM_automation_Suite" class="hide-methods passed suite-PIM_automation_Suite"> (hide)</a> <!-- hide-methods passed suite-PIM_automation_Suite -->
-                      <a href="#" panel-name="suite-PIM_automation_Suite" class="show-methods passed suite-PIM_automation_Suite"> (show)</a> <!-- show-methods passed suite-PIM_automation_Suite -->
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-PIM_automation_Suite" class="hide-methods failed suite-PIM_automation_Suite"> (hide)</a> <!-- hide-methods failed suite-PIM_automation_Suite -->
+                      <a href="#" panel-name="suite-PIM_automation_Suite" class="show-methods failed suite-PIM_automation_Suite"> (show)</a> <!-- show-methods failed suite-PIM_automation_Suite -->
                     </span>
-                    <div class="method-list-content passed suite-PIM_automation_Suite">
+                    <div class="method-list-content failed suite-PIM_automation_Suite">
                       <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-PIM_automation_Suite" title="PreETL_Update.TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes" class="method navigator-link" hash-for-method="BeforeETL_GetAllAttributes">BeforeETL_GetAllAttributes</a> <!-- method navigator-link -->
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-PIM_automation_Suite" title="pim.automation.framework.TC_008_DAM_Review_Unclassified_Images" class="method navigator-link" hash-for-method="GetClassified_Images">GetClassified_Images</a> <!-- method navigator-link -->
                       </span>
                       <br/>
-                    </div> <!-- method-list-content passed suite-PIM_automation_Suite -->
+                    </div> <!-- method-list-content failed suite-PIM_automation_Suite -->
                   </li>
                 </ul>
               </div> <!-- suite-section-content -->
@@ -119,21 +119,26 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-PIM_automation_Suite" class="panel PIM_automation_Suite">
-          <div class="suite-PIM_automation_Suite-class-passed">
+          <div class="suite-PIM_automation_Suite-class-failed">
             <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
-              <span class="class-name">PreETL_Update.TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes</span>
+              <img src="failed.png"/>
+              <span class="class-name">pim.automation.framework.TC_008_DAM_Review_Unclassified_Images</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="BeforeETL_GetAllAttributes">
-                  </a> <!-- BeforeETL_GetAllAttributes -->
-                  <span class="method-name">BeforeETL_GetAllAttributes</span>
+                  <a name="GetClassified_Images">
+                  </a> <!-- GetClassified_Images -->
+                  <span class="method-name">GetClassified_Images</span>
+                  <div class="stack-trace">java.lang.AssertionError: There are NO data for the operation to perform. Exiting
+	at pim.automation.framework.TC_008_DAM_Review_Unclassified_Images.GetClassified_Images(TC_008_DAM_Review_Unclassified_Images.java:142)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+... Removed 26 stack frames
+</div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-PIM_automation_Suite-class-passed -->
+          </div> <!-- suite-PIM_automation_Suite-class-failed -->
         </div> <!-- panel PIM_automation_Suite -->
         <div panel-name="test-xml-PIM_automation_Suite" class="panel">
           <div class="main-panel-header rounded-window-top">
@@ -144,12 +149,12 @@
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
 &lt;suite name=&quot;PIM_automation_Suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
-  &lt;test thread-count=&quot;5&quot; name=&quot;BSAPIEOwner&quot;&gt;
-    &lt;parameter name=&quot;UseCaseOwner&quot; value=&quot;BSAPIEowner&quot;/&gt;
+  &lt;test thread-count=&quot;5&quot; name=&quot;DigitalAssetOwner&quot;&gt;
+    &lt;parameter name=&quot;UseCaseOwner&quot; value=&quot;DigitalAssetowner&quot;/&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;PreETL_Update.TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes&quot;/&gt;
+      &lt;class name=&quot;pim.automation.framework.TC_008_DAM_Review_Unclassified_Images&quot;/&gt;
     &lt;/classes&gt;
-  &lt;/test&gt; &lt;!-- BSAPIEOwner --&gt;
+  &lt;/test&gt; &lt;!-- DigitalAssetOwner --&gt;
 &lt;/suite&gt; &lt;!-- PIM_automation_Suite --&gt;
             </pre>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -161,7 +166,7 @@
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">BSAPIEOwner (1 class)</span>
+                <span class="test-name">DigitalAssetOwner (1 class)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -175,7 +180,7 @@
               <span class="test-group-name">BSAPIEowner</span>
               <br/>
               <div class="method-in-group">
-                <span class="method-in-group-name">BeforeETL_GetAllAttributes</span>
+                <span class="method-in-group-name">GetClassified_Images</span>
                 <br/>
               </div> <!-- method-in-group -->
             </div> <!-- test-group -->
@@ -197,14 +202,14 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'BeforeETL_GetAllAttributes')
-data.setCell(0, 2, 'PreETL_Update.TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes')
-data.setCell(0, 3, 150431);
+data.setCell(0, 1, 'GetClassified_Images')
+data.setCell(0, 2, 'pim.automation.framework.TC_008_DAM_Review_Unclassified_Images')
+data.setCell(0, 3, 32136);
 window.suiteTableData['PIM_automation_Suite']= { tableData: data, tableDiv: 'times-div-PIM_automation_Suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 2 minutes</span>
+              <span class="suite-total-time">Total running time: 32 seconds</span>
               <div id="times-div-PIM_automation_Suite">
               </div> <!-- times-div-PIM_automation_Suite -->
             </div> <!-- times-div -->
@@ -230,22 +235,24 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">PreETL_Update.TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">pim.automation.framework.TC_008_DAM_Review_Unclassified_Images</div> <!-- chronological-class-name -->
               <div class="configuration-suite before">
-                <span class="method-name">intitializeReport</span>
+                <span class="method-name">initReport</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-suite before -->
               <div class="configuration-class before">
-                <span class="method-name">setUp(BSAPIEowner)</span>
-                <span class="method-start">591 ms</span>
+                <span class="method-name">setUp(DigitalAssetowner)</span>
+                <span class="method-start">603 ms</span>
               </div> <!-- configuration-class before -->
               <div class="test-method">
-                <span class="method-name">BeforeETL_GetAllAttributes</span>
-                <span class="method-start">11847 ms</span>
+                <img src="failed.png">
+                </img>
+                <span class="method-name">GetClassified_Images</span>
+                <span class="method-start">11437 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-suite after">
                 <span class="method-name">publishReport</span>
-                <span class="method-start">162396 ms</span>
+                <span class="method-start">43677 ms</span>
               </div> <!-- configuration-suite after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

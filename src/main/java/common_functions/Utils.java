@@ -33,7 +33,7 @@ public class Utils  {
 	public Utils(WebDriver driver, ExtentTest test) {
 		this.driver = driver;
 		this.test = test;
-		this.wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+		this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 	}
 
 	/*****************************************************
