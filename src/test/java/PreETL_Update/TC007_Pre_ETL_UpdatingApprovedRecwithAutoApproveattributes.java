@@ -33,7 +33,6 @@ import pages.SearchPage2;
 import pages.SummaryPage;
 
 public class TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes extends BaseTest {
-
 	public ExtentTest test;
 	Map<String, Object> data = new LinkedHashMap<>();
 	List<String> searchFieldResults;
@@ -87,7 +86,6 @@ public class TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes extends 
 		test.log(Status.PASS,  MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 		digitalssetPage.Status_Apply_btn().click();
 		Thread.sleep(3000);
-
 		/**************************************************
 		 * --------- Get Row count------- *
 		 ********************************************************/
@@ -106,7 +104,6 @@ public class TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes extends 
 				"#lit-grid > div > div.ag-root-wrapper-body.ag-layout-normal.ag-focus-managed > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-layout-normal.ag-row-no-animation > div.ag-center-cols-clipper > div > div > div"));
 
 		utils.waitForElement(() -> searchPage.getgrid(), "clickable");
-
 		System.out.println("Total rows after clicking on Approved sellable product " + arrrowsdefined.size());
 		test.pass("Rows appeared after clicking on Approved sellable product");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
@@ -188,7 +185,6 @@ public class TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes extends 
 			    "Book Description (ZB11)",
 			    "Application Type Description"
 			);
-
 		
 			for (int i = 0; i < attributelist.size(); i++) {
 				String fieldLabel =attributelist.get(i);
@@ -212,12 +208,10 @@ public class TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes extends 
 			        System.out.println(fieldLabel + " :--  " +tagNames );
 			        data.put(fieldLabel, tagNames);
 		        }
-		        
 		        catch(Exception e) {
 					System.out.println("Exception occured");
 		        }
 			}
-			
 			/*********************************
 			 * Attributes not plane text
 			*******************************/
@@ -238,7 +232,6 @@ public class TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes extends 
 					SearchContext shadowRoot = tagSection.getShadowRoot();
 
 					List<WebElement> tags = shadowRoot.findElements(By.cssSelector("[id^='tag']"));
-
 					List<String> tagNames1 = new ArrayList<>();
 					for (int tagIndex = 0; tagIndex < tags.size(); tagIndex++) {
 						String tagText = tags.get(tagIndex).getText().trim();
@@ -251,8 +244,7 @@ public class TC007_Pre_ETL_UpdatingApprovedRecwithAutoApproveattributes extends 
 			} catch (Exception e) {
 				System.out.println("No workflows present. So halted.");
 				test.fail("❌ No workflows present. So halted.");
-				// test.log(Status.FAIL,
-				// MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				test.log(Status.FAIL,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 				Assert.fail("There are no approval workflows to approve.");
 			}
 		

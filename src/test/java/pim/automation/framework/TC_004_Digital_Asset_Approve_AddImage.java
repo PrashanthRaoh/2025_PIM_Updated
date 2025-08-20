@@ -29,7 +29,7 @@ import pages.SummaryPage;
 public class TC_004_Digital_Asset_Approve_AddImage extends BaseTest {
 	public ExtentTest test;
 
-	@Test(groups = { "BSAPIEowner" })
+	@Test(groups = { "DigitalAssetowner" })
 	public void DigitalAsset() throws IOException, InterruptedException {
 		String className = this.getClass().getSimpleName();
 		System.out.println(className);
