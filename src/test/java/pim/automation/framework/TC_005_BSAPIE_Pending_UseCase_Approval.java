@@ -14,6 +14,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -100,6 +101,17 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 		}
 		test.pass("BSA PIE Use case Approval entities listed ");
 		test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+		
+//			homePage.clickSearch_Products_Button().click();
+//			Thread.sleep(3000);
+
+		
+//			utils.waitForElement(() -> searchPage.getgrid(), "clickable");
+//			searchPage.searchthingdomain_Input_Mat_Id().click();
+//			searchPage.searchthingdomain_Input_Mat_Id().clear();
+//			searchPage.searchthingdomain_Input_Mat_Id().sendKeys("000000000100181313");
+//			searchPage.searchthingdomain_Input_Mat_Id().sendKeys(Keys.ENTER);
+		
 		/***************************************
 		 * ***** Click on On Pending Usecase Approval - BSA PIE ****
 		 ***************************************/
@@ -138,6 +150,7 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 		int randnum = rand.nextInt(max - min)  + min;
 
 		System.out.println("Row chosen is " + randnum);
+		
 		WebElement RowByRow = arrrowsdefined.get(randnum);
 		String SellableMaterialDescription = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialdescription']")).getText();
 		String matid = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialid']")).getText();
@@ -167,7 +180,7 @@ public class TC_005_BSAPIE_Pending_UseCase_Approval extends BaseTest {
 		        .findElement(By.cssSelector(".base-grid-structure > .base-grid-structure-child-2 > #workflows-content > #accordion0 > [slot='accordion-content'] > .workflow-content > #workflowStepper_bsapieusecaseapproval_workflowDefinition")).findElements(By.cssSelector("pebble-step"));
 
 		    if (steps == null || steps.isEmpty()) {
-		        throw new AssertionError("❌ No workflow steps found — 'pebble-step' elements are missing.");
+		        throw new AssertionError("❌ No workflow steps found — which should have been");
 		    }
 
 		    String expectedTitle = "Pending Usecase Approval - BSA PIE";

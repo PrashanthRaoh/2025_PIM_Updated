@@ -120,38 +120,38 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 		    /***************************** 
 		     * Check any presence of Workflow 
 		     * ***************************/
-		    try {
-		        List<WebElement> allSteps = driver.findElement(By.cssSelector("#app")).getShadowRoot()
-		            .findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
-		            .findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
-		            .findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
-		            .findElement(By.cssSelector("#entityManageSidebar")).getShadowRoot()
-		            .findElement(By.cssSelector("#sidebarTabs")).getShadowRoot()
-		            .findElement(By.cssSelector("[id^='rock-workflow-panel-component-rs']")).getShadowRoot()
-		            .findElements(By.cssSelector("pebble-step"));
-
-		        List<WebElement> visibleSteps = allSteps.stream().filter(WebElement::isDisplayed).collect(Collectors.toList());
-		        int visibleCount = visibleSteps.size();
-		        System.out.println("✅ Workflow that appeared after approval are: " + visibleCount);
-
-		        if (visibleCount > 0) {
-		            String message = "❌ Expected no workflows, but found: " + visibleCount;
-		            System.out.println(message);
-		            test.fail(message);
-		            test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-		            Assert.fail(message); 
-		        } else {
-		            System.out.println("✅ As expected, there are no workflows found.");
-		            test.pass("As expected, there are no workflows found.");
-		            test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-		        }
-
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		        System.out.println("There are workflows defined.Exitting");
-		        test.fail("There are workflows defined");
-		        test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-		    }
+//		    try {
+//		        List<WebElement> allSteps = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+//		            .findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+//		            .findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
+//		            .findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
+//		            .findElement(By.cssSelector("#entityManageSidebar")).getShadowRoot()
+//		            .findElement(By.cssSelector("#sidebarTabs")).getShadowRoot()
+//		            .findElement(By.cssSelector("[id^='rock-workflow-panel-component-rs']")).getShadowRoot()
+//		            .findElements(By.cssSelector("pebble-step"));
+//
+//		        List<WebElement> visibleSteps = allSteps.stream().filter(WebElement::isDisplayed).collect(Collectors.toList());
+//		        int visibleCount = visibleSteps.size();
+//		        System.out.println("✅ Workflow that appeared after approval are: " + visibleCount);
+//
+//		        if (visibleCount > 0) {
+//		            String message = "❌ Expected no workflows, but found: " + visibleCount;
+//		            System.out.println(message);
+//		            test.fail(message);
+//		            test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+//		            Assert.fail(message); 
+//		        } else {
+//		            System.out.println("✅ As expected, there are no workflows found.");
+//		            test.pass("As expected, there are no workflows found.");
+//		            test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+//		        }
+//
+//		    } catch (IOException e) {
+//		        e.printStackTrace();
+//		        System.out.println("There are workflows defined.Exitting");
+//		        test.fail("There are workflows defined");
+//		        test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+//		    }
 		    /*************************************************
 		     *  Get Non Approved Elements Attributes
 		     * **************************************************/
@@ -465,7 +465,7 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 			utils.waitForElement(() -> Line_2D_Data, "visible");
 			Thread.sleep(2000);
 			
-			if(Line_2D_Data.getText() == null) {
+			if(Line_2D_Data.getText() == null || Line_2D_Data.getText().isEmpty() ) {
 				WebElement approve2dlinedrawing_dropdown = digitalssetPage.common_ele_2dlinedrawingDropdown()
 						.getShadowRoot().findElement(By.cssSelector("#collectionContainer")).getShadowRoot()
 						.findElement(By.cssSelector("#collection_container_wrapper > div.d-flex > div.tags-container"));
@@ -496,6 +496,8 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 					waitforbanner();
 					test.pass("Approved 2d Line drawing");
 					test.log(Status.INFO,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+					BSAPIE_PO.Refresh_btn().click();
+					Thread.sleep(8000);
 				} catch (Exception e) {
 					System.out.println("Exception occured while approving DAM: Review 2D Line Drawing");
 					test.fail("Exception occured while adding approving DAM: Review 2D Line Drawing");

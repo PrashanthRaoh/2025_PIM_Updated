@@ -170,5 +170,16 @@ public class BSAPIE_Page {
 	            .findElement(By.cssSelector("[id^='rock-workflow-panel-component-rs']")).getShadowRoot()
 	            .findElements(By.cssSelector("pebble-step"));
 		}
+		
+		public WebElement Refresh_btn() {
+			return driver.findElement(By.cssSelector("#app")).getShadowRoot()
+					.findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+					.findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
+					.findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
+					.findElement(By.cssSelector("#entityManageHeader")).getShadowRoot()
+					.findElement(By.cssSelector("#entityActions")).getShadowRoot()
+					.findElement(By.cssSelector("#toolbar")).getShadowRoot().findElement(By.cssSelector("#refresh"))
+					.getShadowRoot().findElement(By.cssSelector("#simpleButton > pebble-icon"));
+		}
 
 }
