@@ -3,16 +3,12 @@ package pim.automation.framework;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.SearchContext;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentTest;
@@ -20,7 +16,6 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import common_functions.BaseTest;
 import common_functions.Utils;
-import pages.BSAPIE_Page;
 import pages.DigitalAsset;
 import pages.HomePage;
 import pages.SearchPage2;
@@ -39,7 +34,6 @@ public class TC_008_DAM_Review_Unclassified_Images extends BaseTest {
 		SearchPage2 searchPage = new SearchPage2(driver);
 		SummaryPage summaryPage = new SummaryPage(driver);
 		DigitalAsset digitalssetPage = new DigitalAsset(driver);
-		BSAPIE_Page BSAPIE_PO = new BSAPIE_Page(driver);
 
 		utils.waitForElement(() -> homePage.Moredetails_MarketingEnrich(), "clickable");
 		test.pass("Home Page is displayed");
