@@ -1,6 +1,5 @@
 package Post_ETL_Update;
 
-
 /************************************************
 TC 009 - Logs in as BSA PIE verifies workflow and status In Progress
 Updates 2D and Primary value as Digital asset owner
@@ -121,31 +120,38 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 		    /***************************** 
 		     * Check any presence of Workflow 
 		     * ***************************/
-//		    try {
-//		        List<WebElement> allSteps = driver.findElement(By.cssSelector("#app")).getShadowRoot()
-//		            .findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
-//		            .findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
-//		            .findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
-//		            .findElement(By.cssSelector("#entityManageSidebar")).getShadowRoot()
-//		            .findElement(By.cssSelector("#sidebarTabs")).getShadowRoot()
-//		            .findElement(By.cssSelector("[id^='rock-workflow-panel-component-rs']")).getShadowRoot()
-//		            .findElements(By.cssSelector("pebble-step"));
-//
-//		        List<WebElement> visibleSteps = allSteps.stream().filter(WebElement::isDisplayed).collect(Collectors.toList());
-//		        int visibleCount = visibleSteps.size();
-//		        System.out.println("✅ Workflow that appeared after approval are: " + visibleCount);
-//
-//		        Assert.assertEquals(visibleCount, 0, "❌ Expected no workflows, but found: " + visibleCount);
-//		        System.out.println("As expected, there are no workflows found.");
-//		        test.pass("As expected, there are no workflows found.");
-//		        test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-//
-//		    } catch (IOException e) {
-//		        e.printStackTrace();
-//		        System.out.println("There are workflows defined.Exitting");
-//		        test.fail("There are workflows defined");
-//		        test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-//		    }
+		    try {
+		        List<WebElement> allSteps = driver.findElement(By.cssSelector("#app")).getShadowRoot()
+		            .findElement(By.cssSelector("#contentViewManager")).getShadowRoot()
+		            .findElement(By.cssSelector("[id^='currentApp_entity-manage_rs']")).getShadowRoot()
+		            .findElement(By.cssSelector("[id^='app-entity-manage-component-rs']")).getShadowRoot()
+		            .findElement(By.cssSelector("#entityManageSidebar")).getShadowRoot()
+		            .findElement(By.cssSelector("#sidebarTabs")).getShadowRoot()
+		            .findElement(By.cssSelector("[id^='rock-workflow-panel-component-rs']")).getShadowRoot()
+		            .findElements(By.cssSelector("pebble-step"));
+
+		        List<WebElement> visibleSteps = allSteps.stream().filter(WebElement::isDisplayed).collect(Collectors.toList());
+		        int visibleCount = visibleSteps.size();
+		        System.out.println("✅ Workflow that appeared after approval are: " + visibleCount);
+
+		        if (visibleCount > 0) {
+		            String message = "❌ Expected no workflows, but found: " + visibleCount;
+		            System.out.println(message);
+		            test.fail(message);
+		            test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+		            Assert.fail(message); 
+		        } else {
+		            System.out.println("✅ As expected, there are no workflows found.");
+		            test.pass("As expected, there are no workflows found.");
+		            test.log(Status.PASS, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+		        }
+
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		        System.out.println("There are workflows defined.Exitting");
+		        test.fail("There are workflows defined");
+		        test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+		    }
 		    /*************************************************
 		     *  Get Non Approved Elements Attributes
 		     * **************************************************/
@@ -228,6 +234,7 @@ public class TC009_Post_BSAPIErecNonAutoApproveattributes extends BaseTest{
 			WebDriverWait wait3 = new WebDriverWait(driver, Duration.ofSeconds(15));
 			wait3.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[id='username']"))));
 			Thread.sleep(2000);
+			
 	/*******************************************************************
 	 * Login as Digital Asset Owner and complete adding images
 	 ******************************************************************/
