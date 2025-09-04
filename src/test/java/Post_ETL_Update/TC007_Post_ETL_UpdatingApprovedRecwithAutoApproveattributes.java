@@ -8,7 +8,6 @@ Log any changes or confirmations of unchanged values for reporting and validatio
  ************************************************/
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -83,8 +82,7 @@ public class TC007_Post_ETL_UpdatingApprovedRecwithAutoApproveattributes extends
 				searchPage.searchthingdomain_Input_Mat_Id().sendKeys(Matid);
 				searchPage.searchthingdomain_Input_Mat_Id().sendKeys(Keys.ENTER);
 				test.pass("Material id " + Matid + " is searched in Search thing domain");
-				test.log(Status.PASS,
-						MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				test.log(Status.PASS,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 				Thread.sleep(5000);
 
 				data.put("Material ID", Matid);
@@ -103,21 +101,16 @@ public class TC007_Post_ETL_UpdatingApprovedRecwithAutoApproveattributes extends
 				List<WebElement> arrrowsdefined = rowsredefined.getShadowRoot().findElements(By.cssSelector(
 						"#lit-grid > div > div.ag-root-wrapper-body.ag-layout-normal.ag-focus-managed > div.ag-root.ag-unselectable.ag-layout-normal > div.ag-body-viewport.ag-layout-normal.ag-row-no-animation > div.ag-center-cols-clipper > div > div > div"));
 
-				System.out
-						.println("Total rows after clicking on Pending Usecase Approval - BSA PIE Inprogress status -- "
-								+ arrrowsdefined.size());
+				System.out.println("Total rows after clicking on Pending Usecase Approval - BSA PIE Inprogress status -- "+ arrrowsdefined.size());
 				test.pass("Rows after after clicking on Pending Usecase Approval - BSA PIE Inprogress status appeared");
-				test.log(Status.PASS,
-						MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				test.log(Status.PASS,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 				assertTrue("There should be results after applying filters with Inprogress status",
 						arrrowsdefined.size() > 0);
 
 				WebElement RowByRow = arrrowsdefined.get(0);
-				String SellableMaterialDescription = RowByRow
-						.findElement(By.cssSelector("div[col-id='sellablematerialdescription']")).getText();
+				String SellableMaterialDescription = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialdescription']")).getText();
 				String matid = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialid']")).getText();
-				System.out
-						.println("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription);
+				System.out.println("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription);
 
 				WebElement matidElement = RowByRow.findElement(By.cssSelector("div[col-id='sellablematerialid']"));
 				actions.moveToElement(RowByRow).build().perform();
@@ -125,16 +118,8 @@ public class TC007_Post_ETL_UpdatingApprovedRecwithAutoApproveattributes extends
 				matidElement.click();
 				Thread.sleep(3000);
 				utils.waitForElement(() -> summaryPage.Things_INeedToFix(), "visible");
-				test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription
-						+ " is selected for verification");
-				test.log(Status.PASS,
-						MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
-
-				utils.waitForElement(() -> summaryPage.Things_INeedToFix(), "visible");
-				test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription
-						+ " is selected for completion");
-				test.log(Status.PASS,
-						MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+				test.pass("Material ID -- " + matid + " Material Description --" + SellableMaterialDescription+ " is selected for verification");
+				test.log(Status.PASS,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 				Thread.sleep(2000);
 
 				/************************************
@@ -168,11 +153,10 @@ public class TC007_Post_ETL_UpdatingApprovedRecwithAutoApproveattributes extends
 				if (targetElement != null) {
 					RecordStatus = targetElement.getText();
 					System.out.println("Status is : " + RecordStatus);
-//						Assert.assertEquals(RecordStatus, "Approved",  "❌ Record status is not 'Approved");
+					Assert.assertEquals(RecordStatus, "Approved",  "❌ Record status is not 'Approved");
 					data.put("Status", RecordStatus);
 					test.info("Status of the " + matid + "  is  : - " + RecordStatus);
-					test.log(Status.PASS,
-							MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+					test.log(Status.PASS,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 				}
 
 				List<String> attributelist = Arrays.asList("X Plant Material Status Description (Global)",
@@ -193,11 +177,9 @@ public class TC007_Post_ETL_UpdatingApprovedRecwithAutoApproveattributes extends
 
 					try {
 						utils.waitForElement(() -> BSAPIE_PO.Searchelement(), "visible");
-						List<WebElement> tags = BSAPIE_PO.Searchelement().getShadowRoot()
-								.findElements(By.cssSelector(".attribute-view-value"));
+						List<WebElement> tags = BSAPIE_PO.Searchelement().getShadowRoot().findElements(By.cssSelector(".attribute-view-value"));
 						test.pass(fieldLabel + " field displayed");
-						test.log(Status.PASS,
-								MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+						test.log(Status.PASS,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 
 						String postETL_Attribvalue = "";
 						for (int tagIndex = 0; tagIndex < tags.size(); tagIndex++) {
@@ -210,11 +192,10 @@ public class TC007_Post_ETL_UpdatingApprovedRecwithAutoApproveattributes extends
 						 **************************************************/
 						if (preETL_fieldvalue.equals(postETL_Attribvalue)) {
 							test.info("No change in value for <b>" + fieldLabel + "</b><br>" + "Pre-ETL: "+ preETL_fieldvalue + "<br>" + "Post-ETL: " + postETL_Attribvalue);
-
 							System.out.println("There is no change in the value for the " + fieldLabel + "\n Pre ETL value is :-" + preETL_fieldvalue + " \n Post ETL value is " + postETL_Attribvalue);
 							System.out.println("----------------------------");
 						} else {
-							test.info("Changed value for <b>" + fieldLabel + "</b><br>" + "Pre-ETL: "+ preETL_fieldvalue + "<br>" + "Post-ETL: " + postETL_Attribvalue);
+							test.info("<b>Changed value for " + fieldLabel + "<br>Pre-ETL: " + preETL_fieldvalue + "<br>Post-ETL: " + postETL_Attribvalue + "</b>");
 							System.out.println("Changed value for the " + fieldLabel + "\n Pre ETL value is :-"+ preETL_fieldvalue + " \n Post ETL value is " + postETL_Attribvalue);
 							System.out.println("----------------------------");
 						}
@@ -248,8 +229,7 @@ public class TC007_Post_ETL_UpdatingApprovedRecwithAutoApproveattributes extends
 					utils.waitForElement(() -> BSAPIE_PO.BSAPIE_Record_Status(), "visible");
 
 					test.pass(Attribute_Text + " field displayed");
-					test.log(Status.PASS,
-							MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
+					test.log(Status.PASS,MediaEntityBuilder.createScreenCaptureFromPath(Utils.Takescreenshot(driver)).build());
 
 					WebElement tagSection = BSAPIE_PO.BSAPIE_Record_Status().findElement(By.cssSelector("pebble-tags"));
 					SearchContext shadowRoot = tagSection.getShadowRoot();
@@ -263,18 +243,13 @@ public class TC007_Post_ETL_UpdatingApprovedRecwithAutoApproveattributes extends
 					System.out.println(Attribute_Text + " :--  " + postETL_Attribvalue);
 					data.put(Attribute_Text, postETL_Attribvalue);
 
-					if (Attribute_Text.equals(postETL_Attribvalue)) {
-						test.info("No change in value for <b>" + Attribute_Text + "</b><br>" + "Pre-ETL: "
-								+ preETL_fieldvalue + "<br>" + "Post-ETL: " + postETL_Attribvalue);
-
-						System.out.println("No change in the value for " + Attribute_Text + "\n Pre ETL value is :-"
-								+ preETL_fieldvalue + " \n Post ETL value is " + postETL_Attribvalue);
+					if (postETL_Attribvalue.equals(postETL_Attribvalue)) {
+						test.info("No change in value for <b>" + Attribute_Text + "</b><br>" + "Pre-ETL: "+ preETL_fieldvalue + "<br>" + "Post-ETL: " + postETL_Attribvalue);
+						System.out.println("No change in the value for " + Attribute_Text + "\n Pre ETL value is :-"+ preETL_fieldvalue + " \n Post ETL value is " + postETL_Attribvalue);
 						System.out.println("----------------------------");
 					} else {
-						test.info("Changed value for <b>" + Attribute_Text + "</b><br>" + "Pre-ETL: "
-								+ preETL_fieldvalue + "<br>" + "Post-ETL: " + postETL_Attribvalue);
-						System.out.println("Changed value for the " + Attribute_Text + "\n Pre ETL value is :-"
-								+ preETL_fieldvalue + " \n Post ETL value is " + postETL_Attribvalue);
+						test.info("<b>Changed value for " + Attribute_Text + "<br>Pre-ETL: " + preETL_fieldvalue + "<br>Post-ETL: " + postETL_Attribvalue + "</b>");
+						System.out.println("Changed value for the " + Attribute_Text + "\n Pre ETL value is :-"+ preETL_fieldvalue + " \n Post ETL value is " + postETL_Attribvalue);
 						System.out.println("----------------------------");
 					}
 				}
