@@ -2,7 +2,7 @@ package pim.automation.framework;
 
 /************************************************
 TC 03 BSA PIE - Updating  BSA PIE record which is "On Hold - BSA PIE (User Selected)".
-Descrption - Updates the approved record to hold by user by entering Hold attrbute
+Description - Updates the approved record to hold by user by entering Hold attrbute
 ************************************************/
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;

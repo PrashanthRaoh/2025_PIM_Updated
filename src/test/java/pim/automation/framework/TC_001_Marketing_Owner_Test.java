@@ -2,14 +2,13 @@ package pim.automation.framework;
 
 /************************************************
 TC 02 - Validating the Data Quality Check - Marketing
-Descrption - Enters the long and short description and completes the transaction
+Description - Enters the long and short description and completes the transaction
 ************************************************/
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.function.Function;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -22,7 +21,6 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-
 import common_functions.BaseTest;
 import common_functions.Utils;
 import pages.HomePage;

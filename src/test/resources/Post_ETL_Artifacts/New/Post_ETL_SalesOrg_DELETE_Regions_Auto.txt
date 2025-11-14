@@ -1,4 +1,0 @@
- "Material ID" = "000000000100113935"
- "Total BSA PIE Usecase Sales Org Regions (Auto) Items" = "1"
- "BSA PIE Usecase Sales Org Regions (Auto)" = ["Europe"]
----------------------------------------

@@ -2,15 +2,13 @@ package pim.automation.framework;
 
 /************************************************
 TC 08 - Verify user should be able to approve entity pending for "Marketing Workflow".
-Descrption - Assigns the user and complete the record transaction
+Description - Assigns the user and complete the record transaction
 ************************************************/
-
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.function.Function;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;

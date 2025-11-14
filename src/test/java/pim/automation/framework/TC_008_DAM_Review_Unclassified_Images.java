@@ -1,7 +1,11 @@
 package pim.automation.framework;
 
-import static org.junit.Assert.assertTrue;
+/************************************************
+TC_008_DAM_Review_Unclassified_Images
+Description - Verifies if at least one image is there in Unclassified_Images
+************************************************/
 
+import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;

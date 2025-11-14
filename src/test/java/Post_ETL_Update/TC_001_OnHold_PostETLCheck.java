@@ -2,7 +2,7 @@ package Post_ETL_Update;
 
 /************************************************
 TC 001 - Gets all the  "BSA PIE - Hold Attributes List (Rule Triggered)" items.
-Descrption - Post ETL what are the attributes on hold should be cleared and status should be InProgress
+Description - Post ETL what are the attributes on hold should be cleared and status should be InProgress
  ************************************************/
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;

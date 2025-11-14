@@ -2,9 +2,10 @@ package pim.automation.framework;
 
 /************************************************
 TC 06 - User updating "BSA PIE Regions (Override)"
-Descrption - This updates the value in BSA PIE Regions (Override)and approves the record
+Description - This updates the value in BSA PIE Regions (Override)and approves the record
 ************************************************/
 import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -32,7 +33,6 @@ import common_functions.Utils;
 import pages.BSAPIE_Page;
 import pages.DigitalAsset;
 import pages.HomePage;
-import pages.Login_Page;
 import pages.SearchPage2;
 import pages.SummaryPage;
 
