@@ -314,7 +314,6 @@ public class TC_007_OnHold_BSA_OnHold_UserSelected extends BaseTest {
 				return null;
 			}
 		};
-
 		new WebDriverWait(driver, Duration.ofSeconds(10)).until(drv -> {
 			WebElement el = SendbackforUsecase_workflow.apply(drv);
 			return el != null && el.isDisplayed();
